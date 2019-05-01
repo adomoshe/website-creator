@@ -4,7 +4,8 @@
   "description": "Website Creator for AST POS Clients",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "if-env": "^1.0.4"
   },
   "devDependencies": {
     "concurrently": "^4.1.0"
