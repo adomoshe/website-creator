@@ -1,43 +1,41 @@
-// Nav component for all pages
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import styled from "styled-components";
 
-import styled from 'styled-components';
-
-import { Github, LinkedIn, Medium, Email } from './Buttons';
-import breakpoints from './breakpoints';
+import { Github, LinkedIn, Medium, Email } from "./Buttons";
+import breakpoints from "./breakpoints";
 
 const styles = {
   nav: {
-    zIndex: '5',
+    zIndex: "5",
     top: 0,
-    marginTop: '1vh',
-    position: 'fixed',
-    width: '100%',
-    paddingRight: '3vh'
+    marginTop: "1vh",
+    position: "fixed",
+    width: "100%",
+    paddingRight: "3vh"
   },
   navTitle: {
-    float: 'left',
-    color: 'white',
-    margin: 'auto'
+    float: "left",
+    color: "white",
+    margin: "auto"
   },
   menuBtn: {
-    marginRight: '1vh',
-    marginLeft: '1vh',
-    float: 'left',
-    color: 'white'
+    marginRight: "1vh",
+    marginLeft: "1vh",
+    float: "left",
+    color: "white"
   },
   navBtns: {
-    float: 'right'
+    float: "right"
   },
   s: {
-    float: 'right'
+    float: "right"
   }
 };
 
@@ -133,7 +131,7 @@ class Nav extends Component {
       <nav style={styles.nav}>
         <div>
           <StyledIconButton
-            aria-owns={open ? 'menu-appbar' : undefined}
+            aria-owns={open ? "menu-appbar" : undefined}
             aria-haspopup="true"
             style={styles.menuBtn}
             onClick={this.menuClick}
@@ -144,18 +142,18 @@ class Nav extends Component {
             id="menu-appbar"
             anchorEl={anchorEl}
             anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right'
+              vertical: "top",
+              horizontal: "right"
             }}
             disableAutoFocusItem={true}
             transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right'
+              vertical: "top",
+              horizontal: "right"
             }}
             onClose={this.menuClick}
             open={open}
           >
-            <StyledLink to={'/'}>
+            <StyledLink to={"/"}>
               <MenuItem onClick={this.menuClick}>
                 <h3>Home</h3>
               </MenuItem>
@@ -170,12 +168,12 @@ class Nav extends Component {
                 <h3>Resume</h3>
               </MenuItem>
             </StyledRegLink>
-            <StyledLink to={'/blog'}>
+            <StyledLink to={"/blog"}>
               <MenuItem onClick={this.menuClick}>
                 <h3>Blog</h3>
               </MenuItem>
             </StyledLink>
-            <StyledLink to={'/games'}>
+            <StyledLink to={"/games"}>
               <MenuItem onClick={this.menuClick}>
                 <h3>Games</h3>
               </MenuItem>
@@ -207,7 +205,7 @@ class ContactMenu extends React.Component {
     return (
       <div style={styles.s}>
         <StyledBtn
-          aria-owns={open ? 'links' : undefined}
+          aria-owns={open ? "links" : undefined}
           aria-haspopup="true"
           style={styles.menuBtn}
           onClick={this.menuClick}
@@ -217,13 +215,13 @@ class ContactMenu extends React.Component {
         <Menu
           anchorEl={anchorEl}
           anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right'
+            vertical: "top",
+            horizontal: "right"
           }}
           disableAutoFocusItem={true}
           transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right'
+            vertical: "top",
+            horizontal: "right"
           }}
           onClose={this.menuClick}
           open={open}
