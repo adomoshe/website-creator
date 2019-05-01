@@ -1,0 +1,97 @@
+* {
+  font-family: 'Poiret One', cursive !important;
+}
+
+html {
+  position: fixed;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-weight: 900;
+  margin: 2vw;
+}
+
+h2,
+b {
+  font-weight: 900;
+}
+
+p,
+h3,
+li,
+.links {
+  font-weight: 600;
+}
+
+b {
+  font-weight: 900;
+  color: yellow;
+}
+
+footer {
+  background-image: url('./assets/img/backgrounds/noisy-footer.png');
+}
+
+@media (max-width: 575.98px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2,
+  b {
+    font-size: 1.5rem;
+  }
+
+  p,
+  h3,
+  li,
+  .links {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 576px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2,
+  b {
+    font-size: 2rem;
+  }
+
+  p,
+  h3,
+  li,
+  .links {
+    font-size: 1.5rem;
+  }
+}
+
+.react-svg {
+  animation: react-svg-spin infinite 20s linear;
+  height: 12vh;
+}
+
+@keyframes react-svg-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

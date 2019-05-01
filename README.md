@@ -1,2 +1,2 @@
-# website-creator
-Website creator for businesses
+# Website Creator
+Website Creator
