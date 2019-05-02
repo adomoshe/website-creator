@@ -2,13 +2,17 @@ import React, { Component } from "react";
 
 import BasicInfoForm from "./BasicInfoForm";
 import MenuCategoryForm from "./MenuCategoryForm";
+import MenuItemForm from "./MenuItemForm";
 
 class FormHandler extends Component {
   constructor(props) {
     super(props);
-    this.state = { step: 0, categories: [] };
+    this.state = { step: 0, categories: ["Appetizers", "Lunch"] };
     this.initialState = this.state;
   }
+  formHandlerState = () => {
+    return this.state;
+  };
   nextStep = () => {
     this.setState(state => ({ step: state.step + 1 }));
   };
@@ -18,8 +22,12 @@ class FormHandler extends Component {
   };
 
   setCategories = category => {
-    this.setState(state => ({ categories: state.categories.push(category) }));
-    console.log("Form Handler state after categories update ", this.state);
+    this.setState(
+      state => ({ categories: [...state.categories, category] }),
+      () => {
+        console.log("Form Handler state after categories update ", this.state);
+      }
+    );
   };
 
   render() {
@@ -32,6 +40,14 @@ class FormHandler extends Component {
             nextStep={this.nextStep}
             prevStep={this.prevStep}
             setCategories={this.setCategories}
+          />
+        );
+      case 2:
+        return (
+          <MenuItemForm
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            formHandlerState={this.formHandlerState}
           />
         );
       default:

@@ -105,8 +105,7 @@ class BasicInfoForm extends Component {
                     >
                       Continue
                       <MDBIcon
-                        far
-                        icon="paper-plane"
+                        icon="arrow-right"
                         className="ml-2"
                         size="lg"
                       />

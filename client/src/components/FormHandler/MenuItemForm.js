@@ -40,23 +40,22 @@ const styles = {
     float: "right"
   }
 };
-class MenuCategoryForm extends Component {
+class MenuItemForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { category: "" };
+    this.state = { catIn: 0 };
     this.initialState = this.state;
     this.prevStep = this.props.prevStep.bind(this);
   }
   handleChange = e => {
     // const name = e.target.name;
     const value = e.target.value;
-    this.setState({ category: value });
+    this.setState({ item: value });
   };
-  addCategory = e => {
-    e.preventDefault();
-    const category = this.state.category.trim().toLowerCase()
+  addItem = e => {
+    const item = this.state.item.trim().toLowerCase()
     console.log(this.state)
-    this.props.setCategories(category)
+    this.props.setItem(item)
     this.setState(this.initialState);
   }
   submit = e => {
@@ -67,6 +66,7 @@ class MenuCategoryForm extends Component {
   };
 
   render() {
+    const formHandlerState = this.props.formHandlerState()
     return (
       <MDBContainer>
         <MDBRow center>
@@ -78,14 +78,14 @@ class MenuCategoryForm extends Component {
                     className="text-center text-info py-4"
                     style={styles.heading}
                   >
-                    Enter Your Menu Categories
+                    Enter Your Menu Items for {<span className="text-warning">"{formHandlerState.categories[this.state.catIn]}"</span>}
                   </h2>
-                  <label className="grey-text">Category</label>
+                  <label className="grey-text">Item</label>
                   <div>
                   <input
                     type="text"
-                    name="menuCategory1"
-                    value={this.state.category}
+                    name="menuItem"
+                    value={this.state.item}
                     onChange={this.handleChange}
                     className="form-control"
                     style={styles.input}
@@ -106,26 +106,6 @@ class MenuCategoryForm extends Component {
                       />
                     </MDBBtn>
                   </div>
-                  {/* <br />
-                  <label className="grey-text">Category</label>
-                  <input
-                    type="text"
-                    name="menuCategory2"
-                    value={this.state.menuCategory2}
-                    onChange={this.handleChange}
-                    className="form-control"
-                    style={styles.input}
-                  />
-                  <br />
-                  <label className="grey-text">Category</label>
-                  <input
-                    type="text"
-                    name="menuCategory3"
-                    value={this.state.menuCategory3}
-                    onChange={this.handleChange}
-                    className="form-control"
-                    style={styles.input}
-                  /> */}
                   <div className="text-center py-4 mt-3" style={styles.btnBack}>
                     <MDBBtn
                       outline
@@ -163,4 +143,4 @@ class MenuCategoryForm extends Component {
   }
 }
 
-export default MenuCategoryForm;
+export default MenuItemForm;
