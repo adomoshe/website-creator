@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import './Main.css';
+import React, { Component } from "react";
+import "./Main.css";
 
-import Footer from '../components/Footer';
+import FormHandler from "../components/FormHandler/FormHandler";
 
 class Main extends Component {
   componentDidMount() {
@@ -10,7 +10,7 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <Footer/>
+        <FormHandler />
       </div>
     );
   }

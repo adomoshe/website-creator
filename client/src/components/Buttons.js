@@ -52,7 +52,7 @@ const Email = () => (
 const Source = () => (
   <Button
     aria-label="Github Link"
-    href="https://github.com/adomoshe/portfolio"
+    href="https://github.com/adomoshe/website-creator/#readme"
     target="_blank"
     rel="noopener noreferrer"
   >
