@@ -6,7 +6,8 @@ import {
   MDBBtn,
   MDBCard,
   MDBCardBody,
-  MDBIcon
+  MDBIcon,
+  MDBInput
 } from "mdbreact";
 
 const styles = {

@@ -6,7 +6,8 @@ import {
   MDBBtn,
   MDBCard,
   MDBCardBody,
-  MDBIcon
+  MDBIcon,
+  MDBInput
 } from "mdbreact";
 
 const styles = {
@@ -56,7 +57,7 @@ class MenuCategoryForm extends Component {
     e.preventDefault();
     const category = this.state.category.trim().toLowerCase()
     console.log(this.state)
-    this.props.setCategories(category)
+    this.props.setCategory(category)
     this.setState(this.initialState);
   }
   submit = e => {

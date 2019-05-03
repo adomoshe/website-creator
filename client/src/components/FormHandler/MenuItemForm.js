@@ -40,10 +40,11 @@ const styles = {
     float: "right"
   }
 };
+
 class MenuItemForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { catIn: 0 };
+    this.state = { catIn: 0, item: "" };
     this.initialState = this.state;
     this.prevStep = this.props.prevStep.bind(this);
   }
@@ -52,21 +53,22 @@ class MenuItemForm extends Component {
     const value = e.target.value;
     this.setState({ item: value });
   };
-  addItem = e => {
-    const item = this.state.item.trim().toLowerCase()
-    console.log(this.state)
-    this.props.setItem(item)
+  setItem = e => {
+    e.preventDefault();
+    const item = this.state.item.trim().toLowerCase();
+    console.log(this.state);
+    this.props.setItem(item);
     this.setState(this.initialState);
-  }
+  };
   submit = e => {
     e.preventDefault();
-    console.log(this.state)
+    console.log(this.state);
     this.setState(this.initialState);
     this.props.nextStep();
   };
 
   render() {
-    const formHandlerState = this.props.formHandlerState()
+    const formHandlerState = this.props.formHandlerState();
     return (
       <MDBContainer>
         <MDBRow center>
@@ -78,23 +80,28 @@ class MenuItemForm extends Component {
                     className="text-center text-info py-4"
                     style={styles.heading}
                   >
-                    Enter Your Menu Items for {<span className="text-warning">"{formHandlerState.categories[this.state.catIn]}"</span>}
+                    Enter Your Menu Items for{" "}
+                    {
+                      <span className="text-warning">
+                        "{formHandlerState.categories[this.state.catIn]}"
+                      </span>
+                    }
                   </h2>
                   <label className="grey-text">Item</label>
                   <div>
-                  <input
-                    type="text"
-                    name="menuItem"
-                    value={this.state.item}
-                    onChange={this.handleChange}
-                    className="form-control"
-                    style={styles.input}
-                  />
-                  <MDBBtn
+                    <input
+                      type="text"
+                      name="menuItem"
+                      value={this.state.item}
+                      onChange={this.handleChange}
+                      className="form-control"
+                      style={styles.input}
+                    />
+                    <MDBBtn
                       outline
                       color="success"
                       type="submit"
-                      onClick={this.addCategory}
+                      onClick={this.setItem}
                       style={styles.btnAdd}
                     >
                       Add
@@ -117,7 +124,10 @@ class MenuItemForm extends Component {
                       Back
                     </MDBBtn>
                   </div>
-                  <div className="text-center py-4 mt-3" style={styles.btnSubmit}>
+                  <div
+                    className="text-center py-4 mt-3"
+                    style={styles.btnSubmit}
+                  >
                     <MDBBtn
                       outline
                       color="info"
@@ -126,11 +136,7 @@ class MenuItemForm extends Component {
                       style={styles.btnSubmit}
                     >
                       Continue
-                      <MDBIcon
-                        icon="arrow-right"
-                        className="ml-2"
-                        size="lg"
-                      />
+                      <MDBIcon icon="arrow-right" className="ml-2" size="lg" />
                     </MDBBtn>
                   </div>
                 </form>
