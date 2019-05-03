@@ -33,16 +33,16 @@ class BasicInfoForm extends Component {
     this.state = { restaurantName: "", userName: "", email: "", phone: "" };
     this.initialState = this.state;
   }
-  handleChange = (e) => {
+  handleChange = e => {
     const name = e.target.name;
     const value = e.target.value;
     this.setState({ [name]: value });
-  }
-  submit = (e) => {
+  };
+  submit = e => {
     e.preventDefault();
     this.setState(this.initialState);
     this.props.nextStep();
-  }
+  };
   render() {
     return (
       <MDBContainer>
@@ -55,45 +55,55 @@ class BasicInfoForm extends Component {
                     className="text-center text-info py-4"
                     style={styles.heading}
                   >
-                    Welcome to the AST POS Website Builder
+                    AST POS Menu Upload
                   </h2>
-                  <label className="grey-text">Restaurant name</label>
-                  <input
+                  <MDBInput
+                    label="Restaurant name"
+                    size="lg"
                     type="text"
                     name="restaurantName"
                     value={this.state.restaurantName}
                     onChange={this.handleChange}
-                    className="form-control"
                     style={styles.input}
                   />
                   <br />
-                  <label className="grey-text">Your full name</label>
-                  <input
-                    type="name"
+                  <MDBInput
+                    label="Your full name"
+                    size="lg"
+                    icon="user"
+                    group
+                    type="text"
+                    validate
+                    error="wrong"
+                    success="right"
                     name="userName"
                     value={this.state.userName}
                     onChange={this.handleChange}
-                    className="form-control"
                     style={styles.input}
                   />
                   <br />
-                  <label className="grey-text">Your email</label>
-                  <input
+                  <MDBInput
+                    label="Your email"
+                    size="lg"
+                    icon="envelope"
+                    group
                     type="email"
                     name="email"
+                    validate
+                    error="wrong"
+                    success="right"
                     value={this.state.email}
                     onChange={this.handleChange}
-                    className="form-control"
                     style={styles.input}
                   />
                   <br />
-                  <label className="grey-text">Your phone</label>
-                  <input
+                  <MDBInput
+                    label="Your phone"
+                    size="lg"
                     type="tel"
                     name="phone"
                     value={this.state.phone}
                     onChange={this.handleChange}
-                    className="form-control"
                     style={styles.input}
                   />
                   <div className="text-center py-4 mt-3">
@@ -105,11 +115,7 @@ class BasicInfoForm extends Component {
                       style={styles.btn}
                     >
                       Continue
-                      <MDBIcon
-                        icon="arrow-right"
-                        className="ml-2"
-                        size="lg"
-                      />
+                      <MDBIcon icon="arrow-right" className="ml-2" size="lg" />
                     </MDBBtn>
                   </div>
                 </form>

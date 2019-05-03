@@ -20,15 +20,16 @@ const styles = {
   },
   input: {
     fontWeight: "700",
-    fontSize: "1.3rem",
+    // fontSize: "2rem",
     float: "left",
-    width: "auto"
+    width: "50%"
   },
   btnAdd: {
     fontWeight: "900",
     fontSize: "1.2rem",
     float: "right",
-    height: "100%"
+    width: "40%",
+    // height: "100%"
   },
   btnBack: {
     fontWeight: "900",
@@ -55,14 +56,14 @@ class MenuCategoryForm extends Component {
   };
   addCategory = e => {
     e.preventDefault();
-    const category = this.state.category.trim().toLowerCase()
-    console.log(this.state)
-    this.props.setCategory(category)
+    const category = this.state.category.trim().toLowerCase();
+    console.log(this.state);
+    this.props.setCategory(category);
     this.setState(this.initialState);
-  }
+  };
   submit = e => {
     e.preventDefault();
-    console.log(this.state)
+    console.log(this.state);
     this.setState(this.initialState);
     this.props.nextStep();
   };
@@ -81,17 +82,18 @@ class MenuCategoryForm extends Component {
                   >
                     Enter Your Menu Categories
                   </h2>
-                  <label className="grey-text">Category</label>
-                  <div>
-                  <input
-                    type="text"
-                    name="menuCategory1"
-                    value={this.state.category}
-                    onChange={this.handleChange}
-                    className="form-control"
-                    style={styles.input}
-                  />
-                  <MDBBtn
+                  <MDBCol md="12">
+                    <MDBInput
+                      label="Category"
+                      size="lg"
+                      group
+                      type="text"
+                      name="menuCategory"
+                      value={this.state.category}
+                      onChange={this.handleChange}
+                      style={styles.input}
+                    />
+                    <MDBBtn
                       outline
                       color="success"
                       type="submit"
@@ -106,7 +108,7 @@ class MenuCategoryForm extends Component {
                         size="lg"
                       />
                     </MDBBtn>
-                  </div>
+                  </MDBCol>
                   {/* <br />
                   <label className="grey-text">Category</label>
                   <input
@@ -127,6 +129,7 @@ class MenuCategoryForm extends Component {
                     className="form-control"
                     style={styles.input}
                   /> */}
+                  <MDBCol md="12">
                   <div className="text-center py-4 mt-3" style={styles.btnBack}>
                     <MDBBtn
                       outline
@@ -138,7 +141,10 @@ class MenuCategoryForm extends Component {
                       Back
                     </MDBBtn>
                   </div>
-                  <div className="text-center py-4 mt-3" style={styles.btnSubmit}>
+                  <div
+                    className="text-center py-4 mt-3"
+                    style={styles.btnSubmit}
+                  >
                     <MDBBtn
                       outline
                       color="info"
@@ -147,13 +153,10 @@ class MenuCategoryForm extends Component {
                       style={styles.btnSubmit}
                     >
                       Continue
-                      <MDBIcon
-                        icon="arrow-right"
-                        className="ml-2"
-                        size="lg"
-                      />
+                      <MDBIcon icon="arrow-right" className="ml-2" size="lg" />
                     </MDBBtn>
                   </div>
+                  </MDBCol>
                 </form>
               </MDBCardBody>
             </MDBCard>
