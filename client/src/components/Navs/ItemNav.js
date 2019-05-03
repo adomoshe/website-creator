@@ -15,7 +15,7 @@ const styles = {
   }
 };
 
-class CategoryNav extends Component {
+class SubCategoryNav extends Component {
   state = { isOpen: false };
 
   toggleCollapse = () => {
@@ -27,12 +27,12 @@ class CategoryNav extends Component {
     return (
       <MDBNavbar color="black" expand="md" dark style={styles.root}>
         <MDBNavbarBrand>
-          <strong>Categories</strong>
+          <strong>Sub-Categories</strong>
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           <MDBNavbarNav left>
-            {menuBuilderState.categories.map(({name}, index) => {
+            {menuBuilderState.categories[0].subCategories.map(({name}, index) => { //0 will change to whatever is the active category
               return (
                 <MDBNavItem key={index}>
                   <MDBNavLink to="#">{name}</MDBNavLink>
@@ -46,4 +46,4 @@ class CategoryNav extends Component {
   }
 }
 
-export default CategoryNav;
+export default SubCategoryNav;

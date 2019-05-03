@@ -58,7 +58,8 @@ class MenuCategoryForm extends Component {
     e.preventDefault();
     const category = this.state.category.trim().toLowerCase();
     console.log(this.state);
-    this.props.setCategory(category);
+    console.log(this.props)
+    this.props.menuBuilderSetCategory({name: category});
     this.setState(this.initialState);
   };
   submit = e => {
@@ -109,26 +110,6 @@ class MenuCategoryForm extends Component {
                       />
                     </MDBBtn>
                   </MDBCol>
-                  {/* <br />
-                  <label className="grey-text">Category</label>
-                  <input
-                    type="text"
-                    name="menuCategory2"
-                    value={this.state.menuCategory2}
-                    onChange={this.handleChange}
-                    className="form-control"
-                    style={styles.input}
-                  />
-                  <br />
-                  <label className="grey-text">Category</label>
-                  <input
-                    type="text"
-                    name="menuCategory3"
-                    value={this.state.menuCategory3}
-                    onChange={this.handleChange}
-                    className="form-control"
-                    style={styles.input}
-                  /> */}
                   <MDBCol md="12">
                   <div className="text-center py-4 mt-3" style={styles.btnBack}>
                     <MDBBtn
