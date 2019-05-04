@@ -43,23 +43,23 @@ const styles = {
   }
 };
 
-class MenuItemForm extends Component {
+class MenuSubCategoryForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { catIn: 0, item: "" };
+    this.state = { subCategory: "" };
     this.initialState = this.state;
     this.prevStep = this.props.prevStep.bind(this);
   }
   handleChange = e => {
     // const name = e.target.name;
     const value = e.target.value;
-    this.setState({ item: value });
+    this.setState({ subCategory: value });
   };
-  setItem = e => {
+  setSubCategory = e => {
     e.preventDefault();
-    const item = this.state.item.trim().toLowerCase();
+    const subCategory = this.state.subCategory.trim().toLowerCase();
     console.log(this.state);
-    this.props.setItem(item);
+    this.props.setSubCategory(subCategory);
     this.setState(this.initialState);
   };
   submit = e => {
@@ -71,7 +71,7 @@ class MenuItemForm extends Component {
 
   render() {
     const menuBuilderState = this.props.menuBuilderState();
-    const subCategory = menuBuilderState.categories[0].subCategories[0].name
+    const category = menuBuilderState.categories[0].name
     return (
       <MDBContainer>
         <MDBRow center>
@@ -83,21 +83,21 @@ class MenuItemForm extends Component {
                     className="text-center text-info py-4"
                     style={styles.heading}
                   >
-                    Enter Your Menu Items for{" "}
+                    Enter Your Menu Sub-Categories for{" "}
                     {
                       <span className="text-warning">
-                        "{subCategory}"
+                        "{category}"
                       </span>
                     }
                   </h2>
                   <MDBCol md="12">
                     <MDBInput
-                      label="Item"
+                      label="Sub-Category"
                       size="lg"
                       group
                       type="text"
-                      name="menuItem"
-                      value={this.state.item}
+                      name="subCategory"
+                      value={this.state.subCategory}
                       onChange={this.handleChange}
                       className="form-control"
                       style={styles.input}
@@ -106,7 +106,7 @@ class MenuItemForm extends Component {
                       outline
                       color="success"
                       type="submit"
-                      onClick={this.setItem}
+                      onClick={this.setSubCategory}
                       style={styles.btnAdd}
                     >
                       Add
@@ -117,7 +117,7 @@ class MenuItemForm extends Component {
                         size="lg"
                       />
                     </MDBBtn>
-                  </MDBCol>
+                    </MDBCol>
                   <MDBCol md="12">
                   <div className="text-center py-4 mt-3" style={styles.btnBack}>
                     <MDBBtn
@@ -130,8 +130,6 @@ class MenuItemForm extends Component {
                       Back
                     </MDBBtn>
                   </div>
-                  </MDBCol>
-                  <MDBCol md="12">
                   <div
                     className="text-center py-4 mt-3"
                     style={styles.btnSubmit}
@@ -158,4 +156,4 @@ class MenuItemForm extends Component {
   }
 }
 
-export default MenuItemForm;
+export default MenuSubCategoryForm;

@@ -62,12 +62,6 @@ class MenuCategoryForm extends Component {
     this.props.menuBuilderSetCategory({name: category});
     this.setState(this.initialState);
   };
-  submit = e => {
-    e.preventDefault();
-    console.log(this.state);
-    this.setState(this.initialState);
-    this.props.nextStep();
-  };
 
   render() {
     return (
@@ -129,8 +123,7 @@ class MenuCategoryForm extends Component {
                     <MDBBtn
                       outline
                       color="info"
-                      type="submit"
-                      onClick={this.submit}
+                      onClick={this.props.nextStep}
                       style={styles.btnSubmit}
                     >
                       Continue

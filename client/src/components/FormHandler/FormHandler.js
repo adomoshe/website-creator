@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import BasicInfoForm from "./BasicInfoForm";
 import MenuCategoryForm from "./MenuCategoryForm";
+import MenuSubCategoryForm from "./MenuSubCategoryForm";
 import MenuItemForm from "./MenuItemForm";
 
 class FormHandler extends Component {
@@ -45,11 +46,20 @@ class FormHandler extends Component {
         );
       case 2:
         return (
+          <MenuSubCategoryForm
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            menuBuilderState={this.props.menuBuilderState}
+            menuBuilderSetSubCategory={this.props.menuBuilderSetSubCategory}
+          />
+        );
+        case 3:
+        return (
           <MenuItemForm
             nextStep={this.nextStep}
             prevStep={this.prevStep}
-            setItem={this.setItem}
             menuBuilderState={this.props.menuBuilderState}
+            menuBuilderSetItem={this.props.menuBuilderSetItem}
           />
         );
       default:

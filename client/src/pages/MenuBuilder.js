@@ -4,6 +4,7 @@ import "./MenuBuilder.css";
 import FormHandler from "../components/FormHandler/FormHandler";
 import CategoryNav from "../components/Navs/CategoryNav";
 import SubCategoryNav from "../components/Navs/SubCategoryNav";
+import ItemNav from "../components/Navs/ItemNav";
 
 class Main extends Component {
   constructor(props) {
@@ -120,6 +121,7 @@ class Main extends Component {
       <div>
         <CategoryNav menuBuilderState={this.menuBuilderState} />
         <SubCategoryNav menuBuilderState={this.menuBuilderState} />
+        <ItemNav menuBuilderState={this.menuBuilderState} />
         <FormHandler
           menuBuilderState={this.menuBuilderState}
           menuBuilderSetCategory={this.menuBuilderSetCategory}
