@@ -28,7 +28,7 @@ const styles = {
     fontWeight: "900",
     fontSize: "1.2rem",
     float: "right",
-    width: "40%",
+    width: "40%"
     // height: "100%"
   },
   btnBack: {
@@ -71,7 +71,8 @@ class MenuSubCategoryForm extends Component {
 
   render() {
     const menuBuilderState = this.props.menuBuilderState();
-    const category = menuBuilderState.categories[0].name
+    const current = menuBuilderState.current;
+    const category = menuBuilderState.categories[current.category].name;
     return (
       <MDBContainer>
         <MDBRow center>
@@ -84,11 +85,7 @@ class MenuSubCategoryForm extends Component {
                     style={styles.heading}
                   >
                     Enter Your Menu Sub-Categories for{" "}
-                    {
-                      <span className="text-warning">
-                        "{category}"
-                      </span>
-                    }
+                    {<span className="text-warning">"{category}"</span>}
                   </h2>
                   <MDBCol md="12">
                     <MDBInput
@@ -117,34 +114,41 @@ class MenuSubCategoryForm extends Component {
                         size="lg"
                       />
                     </MDBBtn>
-                    </MDBCol>
+                  </MDBCol>
                   <MDBCol md="12">
-                  <div className="text-center py-4 mt-3" style={styles.btnBack}>
-                    <MDBBtn
-                      outline
-                      color="danger"
-                      onClick={this.props.prevStep}
+                    <div
+                      className="text-center py-4 mt-3"
                       style={styles.btnBack}
                     >
-                      <MDBIcon icon="arrow-left" className="mr-2" size="lg" />
-                      Back
-                    </MDBBtn>
-                  </div>
-                  <div
-                    className="text-center py-4 mt-3"
-                    style={styles.btnSubmit}
-                  >
-                    <MDBBtn
-                      outline
-                      color="info"
-                      type="submit"
-                      onClick={this.submit}
+                      <MDBBtn
+                        outline
+                        color="danger"
+                        onClick={this.props.prevStep}
+                        style={styles.btnBack}
+                      >
+                        <MDBIcon icon="arrow-left" className="mr-2" size="lg" />
+                        Back
+                      </MDBBtn>
+                    </div>
+                    <div
+                      className="text-center py-4 mt-3"
                       style={styles.btnSubmit}
                     >
-                      Continue
-                      <MDBIcon icon="arrow-right" className="ml-2" size="lg" />
-                    </MDBBtn>
-                  </div>
+                      <MDBBtn
+                        outline
+                        color="info"
+                        type="submit"
+                        onClick={this.submit}
+                        style={styles.btnSubmit}
+                      >
+                        Continue
+                        <MDBIcon
+                          icon="arrow-right"
+                          className="ml-2"
+                          size="lg"
+                        />
+                      </MDBBtn>
+                    </div>
                   </MDBCol>
                 </form>
               </MDBCardBody>

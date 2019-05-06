@@ -6,12 +6,83 @@ import CategoryNav from "../components/Navs/CategoryNav";
 import SubCategoryNav from "../components/Navs/SubCategoryNav";
 import ItemNav from "../components/Navs/ItemNav";
 
+const categoryModel = [
+  {
+    name: "", //Basic
+    subCategories: [
+      {
+        name: "", //Basic
+        items: [
+          {
+            name: "", //Basic
+            description: "",
+            price: null, //Basic
+            cost: null, //Basic
+            addToInventory: false, //Basic
+            tax: { one: true, two: false, three: false, toGo: false }, //Default one is true //Basic
+            course: 1,
+            printer: 1, //dropdown 1-7
+            cookScreen: 1, //dropdown 1-7
+            expoPrinter: 1, //dropdown 1-7
+            labelPrinter: 1, //dropdown 1-3
+            options: {
+              //all false by default
+              hideOnCart: false,
+              disableDiscount: false,
+              qtyPrompt: false,
+              checkAge: false, //Basic
+              serviceItem: false
+            },
+            belongsTo: {
+              //true is default
+              tableService: true,
+              quickServe: true,
+              phoneOrder: true,
+              driveThru: false,
+              online: false,
+              party: false,
+              bar: false
+            },
+            comments: [],
+            modifiers: [
+              {
+                choicesLimit: null,
+                forced: false,
+                cost: null,
+                modifier: [{ name: "" }]
+              },
+              {
+                choicesLimit: null,
+                forced: false,
+                cost: null,
+                modifier: [{ name: "", price: null }]
+              },
+              {
+                choicesLimit: null,
+                forced: false,
+                cost: null,
+                modifier: [{ name: "", price: null }]
+              },
+              {
+                choicesLimit: null,
+                forced: false,
+                cost: null,
+                modifier: [{ name: "" }]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
       formStep: 0,
-      current: { category: 0, subCategory: 0, item: 0 },
+      current: { category: null, subCategory: null, item: null },
       categories: [
         {
           name: "Lunch", //Basic
@@ -117,20 +188,17 @@ class Main extends Component {
   };
 
   menuBuilderSetCategory = category => {
-    this.setState(
-      state => ({ categories: [...state.categories, category] }),
-      () => {
-        console.log("Menu Builder state after categories update ", this.state);
-      }
-    );
+    this.setState(state => ({ categories: [...state.categories, category] }));
   };
 
   menuBuilderSetSubCategory = subCategory => {
     const current = this.state.current;
+    const modifiedSubCategoryModel = categoryModel[0].subCategories[0];
+    modifiedSubCategoryModel.name = subCategory;
     const setSubCategoryState = state => {
-      state.categories[current.category].subCategories.push({
-        name: subCategory
-      });
+      state.categories[current.category].subCategories.push(
+        modifiedSubCategoryModel
+      );
     };
     this.setState(setSubCategoryState);
   };
@@ -148,7 +216,9 @@ class Main extends Component {
   };
 
   menuBuilderSetCurrent = (field, index) => {
-    const setCurrentFieldState = state => { state.current[field] = index}
+    const setCurrentFieldState = state => {
+      state.current[field] = index;
+    };
     this.setState(setCurrentFieldState);
   };
 
@@ -165,15 +235,21 @@ class Main extends Component {
           />
         ) : null}
         {state.formStep > 1 &&
+        state.current.category !== null &&
         state.categories[current.category].subCategories ? (
-          <SubCategoryNav menuBuilderState={this.menuBuilderState}
-          menuBuilderSetCurrent={this.menuBuilderSetCurrent} />
+          <SubCategoryNav
+            menuBuilderState={this.menuBuilderState}
+            menuBuilderSetCurrent={this.menuBuilderSetCurrent}
+          />
         ) : null}
         {state.formStep > 2 &&
+        state.current.subCategory !== null &&
         state.categories[current.category].subCategories[current.subCategory]
           .items ? (
-          <ItemNav menuBuilderState={this.menuBuilderState}
-          menuBuilderSetCurrent={this.menuBuilderSetCurrent} />
+          <ItemNav
+            menuBuilderState={this.menuBuilderState}
+            menuBuilderSetCurrent={this.menuBuilderSetCurrent}
+          />
         ) : null}
 
         <FormHandler
