@@ -24,6 +24,7 @@ class ItemNav extends Component {
 
   render() {
     const menuBuilderState = this.props.menuBuilderState();
+    const current = menuBuilderState.current;
     return (
       <MDBNavbar color="black" expand="md" dark style={styles.root}>
         <MDBNavbarBrand>
@@ -32,9 +33,16 @@ class ItemNav extends Component {
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           <MDBNavbarNav left>
-            {menuBuilderState.categories[0].subCategories[0].items.map(({name}, index) => { //0 will change to whatever is the active category
+            {menuBuilderState.categories[current.category].subCategories[
+              current.subCategory
+            ].items.map(({ name }, index) => {
               return (
-                <MDBNavItem key={index}>
+                <MDBNavItem
+                  onClick={() => {
+                    this.props.menuBuilderSetCurrent("item", index);
+                  }}
+                  key={index}
+                >
                   <MDBNavLink to="#">{name}</MDBNavLink>
                 </MDBNavItem>
               );

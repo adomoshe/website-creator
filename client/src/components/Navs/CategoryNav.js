@@ -34,7 +34,7 @@ class CategoryNav extends Component {
           <MDBNavbarNav left>
             {menuBuilderState.categories.map(({name}, index) => {
               return (
-                <MDBNavItem key={index}>
+                <MDBNavItem onClick={() => {this.props.menuBuilderSetCurrent("category", index)}} key={index}>
                   <MDBNavLink to="#">{name}</MDBNavLink>
                 </MDBNavItem>
               );

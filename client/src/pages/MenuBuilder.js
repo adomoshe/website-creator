@@ -11,6 +11,7 @@ class Main extends Component {
     super(props);
     this.state = {
       formStep: 0,
+      current: { category: 0, subCategory: 0, item: 0 },
       categories: [
         {
           name: "Lunch", //Basic
@@ -125,34 +126,63 @@ class Main extends Component {
   };
 
   menuBuilderSetSubCategory = subCategory => {
-    this.setState(
-      state => ({ categories: [...state.categories[0].subCategories, subCategory] }),
-      () => {
-        console.log("Menu Builder state after categories update ", this.state);
-      }
-    );
+    const current = this.state.current;
+    const setSubCategoryState = state => {
+      state.categories[current.category].subCategories.push({
+        name: subCategory
+      });
+    };
+    this.setState(setSubCategoryState);
   };
 
-  menuBuilderSetItem = items => {
-    this.setState(
-      state => ({ categories: [...state.categories[0].subCategories[0].items, items] }),
-      () => {
-        console.log("Menu Builder state after categories update ", this.state);
-      }
-    );
+  menuBuilderSetItem = item => {
+    const current = this.state.current;
+    const setItemState = state => {
+      state.categories[current.category].subCategories[
+        current.subCategory
+      ].items.push({
+        name: item
+      });
+    };
+    this.setState(setItemState);
+  };
+
+  menuBuilderSetCurrent = (field, index) => {
+    const setCurrentFieldState = state => { state.current[field] = index}
+    this.setState(setCurrentFieldState);
   };
 
   render() {
+    const state = this.state;
+    const current = this.state.current;
+    console.log(state);
     return (
       <div>
-        <CategoryNav menuBuilderState={this.menuBuilderState} />
-        <SubCategoryNav menuBuilderState={this.menuBuilderState} />
-        <ItemNav menuBuilderState={this.menuBuilderState} />
+        {state.formStep && state.categories ? (
+          <CategoryNav
+            menuBuilderState={this.menuBuilderState}
+            menuBuilderSetCurrent={this.menuBuilderSetCurrent}
+          />
+        ) : null}
+        {state.formStep > 1 &&
+        state.categories[current.category].subCategories ? (
+          <SubCategoryNav menuBuilderState={this.menuBuilderState}
+          menuBuilderSetCurrent={this.menuBuilderSetCurrent} />
+        ) : null}
+        {state.formStep > 2 &&
+        state.categories[current.category].subCategories[current.subCategory]
+          .items ? (
+          <ItemNav menuBuilderState={this.menuBuilderState}
+          menuBuilderSetCurrent={this.menuBuilderSetCurrent} />
+        ) : null}
+
         <FormHandler
           menuBuilderState={this.menuBuilderState}
           nextFormStep={this.nextFormStep}
           prevFormStep={this.prevFormStep}
           menuBuilderSetCategory={this.menuBuilderSetCategory}
+          menuBuilderSetSubCategory={this.menuBuilderSetSubCategory}
+          menuBuilderSetItem={this.menuBuilderSetItem}
         />
       </div>
     );

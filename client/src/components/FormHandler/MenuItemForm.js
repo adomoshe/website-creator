@@ -59,7 +59,7 @@ class MenuItemForm extends Component {
     e.preventDefault();
     const item = this.state.item.trim().toLowerCase();
     console.log(this.state);
-    this.props.setItem(item);
+    this.props.menuBuilderSetItem(item);
     this.setState(this.initialState);
   };
   submit = e => {
