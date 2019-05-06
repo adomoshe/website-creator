@@ -10,7 +10,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      step: 0,
+      formStep: 0,
       categories: [
         {
           name: "Lunch", //Basic
@@ -107,9 +107,35 @@ class Main extends Component {
     return this.state;
   };
 
+  nextFormStep = () => {
+    this.setState(state => ({ formStep: state.formStep + 1 }));
+  };
+
+  prevFormStep = () => {
+    this.setState(state => ({ formStep: state.formStep - 1 }));
+  };
+
   menuBuilderSetCategory = category => {
     this.setState(
       state => ({ categories: [...state.categories, category] }),
+      () => {
+        console.log("Menu Builder state after categories update ", this.state);
+      }
+    );
+  };
+
+  menuBuilderSetSubCategory = subCategory => {
+    this.setState(
+      state => ({ categories: [...state.categories[0].subCategories, subCategory] }),
+      () => {
+        console.log("Menu Builder state after categories update ", this.state);
+      }
+    );
+  };
+
+  menuBuilderSetItem = items => {
+    this.setState(
+      state => ({ categories: [...state.categories[0].subCategories[0].items, items] }),
       () => {
         console.log("Menu Builder state after categories update ", this.state);
       }
@@ -124,6 +150,8 @@ class Main extends Component {
         <ItemNav menuBuilderState={this.menuBuilderState} />
         <FormHandler
           menuBuilderState={this.menuBuilderState}
+          nextFormStep={this.nextFormStep}
+          prevFormStep={this.prevFormStep}
           menuBuilderSetCategory={this.menuBuilderSetCategory}
         />
       </div>

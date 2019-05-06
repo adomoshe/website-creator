@@ -6,40 +6,16 @@ import MenuSubCategoryForm from "./MenuSubCategoryForm";
 import MenuItemForm from "./MenuItemForm";
 
 class FormHandler extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      step: 0
-    };
-    this.initialState = this.state;
-  }
-
-  nextStep = () => {
-    this.setState(state => ({ step: state.step + 1 }));
-  };
-
-  prevStep = () => {
-    this.setState(state => ({ step: state.step - 1 }));
-  };
-
-  setItem = item => {
-    this.setState(
-      state => ({ items: [...state.items, item] }),
-      () => {
-        console.log("Form Handler state after item update ", this.state);
-      }
-    );
-  };
-
   render() {
-    switch (this.state.step) {
+    const menuBuilderState = this.props.menuBuilderState()
+    switch (menuBuilderState.formStep) {
       case 0:
-        return <BasicInfoForm nextStep={this.nextStep} />;
+        return <BasicInfoForm nextStep={this.props.nextFormStep} />;
       case 1:
         return (
           <MenuCategoryForm
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
+            nextStep={this.props.nextFormStep}
+            prevStep={this.props.prevFormStep}
             menuBuilderSetCategory={this.props.menuBuilderSetCategory}
             menuBuilderState={this.props.menuBuilderState}
           />
@@ -47,8 +23,8 @@ class FormHandler extends Component {
       case 2:
         return (
           <MenuSubCategoryForm
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
+            nextStep={this.props.nextFormStep}
+            prevStep={this.props.prevFormStep}
             menuBuilderState={this.props.menuBuilderState}
             menuBuilderSetSubCategory={this.props.menuBuilderSetSubCategory}
           />
@@ -56,8 +32,8 @@ class FormHandler extends Component {
         case 3:
         return (
           <MenuItemForm
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
+            nextStep={this.props.nextFormStep}
+            prevStep={this.props.prevFormStep}
             menuBuilderState={this.props.menuBuilderState}
             menuBuilderSetItem={this.props.menuBuilderSetItem}
           />

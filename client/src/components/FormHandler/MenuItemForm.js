@@ -16,7 +16,7 @@ const styles = {
     marginBottom: "4rem"
   },
   heading: {
-    fontWeight: "900"
+    fontWeight: "500"
   },
   input: {
     fontWeight: "700",
