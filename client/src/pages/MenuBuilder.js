@@ -81,8 +81,8 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formStep: 0,
-      current: { category: null, subCategory: null, item: null },
+      formStep: 3,
+      current: { category: 0, subCategory: 0, item: 0 },
       categories: [
         {
           name: "Lunch", //Basic
@@ -218,6 +218,9 @@ class Main extends Component {
   menuBuilderSetCurrent = (field, index) => {
     const setCurrentFieldState = state => {
       state.current[field] = index;
+      // if (field === "category") {
+      //   state.current.subCategory = null;
+      // }
     };
     this.setState(setCurrentFieldState);
   };
