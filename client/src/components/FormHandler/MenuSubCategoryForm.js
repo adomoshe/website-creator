@@ -84,8 +84,8 @@ class MenuSubCategoryForm extends Component {
                     className="text-center text-info py-4"
                     style={styles.heading}
                   >
-                    Enter Your Menu Sub-Categories for{" "}
-                    {<span className="text-warning">"{category}"</span>}
+                    Enter Your Menu Sub-Categories for Category:{<br />}
+                    {<span className="deep-orange-text">"{category}"</span>}
                   </h2>
                   <MDBCol md="12">
                     <MDBInput

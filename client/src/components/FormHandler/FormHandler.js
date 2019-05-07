@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import BasicInfoForm from "./BasicInfoForm";
 import MenuCategoryForm from "./MenuCategoryForm";
 import MenuSubCategoryForm from "./MenuSubCategoryForm";
-import MenuItemForm from "./MenuItemForm";
+import MenuItemForm from "./MenuItem/MenuItemForm";
 
 class FormHandler extends Component {
   render() {

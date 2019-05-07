@@ -20,7 +20,7 @@ const categoryModel = [
             cost: null, //Basic
             addToInventory: false, //Basic
             tax: { one: true, two: false, three: false, toGo: false }, //Default one is true //Basic
-            course: 1,
+            course: 1, //dropdown 1-7
             printer: 1, //dropdown 1-7
             cookScreen: 1, //dropdown 1-7
             expoPrinter: 1, //dropdown 1-7
@@ -81,7 +81,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formStep: 0,
+      formStep: 3,
       current: { category: 0, subCategory: 0, item: 0 },
       categories: [
         {
@@ -98,7 +98,7 @@ class Main extends Component {
                   cost: 4.25, //Basic
                   addToInventory: false, //Basic
                   tax: { one: true, two: false, three: false, toGo: false }, //Default one is true //Basic
-                  course: 1,
+                  course: 1, //dropdown 1-7
                   printer: 1, //dropdown 1-7
                   cookScreen: 1, //dropdown 1-7
                   expoPrinter: 1, //dropdown 1-7
