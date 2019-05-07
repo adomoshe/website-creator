@@ -81,7 +81,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formStep: 3,
+      formStep: 0,
       current: { category: 0, subCategory: 0, item: 0 },
       categories: [
         {

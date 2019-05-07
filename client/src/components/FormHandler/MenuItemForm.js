@@ -48,7 +48,7 @@ const styles = {
 class MenuItemForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { advanced: false, name: "", price: null, cost: null };
+    this.state = { advanced: false, name: "", price: "", cost: "" };
     this.initialState = this.state;
     this.prevStep = this.props.prevStep.bind(this);
   }
@@ -71,7 +71,16 @@ class MenuItemForm extends Component {
     this.props.nextStep();
   };
 
+  changeAdvancedView = e => {
+    if (e.target.name === "basic") {
+      this.setState({ advanced: false });
+    } else {
+      this.setState({ advanced: true });
+    }
+  };
+
   render() {
+    const state = this.state;
     const menuBuilderState = this.props.menuBuilderState();
     const current = menuBuilderState.current;
     const subCategory =
@@ -90,14 +99,25 @@ class MenuItemForm extends Component {
                     className="mb-xl-0 mb-4 justify-content-center"
                   >
                     <MDBBtnGroup>
-                      <MDBBtn color="warning">Basic</MDBBtn>
-                      <MDBBtn outline color="warning">
+                      <MDBBtn
+                        name="basic"
+                        outline={state.advanced}
+                        color="warning"
+                        onClick={this.changeAdvancedView}
+                      >
+                        Basic
+                      </MDBBtn>
+                      <MDBBtn
+                        name="advanced"
+                        outline={!state.advanced}
+                        color="warning"
+                        onClick={this.changeAdvancedView}
+                      >
                         Advanced
                       </MDBBtn>
                     </MDBBtnGroup>
                   </MDBCol>
                 </MDBRow>
-                <form>
                   <h2
                     className="text-center text-info py-4"
                     style={styles.heading}
@@ -113,7 +133,6 @@ class MenuItemForm extends Component {
                       name="menuItem"
                       value={this.state.name}
                       onChange={this.handleChange}
-                      style={styles.input}
                     />
                   </MDBCol>
                   <MDBCol>
@@ -141,11 +160,7 @@ class MenuItemForm extends Component {
                       />
                     </div>
                     <div>
-                      <MDBInput
-                        label="Check ID"
-                        type="checkbox"
-                        filled
-                      />
+                      <MDBInput label="Check ID" type="checkbox" filled />
                     </div>
                     <div>
                       <h3>Tax:</h3>
@@ -167,58 +182,53 @@ class MenuItemForm extends Component {
                     </div>
                     <div>
                       <select className="browser-default custom-select">
-                        <option>Course</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="3">4</option>
-                        <option value="3">5</option>
-                        <option value="3">6</option>
-                        <option value="3">7</option>
+                        <option value="1">Course #1</option>
+                        <option value="2">Course #2</option>
+                        <option value="3">Course #3</option>
+                        <option value="4">Course #4</option>
+                        <option value="5">Course #5</option>
+                        <option value="6">Course #6</option>
+                        <option value="7">Course #7</option>
                       </select>
                     </div>
                     <div>
                       <select className="browser-default custom-select">
-                        <option>Printer</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="3">4</option>
-                        <option value="3">5</option>
-                        <option value="3">6</option>
-                        <option value="3">7</option>
+                        <option value="1">Printer #1</option>
+                        <option value="2">Printer #2</option>
+                        <option value="3">Printer #3</option>
+                        <option value="4">Printer #4</option>
+                        <option value="5">Printer #5</option>
+                        <option value="6">Printer #6</option>
+                        <option value="7">Printer #7</option>
                       </select>
                     </div>
                     <div>
                       <select className="browser-default custom-select">
-                        <option>Cook Screen</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="3">4</option>
-                        <option value="3">5</option>
-                        <option value="3">6</option>
-                        <option value="3">7</option>
+                        <option value="1">Cook Screen #1</option>
+                        <option value="2">Cook Screen #2</option>
+                        <option value="3">Cook Screen #3</option>
+                        <option value="4">Cook Screen #4</option>
+                        <option value="5">Cook Screen #5</option>
+                        <option value="6">Cook Screen #6</option>
+                        <option value="7">Cook Screen #7</option>
                       </select>
                     </div>
                     <div>
                       <select className="browser-default custom-select">
-                        <option>Expo Printer</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="3">4</option>
-                        <option value="3">5</option>
-                        <option value="3">6</option>
-                        <option value="3">7</option>
+                        <option value="1">Expo Printer #1</option>
+                        <option value="2">Expo Printer #2</option>
+                        <option value="3">Expo Printer #3</option>
+                        <option value="4">Expo Printer #4</option>
+                        <option value="5">Expo Printer #5</option>
+                        <option value="6">Expo Printer #6</option>
+                        <option value="7">Expo Printer #7</option>
                       </select>
                     </div>
                     <div>
                       <select className="browser-default custom-select">
-                        <option>Label Printer</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                        <option value="1">Label Printer #1</option>
+                        <option value="2">Label Printer #2</option>
+                        <option value="3">Label Printer #3</option>
                       </select>
                     </div>
                   </MDBCol>
@@ -266,7 +276,6 @@ class MenuItemForm extends Component {
                       <MDBIcon icon="arrow-right" className="ml-2" size="lg" />
                     </MDBBtn>
                   </MDBCol>
-                </form>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
