@@ -13,6 +13,7 @@ import {
 } from "mdbreact";
 
 import ModifierModal from "./ModifierModal";
+import CheckBox from "./CheckBox";
 
 const styles = {
   card: {
@@ -48,7 +49,7 @@ const styles = {
   dropDown: {
     marginBottom: "0.5rem"
   },
-  checkBox: {fontSize: "0.2rem"}
+  checkBoxGroup: { fontSize: "1.3rem" }
 };
 
 class MenuItemForm extends Component {
@@ -109,33 +110,37 @@ class MenuItemForm extends Component {
           <MDBCol md="6">
             <MDBCard style={styles.card}>
               <MDBCardBody>
-                  <MDBCol
-                    md="12"
-                    className="mb-xl-0 mb-4 d-flex justify-content-center"
-                  >
-                    <MDBBtnGroup>
-                      <MDBBtn
-                        name="basic"
-                        outline={state.advanced}
-                        color={
-                          state.advanced ? "blue-grey-text" : "deep-orange darken-4"
-                        }
-                        onClick={this.changeAdvancedView}
-                      >
-                        Basic
-                      </MDBBtn>
-                      <MDBBtn
-                        name="advanced"
-                        outline={!state.advanced}
-                        color={
-                          !state.advanced ? "blue-grey-text" : "deep-orange darken-4"
-                        }
-                        onClick={this.changeAdvancedView}
-                      >
-                        Advanced
-                      </MDBBtn>
-                    </MDBBtnGroup>
-                  </MDBCol>
+                <MDBCol
+                  md="12"
+                  className="mb-xl-0 mb-4 d-flex justify-content-center"
+                >
+                  <MDBBtnGroup>
+                    <MDBBtn
+                      name="basic"
+                      outline={state.advanced}
+                      color={
+                        state.advanced
+                          ? "blue-grey-text"
+                          : "deep-orange darken-4"
+                      }
+                      onClick={this.changeAdvancedView}
+                    >
+                      Basic
+                    </MDBBtn>
+                    <MDBBtn
+                      name="advanced"
+                      outline={!state.advanced}
+                      color={
+                        !state.advanced
+                          ? "blue-grey-text"
+                          : "deep-orange darken-4"
+                      }
+                      onClick={this.changeAdvancedView}
+                    >
+                      Advanced
+                    </MDBBtn>
+                  </MDBBtnGroup>
+                </MDBCol>
                 <h2
                   className="text-center text-info py-4"
                   style={styles.heading}
@@ -170,28 +175,16 @@ class MenuItemForm extends Component {
                     value={this.state.cost}
                     onChange={this.handleChange}
                   />
-                  <div className="blue-grey-text"
-                      style={styles.checkBox}>
-                    <MDBInput
-                      label="Add to Inventory"
-                      type="checkbox"
-                      className="blue-grey-text"
-                      style={styles.checkBox}
-                    />
-                    <MDBInput
-                      label="Check ID"
-                      type="checkbox"
-                      className="blue-grey-text"
-                      style={styles.checkBox}
-                    />
-                  </div>
+                  <CheckBox label="Add to Inventory" />
+                  <CheckBox label="Check ID" />
+
                   <div>
-                    <label>Tax:</label>
+                    <span className={styles.checkBoxGroup}>Tax</span>
                     <MDBFormInline>
-                      <MDBInput label="1" type="checkbox" checked />
-                      <MDBInput label="2" type="checkbox" />
-                      <MDBInput label="3" type="checkbox" />
-                      <MDBInput label="To-Go" type="checkbox" />
+                    <CheckBox label="1" checked/>
+                    <CheckBox label="2" />
+                    <CheckBox label="3" />
+                    <CheckBox label="To Go" />
                     </MDBFormInline>
                   </div>
                 </MDBCol>

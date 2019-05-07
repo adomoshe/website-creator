@@ -11,6 +11,8 @@ import {
   MDBModalFooter
 } from "mdbreact";
 
+import CheckBox from "./CheckBox";
+
 const styles = {
   heading: {
     fontWeight: "500"
@@ -82,7 +84,7 @@ class ModifierModal extends Component {
               value={this.state.choicesLimit}
               onChange={this.handleChange}
             />
-            <MDBInput label="Forced" type="checkbox" />
+            <CheckBox label="Forced" />
           </MDBModalBody>
           <MDBModalFooter>
             <MDBBtn color="primary" onClick={this.toggle} style={styles.btns}>
