@@ -10,8 +10,8 @@ let sequelize;
 if (process.env.JAWSDB_URL) {
   sequelize = new Sequelize(process.env.JAWSDB_URL);
 } else {
-  sequelize = new Sequelize("2GO031419", "postgres", "", {
-    host: "192.168.1.250",
+  sequelize = new Sequelize("ASTBAR", "postgres", "", {
+    host: "138.68.232.167",
     port: "5432",
     dialect: "postgres"
   });

@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
   MDBBtn,
   MDBInput,
   MDBModal,
   MDBModalBody,
-  MDBModalHeader,
   MDBModalFooter
 } from "mdbreact";
 
@@ -20,7 +16,8 @@ const styles = {
   btns: {
     borderRadius: 10,
     marginRight: "0.5rem"
-  }
+  },
+  modalBtn: {padding: "1rem"}
 };
 
 class ModifierModal extends Component {
@@ -43,7 +40,7 @@ class ModifierModal extends Component {
     const props = this.props;
     return (
       <>
-        <MDBBtn color="success" onClick={this.toggle}>
+        <MDBBtn color="success" style={styles.modalBtn} onClick={this.toggle}>
           Modifier {props.number}
         </MDBBtn>
         <MDBModal isOpen={this.state.modal} toggle={this.toggle}>

@@ -31,20 +31,15 @@ const styles = {
   },
   btnAdd: {
     fontWeight: "900",
-    fontSize: "1.2rem"
-    // float: "right",
-    // width: "40%"
-    // height: "100%"
+    fontSize: "1rem"
   },
   btnBack: {
     fontWeight: "900",
-    fontSize: "1.2rem"
-    // float: "left"
+    fontSize: "1rem"
   },
   btnSubmit: {
     fontWeight: "900",
-    fontSize: "1.2rem"
-    // float: "right"
+    fontSize: "1rem"
   },
   dropDown: {
     marginBottom: "0.5rem"
@@ -176,179 +171,215 @@ class MenuItemForm extends Component {
                     onChange={this.handleChange}
                   />
                   <CheckBox label="Add to Inventory" />
+                  <br />
                   <CheckBox label="Check ID" />
-
-                  <div>
-                    <span className={styles.checkBoxGroup}>Tax</span>
+                  <div className={styles.checkBoxGroup}>
+                    <h4>Tax</h4>
                     <MDBFormInline>
-                    <CheckBox label="1" checked/>
-                    <CheckBox label="2" />
-                    <CheckBox label="3" />
-                    <CheckBox label="To Go" />
+                      <CheckBox label="1" checked />
+                      <CheckBox label="2" />
+                      <CheckBox label="3" />
+                      <CheckBox label="To Go" />
                     </MDBFormInline>
                   </div>
                 </MDBCol>
-
-                {state.advanced ? (
+                {!state.advanced && (
                   <>
-                    <MDBCol md="12">
-                      <hr />
-                      <h2 className="deep-orange-text text-center py-4">
-                        Advanced Options
-                      </h2>
-                      <MDBInput
-                        type="textarea"
-                        label="Item Description"
-                        rows="1"
-                        icon="pencil-alt"
-                      />
-                      <div style={styles.dropDown}>
-                        <select className="browser-default custom-select">
-                          <option value="1">Course #1</option>
-                          <option value="2">Course #2</option>
-                          <option value="3">Course #3</option>
-                          <option value="4">Course #4</option>
-                          <option value="5">Course #5</option>
-                          <option value="6">Course #6</option>
-                          <option value="7">Course #7</option>
-                        </select>
-                      </div>
-                      <div style={styles.dropDown}>
-                        <select className="browser-default custom-select">
-                          <option value="1">Printer #1</option>
-                          <option value="2">Printer #2</option>
-                          <option value="3">Printer #3</option>
-                          <option value="4">Printer #4</option>
-                          <option value="5">Printer #5</option>
-                          <option value="6">Printer #6</option>
-                          <option value="7">Printer #7</option>
-                        </select>
-                      </div>
-                      <div style={styles.dropDown}>
-                        <select className="browser-default custom-select">
-                          <option value="1">Cook Screen #1</option>
-                          <option value="2">Cook Screen #2</option>
-                          <option value="3">Cook Screen #3</option>
-                          <option value="4">Cook Screen #4</option>
-                          <option value="5">Cook Screen #5</option>
-                          <option value="6">Cook Screen #6</option>
-                          <option value="7">Cook Screen #7</option>
-                        </select>
-                      </div>
-                      <div style={styles.dropDown}>
-                        <select className="browser-default custom-select">
-                          <option value="1">Expo Printer #1</option>
-                          <option value="2">Expo Printer #2</option>
-                          <option value="3">Expo Printer #3</option>
-                          <option value="4">Expo Printer #4</option>
-                          <option value="5">Expo Printer #5</option>
-                          <option value="6">Expo Printer #6</option>
-                          <option value="7">Expo Printer #7</option>
-                        </select>
-                      </div>
-                      <div style={styles.dropDown}>
-                        <select className="browser-default custom-select">
-                          <option value="1">Label Printer #1</option>
-                          <option value="2">Label Printer #2</option>
-                          <option value="3">Label Printer #3</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label>Options:</label>
-                        <MDBFormInline>
-                          <MDBInput label="Hide on cart" type="checkbox" />
-                          <MDBInput label="Disable discount" type="checkbox" />
-                          <MDBInput label="Quantity prompt" type="checkbox" />
-                          <MDBInput label="Service Item" type="checkbox" />
-                        </MDBFormInline>
-                      </div>
-                      <div>
-                        <label>Belongs To:</label>
-                        <MDBFormInline>
-                          <MDBInput
-                            label="Table Service"
-                            type="checkbox"
-                            checked
-                          />
-                          <MDBInput
-                            label="Quick Serve"
-                            type="checkbox"
-                            checked
-                          />
-                          <MDBInput
-                            label="Phone Order"
-                            type="checkbox"
-                            checked
-                          />
-                          <MDBInput label="Drive Thru" type="checkbox" />
-                          <MDBInput label="Online" type="checkbox" />
-                          <MDBInput label="Party" type="checkbox" />
-                          <MDBInput label="Bar" type="checkbox" />
-                        </MDBFormInline>
-                      </div>
-                      <MDBInput
-                        type="textarea"
-                        label="Comments"
-                        rows="1"
-                        icon="pencil-alt"
-                      />
-                    </MDBCol>
-                    <MDBCol md="12" className="mb-xl-0 mb-4">
-                      <MDBBtnGroup>
-                        <ModifierModal number={1} item={item} />
-                        <ModifierModal number={2} item={item} />
-                        <ModifierModal number={3} item={item} />
-                        <ModifierModal number={4} item={item} />
-                      </MDBBtnGroup>
+                    <h5 className="text-center text-info py-4">
+                      Turn on "Advanced" at the top to see more options
+                    </h5>
+                    <MDBCol md="12" className="d-flex justify-content-center">
+                      <MDBBtn
+                        outline
+                        color="danger"
+                        onClick={this.props.prevStep}
+                        style={styles.btnBack}
+                        size="sm"
+                      >
+                        <MDBIcon icon="arrow-left" className="mr-2" size="lg" />
+                        Back
+                      </MDBBtn>
+                      <MDBBtn
+                        outline
+                        color="success"
+                        type="submit"
+                        onClick={this.setItem}
+                        style={styles.btnAdd}
+                        size="sm"
+                      >
+                        Add
+                        <MDBIcon
+                          far
+                          icon="thumbs-up"
+                          className="ml-2"
+                          size="lg"
+                        />
+                      </MDBBtn>
+                      <MDBBtn
+                        outline
+                        color="info"
+                        type="submit"
+                        onClick={this.submit}
+                        style={styles.btnSubmit}
+                        size="sm"
+                      >
+                        Continue
+                        <MDBIcon
+                          icon="arrow-right"
+                          className="ml-2"
+                          size="lg"
+                        />
+                      </MDBBtn>
                     </MDBCol>
                   </>
-                ) : (
-                  <h3 className="text-center text-info py-4">
-                    Turn on "Advanced" at the top to see more options
-                  </h3>
                 )}
-
-                <MDBCol md="12">
-                  {/* <div
-                      className="text-center py-4 mt-3"
-                      style={styles.btnBack}
-                    > */}
-                  <MDBBtn
-                    outline
-                    color="danger"
-                    onClick={this.props.prevStep}
-                    style={styles.btnBack}
-                  >
-                    <MDBIcon icon="arrow-left" className="mr-2" size="lg" />
-                    Back
-                  </MDBBtn>
-                  <MDBBtn
-                    outline
-                    color="success"
-                    type="submit"
-                    onClick={this.setItem}
-                    style={styles.btnAdd}
-                  >
-                    Add
-                    <MDBIcon far icon="thumbs-up" className="ml-2" size="lg" />
-                  </MDBBtn>
-                  {/* <div
-                      className="text-center py-4 mt-3"
-                      style={styles.btnSubmit}
-                    > */}
-                  <MDBBtn
-                    outline
-                    color="info"
-                    type="submit"
-                    onClick={this.submit}
-                    style={styles.btnSubmit}
-                  >
-                    Continue
-                    <MDBIcon icon="arrow-right" className="ml-2" size="lg" />
-                  </MDBBtn>
-                </MDBCol>
               </MDBCardBody>
             </MDBCard>
+            {state.advanced && (
+              <MDBCard style={styles.card}>
+                <MDBCardBody>
+                  <MDBCol>
+                    <h2 className="deep-orange-text text-center py-4">
+                      Advanced Options
+                    </h2>
+                    <MDBInput
+                      type="textarea"
+                      label="Item Description"
+                      rows="1"
+                      icon="pencil-alt"
+                    />
+                    <div style={styles.dropDown}>
+                      <select className="browser-default custom-select">
+                        <option value="1">Course #1</option>
+                        <option value="2">Course #2</option>
+                        <option value="3">Course #3</option>
+                        <option value="4">Course #4</option>
+                        <option value="5">Course #5</option>
+                        <option value="6">Course #6</option>
+                        <option value="7">Course #7</option>
+                      </select>
+                    </div>
+                    <div style={styles.dropDown}>
+                      <select className="browser-default custom-select">
+                        <option value="1">Printer #1</option>
+                        <option value="2">Printer #2</option>
+                        <option value="3">Printer #3</option>
+                        <option value="4">Printer #4</option>
+                        <option value="5">Printer #5</option>
+                        <option value="6">Printer #6</option>
+                        <option value="7">Printer #7</option>
+                      </select>
+                    </div>
+                    <div style={styles.dropDown}>
+                      <select className="browser-default custom-select">
+                        <option value="1">Cook Screen #1</option>
+                        <option value="2">Cook Screen #2</option>
+                        <option value="3">Cook Screen #3</option>
+                        <option value="4">Cook Screen #4</option>
+                        <option value="5">Cook Screen #5</option>
+                        <option value="6">Cook Screen #6</option>
+                        <option value="7">Cook Screen #7</option>
+                      </select>
+                    </div>
+                    <div style={styles.dropDown}>
+                      <select className="browser-default custom-select">
+                        <option value="1">Expo Printer #1</option>
+                        <option value="2">Expo Printer #2</option>
+                        <option value="3">Expo Printer #3</option>
+                        <option value="4">Expo Printer #4</option>
+                        <option value="5">Expo Printer #5</option>
+                        <option value="6">Expo Printer #6</option>
+                        <option value="7">Expo Printer #7</option>
+                      </select>
+                    </div>
+                    <div style={styles.dropDown}>
+                      <select className="browser-default custom-select">
+                        <option value="1">Label Printer #1</option>
+                        <option value="2">Label Printer #2</option>
+                        <option value="3">Label Printer #3</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label>Options:</label>
+                      <MDBFormInline>
+                        <MDBInput label="Hide on cart" type="checkbox" />
+                        <MDBInput label="Disable discount" type="checkbox" />
+                        <MDBInput label="Quantity prompt" type="checkbox" />
+                        <MDBInput label="Service Item" type="checkbox" />
+                      </MDBFormInline>
+                    </div>
+                    <div>
+                      <label>Belongs To:</label>
+                      <MDBFormInline>
+                        <MDBInput
+                          label="Table Service"
+                          type="checkbox"
+                          checked
+                        />
+                        <MDBInput label="Quick Serve" type="checkbox" checked />
+                        <MDBInput label="Phone Order" type="checkbox" checked />
+                        <MDBInput label="Drive Thru" type="checkbox" />
+                        <MDBInput label="Online" type="checkbox" />
+                        <MDBInput label="Party" type="checkbox" />
+                        <MDBInput label="Bar" type="checkbox" />
+                      </MDBFormInline>
+                    </div>
+                    <MDBInput
+                      type="textarea"
+                      label="Comments"
+                      rows="1"
+                      icon="pencil-alt"
+                    />
+                  </MDBCol>
+                  <MDBCol className="d-flex justify-content-center">
+                    <ModifierModal number={1} item={item} />
+                    <ModifierModal number={2} item={item} />
+                    <ModifierModal number={3} item={item} />
+                    <ModifierModal number={4} item={item} />
+                  </MDBCol>
+                  <br />
+                  <MDBCol md="12" className="d-flex justify-content-center">
+                    <MDBBtn
+                      outline
+                      color="danger"
+                      onClick={this.props.prevStep}
+                      style={styles.btnBack}
+                      size="sm"
+                    >
+                      <MDBIcon icon="arrow-left" className="mr-2" size="lg" />
+                      Back
+                    </MDBBtn>
+                    <MDBBtn
+                      outline
+                      color="success"
+                      type="submit"
+                      onClick={this.setItem}
+                      style={styles.btnAdd}
+                      size="sm"
+                    >
+                      Add
+                      <MDBIcon
+                        far
+                        icon="thumbs-up"
+                        className="ml-2"
+                        size="lg"
+                      />
+                    </MDBBtn>
+                    <MDBBtn
+                      outline
+                      color="info"
+                      type="submit"
+                      onClick={this.submit}
+                      style={styles.btnSubmit}
+                      size="sm"
+                    >
+                      Continue
+                      <MDBIcon icon="arrow-right" className="ml-2" size="lg" />
+                    </MDBBtn>
+                  </MDBCol>
+                </MDBCardBody>
+              </MDBCard>
+            )}
           </MDBCol>
         </MDBRow>
       </MDBContainer>
