@@ -173,8 +173,10 @@ class MenuItemForm extends Component {
                   <CheckBox label="Add to Inventory" />
                   <br />
                   <CheckBox label="Check ID" />
-                  <div className={styles.checkBoxGroup}>
-                    <h4>Tax</h4>
+                  <br />
+                  <div>
+                    <label className="deep-orange-text text-center">Tax</label>
+                    <hr />
                     <MDBFormInline>
                       <CheckBox label="1" checked />
                       <CheckBox label="2" />
@@ -299,31 +301,32 @@ class MenuItemForm extends Component {
                         <option value="3">Label Printer #3</option>
                       </select>
                     </div>
+                    <br />
                     <div>
-                      <label>Options:</label>
+                      <label className="deep-orange-text">Options</label>
+                      <hr />
                       <MDBFormInline>
-                        <MDBInput label="Hide on cart" type="checkbox" />
-                        <MDBInput label="Disable discount" type="checkbox" />
-                        <MDBInput label="Quantity prompt" type="checkbox" />
-                        <MDBInput label="Service Item" type="checkbox" />
+                        <CheckBox label="Hide on cart" />
+                        <CheckBox label="Disable discount" />
+                        <CheckBox label="Quantity prompt" />
+                        <CheckBox label="Service item" />
                       </MDBFormInline>
                     </div>
+                    <br />
                     <div>
-                      <label>Belongs To:</label>
+                      <label className="deep-orange-text">Belongs to</label>
+                      <hr />
                       <MDBFormInline>
-                        <MDBInput
-                          label="Table Service"
-                          type="checkbox"
-                          checked
-                        />
-                        <MDBInput label="Quick Serve" type="checkbox" checked />
-                        <MDBInput label="Phone Order" type="checkbox" checked />
-                        <MDBInput label="Drive Thru" type="checkbox" />
-                        <MDBInput label="Online" type="checkbox" />
-                        <MDBInput label="Party" type="checkbox" />
-                        <MDBInput label="Bar" type="checkbox" />
+                        <CheckBox label="Table service" checked />
+                        <CheckBox label="Quick serve" checked />
+                        <CheckBox label="Phone order" checked />
+                        <CheckBox label="Drive thru" />
+                        <CheckBox label="Online" />
+                        <CheckBox label="Party" />
+                        <CheckBox label="Bar" />
                       </MDBFormInline>
                     </div>
+                    <hr />
                     <MDBInput
                       type="textarea"
                       label="Comments"
@@ -337,7 +340,9 @@ class MenuItemForm extends Component {
                     <ModifierModal number={3} item={item} />
                     <ModifierModal number={4} item={item} />
                   </MDBCol>
-                  <br />
+                  <MDBCol>
+                    <hr />
+                  </MDBCol>
                   <MDBCol md="12" className="d-flex justify-content-center">
                     <MDBBtn
                       outline

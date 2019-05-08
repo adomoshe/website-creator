@@ -1,19 +1,26 @@
 import React, { Component } from "react";
+// All styles on App.css
 
 class CheckBox extends Component {
-
   render() {
-    const props = this.props
+    const props = this.props;
     return (
-      <div className="checkbox-container">
-        <div className="input-title">{props.label}:</div>
-        <label className="checkbox-label">
-          <input type="checkbox" checked={props.checked}/>
-          <span className="checkbox-custom rectangular" />
+      <div className="custom-control custom-checkbox" >
+        <input
+          type="checkbox"
+          className="custom-control-input"
+          id={`defaultUnchecked-${props.label}`}
+          checked={props.checked}
+        />
+        <label
+          className="custom-control-label"
+          for={`defaultUnchecked-${props.label}`}
+        >
+          {props.label}
         </label>
       </div>
     );
   }
 }
 
-export default CheckBox
+export default CheckBox;
