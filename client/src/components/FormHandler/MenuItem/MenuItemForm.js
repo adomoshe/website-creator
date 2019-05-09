@@ -14,6 +14,9 @@ import {
 
 import ModifierModal from "./ModifierModal";
 import CheckBox from "./CheckBox";
+import DropDown from "./DropDown";
+
+import categoryModel from "../../categoryModel";
 
 const styles = {
   card: {
@@ -41,9 +44,6 @@ const styles = {
     fontWeight: "900",
     fontSize: "1rem"
   },
-  dropDown: {
-    marginBottom: "0.5rem"
-  },
   checkBoxGroup: { fontSize: "1.3rem" }
 };
 
@@ -52,9 +52,62 @@ class MenuItemForm extends Component {
     super(props);
     this.state = {
       advanced: true,
-      name: "",
-      price: "",
-      cost: ""
+      item: {
+        name: "",
+        description: "",
+        price: "",
+        cost: "",
+        addToInventory: false,
+        tax: { one: true, two: false, three: false, toGo: false },
+        course: 1,
+        printer: 1,
+        cookScreen: 1,
+        expoPrinter: 1,
+        labelPrinter: 1,
+        options: {
+          hideOnCart: false,
+          disableDiscount: false,
+          qtyPrompt: false,
+          checkAge: false,
+          serviceItem: false
+        },
+        belongsTo: {
+          tableService: true,
+          quickServe: true,
+          phoneOrder: true,
+          driveThru: false,
+          online: false,
+          party: false,
+          bar: false
+        },
+        comments: [],
+        modifiers: [
+          {
+            choicesLimit: null,
+            forced: false,
+            cost: null,
+            modifier: [{ name: "" }]
+          },
+          {
+            choicesLimit: null,
+            forced: false,
+            cost: null,
+            modifier: [{ name: "", price: null }]
+          },
+          {
+            choicesLimit: null,
+            forced: false,
+            cost: null,
+            modifier: [{ name: "", price: null }]
+          },
+          {
+            choicesLimit: null,
+            forced: false,
+            cost: null,
+            modifier: [{ name: "" }]
+          }
+        ]
+      }
     };
     this.initialState = this.state;
     this.prevStep = this.props.prevStep.bind(this);
@@ -62,15 +115,43 @@ class MenuItemForm extends Component {
 
   handleChange = e => {
     const name = e.target.name;
-    const value = e.target.value;
+    const value = e.target.value.toUpperCase();
     this.setState({ [name]: value });
   };
+
+  handleCheckBox = checkBoxState => {
+    const name = checkBoxState.name;
+    const checked = checkBoxState.checked;
+    const parent = checkBoxState.parent || null;
+    const currentItemState = this.state;
+
+    let modifiedCurrentItemState;
+    if (parent) {
+      modifiedCurrentItemState = () => {
+        currentItemState.item[parent][name] = checked;
+      };
+    } else {
+      modifiedCurrentItemState = () => {
+        currentItemState.item[name] = checked;
+      };
+    }
+
+    this.setState(modifiedCurrentItemState, () => {
+      console.log(this.state);
+    });
+  };
+
+  handleDropDown = dropDownState => {
+console.log(dropDownState)
+  }
+
   setItem = e => {
     e.preventDefault();
-    const item = this.state.item.trim().toLowerCase();
+    const item = this.state.item.trim().toUpperCase();
     this.props.menuBuilderSetItem(item);
     this.setState(this.initialState);
   };
+
   submit = e => {
     e.preventDefault();
     this.setState(this.initialState);
@@ -168,18 +249,47 @@ class MenuItemForm extends Component {
                     value={this.state.cost}
                     onChange={this.handleChange}
                   />
-                  <CheckBox label="Add to Inventory" name="addToInventory" />
+                  <CheckBox
+                    handleCheckBox={this.handleCheckBox}
+                    label="Add to Inventory"
+                    name="addToInventory"
+                  />
                   <br />
-                  <CheckBox label="Check ID" name="checkId" />
+                  <CheckBox
+                    handleCheckBox={this.handleCheckBox}
+                    label="Check ID"
+                    name="checkId"
+                  />
                   <br />
                   <div>
                     <label className="deep-orange-text text-center">Tax</label>
                     <hr />
                     <MDBFormInline>
-                      <CheckBox label="1" name="1" checked />
-                      <CheckBox label="2" name="2" />
-                      <CheckBox label="3" name="3" />
-                      <CheckBox label="To Go" name="toGo" />
+                      <CheckBox
+                        handleCheckBox={this.handleCheckBox}
+                        parent="tax"
+                        label="1"
+                        name="one"
+                        checked
+                      />
+                      <CheckBox
+                        handleCheckBox={this.handleCheckBox}
+                        parent="tax"
+                        label="2"
+                        name="two"
+                      />
+                      <CheckBox
+                        handleCheckBox={this.handleCheckBox}
+                        parent="tax"
+                        label="3"
+                        name="three"
+                      />
+                      <CheckBox
+                        handleCheckBox={this.handleCheckBox}
+                        parent="tax"
+                        label="To Go"
+                        name="toGo"
+                      />
                     </MDBFormInline>
                   </div>
                 </MDBCol>
@@ -235,6 +345,7 @@ class MenuItemForm extends Component {
                 )}
               </MDBCardBody>
             </MDBCard>
+
             {state.advanced && (
               <MDBCard style={styles.card}>
                 <MDBCardBody>
@@ -248,66 +359,40 @@ class MenuItemForm extends Component {
                       rows="1"
                       icon="pencil-alt"
                     />
-                    <div style={styles.dropDown}>
-                      <select className="browser-default custom-select">
-                        <option value="1">Course #1</option>
-                        <option value="2">Course #2</option>
-                        <option value="3">Course #3</option>
-                        <option value="4">Course #4</option>
-                        <option value="5">Course #5</option>
-                        <option value="6">Course #6</option>
-                        <option value="7">Course #7</option>
-                      </select>
-                    </div>
-                    <div style={styles.dropDown}>
-                      <select className="browser-default custom-select">
-                        <option value="1">Printer #1</option>
-                        <option value="2">Printer #2</option>
-                        <option value="3">Printer #3</option>
-                        <option value="4">Printer #4</option>
-                        <option value="5">Printer #5</option>
-                        <option value="6">Printer #6</option>
-                        <option value="7">Printer #7</option>
-                      </select>
-                    </div>
-                    <div style={styles.dropDown}>
-                      <select className="browser-default custom-select">
-                        <option value="1">Cook Screen #1</option>
-                        <option value="2">Cook Screen #2</option>
-                        <option value="3">Cook Screen #3</option>
-                        <option value="4">Cook Screen #4</option>
-                        <option value="5">Cook Screen #5</option>
-                        <option value="6">Cook Screen #6</option>
-                        <option value="7">Cook Screen #7</option>
-                      </select>
-                    </div>
-                    <div style={styles.dropDown}>
-                      <select className="browser-default custom-select">
-                        <option value="1">Expo Printer #1</option>
-                        <option value="2">Expo Printer #2</option>
-                        <option value="3">Expo Printer #3</option>
-                        <option value="4">Expo Printer #4</option>
-                        <option value="5">Expo Printer #5</option>
-                        <option value="6">Expo Printer #6</option>
-                        <option value="7">Expo Printer #7</option>
-                      </select>
-                    </div>
-                    <div style={styles.dropDown}>
-                      <select className="browser-default custom-select">
-                        <option value="1">Label Printer #1</option>
-                        <option value="2">Label Printer #2</option>
-                        <option value="3">Label Printer #3</option>
-                      </select>
-                    </div>
+                    <DropDown length={7} label="Course" handleDropDown={this.handleDropDown} />
+                    <DropDown length={7} label="Printer" handleDropDown={this.handleDropDown} />
+                    <DropDown length={7} label="Cook Screen" handleDropDown={this.handleDropDown} />
+                    <DropDown length={7} label="Expo Printer" handleDropDown={this.handleDropDown} />
+                    <DropDown length={3} label="Label Printer" handleDropDown={this.handleDropDown} />
                     <br />
                     <div>
                       <label className="deep-orange-text">Options</label>
                       <hr />
                       <MDBFormInline>
-                        <CheckBox label="Hide on cart" name="hideOnCart" />
-                        <CheckBox label="Disable discount" name="disableDiscount" />
-                        <CheckBox label="Quantity prompt" name="qtyPrompt" />
-                        <CheckBox label="Service item" name="serviceItem" />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="options"
+                          label="Hide on cart"
+                          name="hideOnCart"
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="options"
+                          label="Disable discount"
+                          name="disableDiscount"
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="options"
+                          label="Quantity prompt"
+                          name="qtyPrompt"
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="options"
+                          label="Service item"
+                          name="serviceItem"
+                        />
                       </MDBFormInline>
                     </div>
                     <br />
@@ -315,13 +400,51 @@ class MenuItemForm extends Component {
                       <label className="deep-orange-text">Belongs to</label>
                       <hr />
                       <MDBFormInline>
-                        <CheckBox label="Table service" name="tableService" checked />
-                        <CheckBox label="Quick serve" name="quickServe" checked />
-                        <CheckBox label="Phone order" name="phoneServer" checked />
-                        <CheckBox label="Drive thru" name="driveThru" />
-                        <CheckBox label="Online" name="online" />
-                        <CheckBox label="Party" name="party" />
-                        <CheckBox label="Bar" name="bar" />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Table service"
+                          name="tableService"
+                          checked
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Quick serve"
+                          name="quickServe"
+                          checked
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Phone order"
+                          name="phoneServer"
+                          checked
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Drive thru"
+                          name="driveThru"
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Online"
+                          name="online"
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Party"
+                          name="party"
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Bar"
+                          name="bar"
+                        />
                       </MDBFormInline>
                     </div>
                     <hr />

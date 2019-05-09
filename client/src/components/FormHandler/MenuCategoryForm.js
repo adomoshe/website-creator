@@ -48,7 +48,7 @@ class MenuCategoryForm extends Component {
   };
   addCategory = e => {
     e.preventDefault();
-    const category = this.state.category.trim().toLowerCase();
+    const category = this.state.category.trim().toUpperCase();
     this.props.menuBuilderSetCategory({ name: category, subCategories: [] });
     this.setState(this.initialState);
   };

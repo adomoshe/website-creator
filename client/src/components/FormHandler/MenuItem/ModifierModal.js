@@ -90,7 +90,7 @@ class ModifierModal extends Component {
               value={this.state.choicesLimit}
               onChange={this.handleChange}
             />
-            <CheckBox label="Forced" />
+            <CheckBox label="Forced" name="forced" modifierIndex={props.number - 1} />
           </MDBModalBody>
           <MDBModalFooter>
             <MDBBtn color="primary" onClick={this.toggle} style={styles.btns}>

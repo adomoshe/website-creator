@@ -6,7 +6,8 @@ class CheckBox extends Component {
     super(props);
     this.state = {
       name: this.props.name,
-      checked: this.props.checked
+      checked: this.props.checked,
+      parent: this.props.parent
     };
   }
 
@@ -16,6 +17,7 @@ class CheckBox extends Component {
         checked: !state.checked
       }),
       () => {
+        this.props.handleCheckBox(this.state)
         console.log(this.state);
       }
     );
