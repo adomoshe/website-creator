@@ -1,20 +1,41 @@
 import React, { Component } from "react";
-// All styles on App.css
+// All styling in App.css
 
 class CheckBox extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: this.props.name,
+      checked: this.props.checked
+    };
+  }
+
+  changeCheck = () => {
+    this.setState(
+      state => ({
+        checked: !state.checked
+      }),
+      () => {
+        console.log(this.state);
+      }
+    );
+  };
+
   render() {
     const props = this.props;
+
     return (
-      <div className="custom-control custom-checkbox" >
+      <div className="custom-control custom-checkbox">
         <input
           type="checkbox"
           className="custom-control-input"
-          id={`defaultUnchecked-${props.label}`}
-          checked={props.checked}
+          id={`${props.label}-checkbox`}
+          onChange={this.changeCheck}
+          defaultChecked={props.checked}
         />
         <label
           className="custom-control-label"
-          for={`defaultUnchecked-${props.label}`}
+          htmlFor={`${props.label}-checkbox`}
         >
           {props.label}
         </label>
@@ -22,5 +43,9 @@ class CheckBox extends Component {
     );
   }
 }
+
+CheckBox.defaultProps = {
+  checked: false
+};
 
 export default CheckBox;

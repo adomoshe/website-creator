@@ -25,7 +25,6 @@ class SubCategoryNav extends Component {
   render() {
     const menuBuilderState = this.props.menuBuilderState();
     const current = menuBuilderState.current;
-    console.log(menuBuilderState.categories[current.category])
     return (
       <MDBNavbar color="black" expand="md" dark style={styles.root}>
         <MDBNavbarBrand>

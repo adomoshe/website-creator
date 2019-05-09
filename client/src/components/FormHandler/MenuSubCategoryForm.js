@@ -50,13 +50,11 @@ class MenuSubCategoryForm extends Component {
   setSubCategory = e => {
     e.preventDefault();
     const subCategory = this.state.subCategory.trim().toLowerCase();
-    console.log(this.state);
     this.props.menuBuilderSetSubCategory(subCategory);
     this.setState(this.initialState);
   };
   submit = e => {
     e.preventDefault();
-    console.log(this.state);
     this.setState(this.initialState);
     this.props.nextStep();
   };

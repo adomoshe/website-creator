@@ -68,13 +68,11 @@ class MenuItemForm extends Component {
   setItem = e => {
     e.preventDefault();
     const item = this.state.item.trim().toLowerCase();
-    console.log(this.state);
     this.props.menuBuilderSetItem(item);
     this.setState(this.initialState);
   };
   submit = e => {
     e.preventDefault();
-    console.log(this.state);
     this.setState(this.initialState);
     this.props.nextStep();
   };
@@ -170,18 +168,18 @@ class MenuItemForm extends Component {
                     value={this.state.cost}
                     onChange={this.handleChange}
                   />
-                  <CheckBox label="Add to Inventory" />
+                  <CheckBox label="Add to Inventory" name="addToInventory" />
                   <br />
-                  <CheckBox label="Check ID" />
+                  <CheckBox label="Check ID" name="checkId" />
                   <br />
                   <div>
                     <label className="deep-orange-text text-center">Tax</label>
                     <hr />
                     <MDBFormInline>
-                      <CheckBox label="1" checked />
-                      <CheckBox label="2" />
-                      <CheckBox label="3" />
-                      <CheckBox label="To Go" />
+                      <CheckBox label="1" name="1" checked />
+                      <CheckBox label="2" name="2" />
+                      <CheckBox label="3" name="3" />
+                      <CheckBox label="To Go" name="toGo" />
                     </MDBFormInline>
                   </div>
                 </MDBCol>
@@ -306,10 +304,10 @@ class MenuItemForm extends Component {
                       <label className="deep-orange-text">Options</label>
                       <hr />
                       <MDBFormInline>
-                        <CheckBox label="Hide on cart" />
-                        <CheckBox label="Disable discount" />
-                        <CheckBox label="Quantity prompt" />
-                        <CheckBox label="Service item" />
+                        <CheckBox label="Hide on cart" name="hideOnCart" />
+                        <CheckBox label="Disable discount" name="disableDiscount" />
+                        <CheckBox label="Quantity prompt" name="qtyPrompt" />
+                        <CheckBox label="Service item" name="serviceItem" />
                       </MDBFormInline>
                     </div>
                     <br />
@@ -317,13 +315,13 @@ class MenuItemForm extends Component {
                       <label className="deep-orange-text">Belongs to</label>
                       <hr />
                       <MDBFormInline>
-                        <CheckBox label="Table service" checked />
-                        <CheckBox label="Quick serve" checked />
-                        <CheckBox label="Phone order" checked />
-                        <CheckBox label="Drive thru" />
-                        <CheckBox label="Online" />
-                        <CheckBox label="Party" />
-                        <CheckBox label="Bar" />
+                        <CheckBox label="Table service" name="tableService" checked />
+                        <CheckBox label="Quick serve" name="quickServe" checked />
+                        <CheckBox label="Phone order" name="phoneServer" checked />
+                        <CheckBox label="Drive thru" name="driveThru" />
+                        <CheckBox label="Online" name="online" />
+                        <CheckBox label="Party" name="party" />
+                        <CheckBox label="Bar" name="bar" />
                       </MDBFormInline>
                     </div>
                     <hr />
