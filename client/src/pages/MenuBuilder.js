@@ -106,9 +106,7 @@ class Main extends Component {
     window.scrollTo(0, 0);
   }
 
-  menuBuilderState = () => {
-    return this.state;
-  };
+  menuBuilderState = () => this.state;
 
   nextFormStep = () => {
     this.setState(state => ({ formStep: state.formStep + 1 }));
@@ -139,11 +137,11 @@ class Main extends Component {
     const setItemState = state => {
       state.categories[current.category].subCategories[
         current.subCategory
-      ].items.push({
-        name: item
-      });
+      ].items[current.item] = item;
     };
-    this.setState(setItemState);
+    this.setState(setItemState, () => {
+      console.log(this.state);
+    });
   };
 
   menuBuilderSetCurrent = (field, index) => {

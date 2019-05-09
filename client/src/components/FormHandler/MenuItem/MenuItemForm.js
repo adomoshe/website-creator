@@ -16,8 +16,6 @@ import ModifierModal from "./ModifierModal";
 import CheckBox from "./CheckBox";
 import DropDown from "./DropDown";
 
-import categoryModel from "../../categoryModel";
-
 const styles = {
   card: {
     marginTop: "4rem",
@@ -50,89 +48,137 @@ const styles = {
 class MenuItemForm extends Component {
   constructor(props) {
     super(props);
+    const menuBuilderState = this.props.menuBuilderState();
+    const current = menuBuilderState.current;
+    const currentItem =
+      menuBuilderState.categories[current.category].subCategories[
+        current.subCategory
+      ].items[current.item];
+    console.log(currentItem);
+
     this.state = {
       advanced: true,
       item: {
-        name: "",
-        description: "",
-        price: "",
-        cost: "",
-        addToInventory: false,
-        tax: { one: true, two: false, three: false, toGo: false },
-        course: 1,
-        printer: 1,
-        cookScreen: 1,
-        expoPrinter: 1,
-        labelPrinter: 1,
+        name: currentItem.name,
+        description: currentItem.description,
+        price: currentItem.price,
+        cost: currentItem.cost,
+        addToInventory: currentItem.addToInventory,
+        tax: {
+          one: currentItem.tax.one,
+          two: currentItem.tax.two,
+          three: currentItem.tax.three,
+          toGo: currentItem.tax.toGo
+        },
+        course: currentItem.course,
+        printer: currentItem.printer,
+        cookScreen: currentItem.cookScreen,
+        expoPrinter: currentItem.expoPrinter,
+        labelPrinter: currentItem.labelPrinter,
         options: {
-          hideOnCart: false,
-          disableDiscount: false,
-          qtyPrompt: false,
-          checkAge: false,
-          serviceItem: false
+          hideOnCart: currentItem.options.hideOnCart,
+          disableDiscount: currentItem.options.disableDiscount,
+          qtyPrompt: currentItem.options.qtyPrompt,
+          checkAge: currentItem.options.checkAge,
+          serviceItem: currentItem.options.serviceItem
         },
         belongsTo: {
-          tableService: true,
-          quickServe: true,
-          phoneOrder: true,
-          driveThru: false,
-          online: false,
-          party: false,
-          bar: false
+          tableService: currentItem.belongsTo.tableService,
+          quickServe: currentItem.belongsTo.quickServe,
+          phoneOrder: currentItem.belongsTo.phoneServe,
+          driveThru: currentItem.belongsTo.driveThru,
+          online: currentItem.belongsTo.online,
+          party: currentItem.belongsTo.party,
+          bar: currentItem.belongsTo.bar
         },
-        comments: [],
+        comments: [currentItem.comments],
         modifiers: [
           {
-            choicesLimit: null,
-            forced: false,
-            cost: null,
-            modifier: [{ name: "" }]
+            choicesLimit: currentItem.modifiers[0].choicesLimit,
+            forced: currentItem.modifiers[0].forced,
+            cost: currentItem.modifiers[0].cost,
+            modifier: [{ name: currentItem.modifiers[0].modifier.name }]
           },
           {
-            choicesLimit: null,
-            forced: false,
-            cost: null,
-            modifier: [{ name: "", price: null }]
+            choicesLimit: currentItem.modifiers[1].choicesLimit,
+            forced: currentItem.modifiers[1].forced,
+            cost: currentItem.modifiers[1].cost,
+            modifier: [
+              {
+                name: currentItem.modifiers[1].modifier.name,
+                price: currentItem.modifiers[1].modifier.price
+              }
+            ]
           },
           {
-            choicesLimit: null,
-            forced: false,
-            cost: null,
-            modifier: [{ name: "", price: null }]
+            choicesLimit: currentItem.modifiers[2].choicesLimit,
+            forced: currentItem.modifiers[2].forced,
+            cost: currentItem.modifiers[2].cost,
+            modifier: [
+              {
+                name: currentItem.modifiers[2].modifier.name,
+                price: currentItem.modifiers[2].modifier.price
+              }
+            ]
           },
           {
-            choicesLimit: null,
-            forced: false,
-            cost: null,
-            modifier: [{ name: "" }]
+            choicesLimit: currentItem.modifiers[3].choicesLimit,
+            forced: currentItem.modifiers[3].forced,
+            cost: currentItem.modifiers[3].cost,
+            modifier: [{ name: currentItem.modifiers[3].modifier.name }]
           }
         ]
       }
     };
     this.initialState = this.state;
-    this.prevStep = this.props.prevStep.bind(this);
   }
+
+  menuItemFormState = () => {
+    return this.state;
+  };
+
+  changeAdvancedView = e => {
+    if (e.target.name === "basic") {
+      this.setState({ advanced: false });
+    } else {
+      this.setState({ advanced: true });
+    }
+  };
 
   handleChange = e => {
     const name = e.target.name;
-    const value = e.target.value.toUpperCase();
-    this.setState({ [name]: value });
+    let value = e.target.value;
+    value.toUpperCase();
+    console.log(e.target);
+    console.log(this.state);
+    // if (e.target.type === "number") {
+    //   value = parseInt(e.target.value);
+    // } else {
+    // value =
+    // }
+
+    const modifiedCurrentItemState = state => {
+      state.item[name] = value;
+    };
+
+    this.setState(modifiedCurrentItemState, () => {
+      console.log(this.state);
+    });
   };
 
   handleCheckBox = checkBoxState => {
     const name = checkBoxState.name;
     const checked = checkBoxState.checked;
     const parent = checkBoxState.parent || null;
-    const currentItemState = this.state;
 
     let modifiedCurrentItemState;
     if (parent) {
-      modifiedCurrentItemState = () => {
-        currentItemState.item[parent][name] = checked;
+      modifiedCurrentItemState = state => {
+        state.item[parent][name] = checked;
       };
     } else {
-      modifiedCurrentItemState = () => {
-        currentItemState.item[name] = checked;
+      modifiedCurrentItemState = state => {
+        state.item[name] = checked;
       };
     }
 
@@ -142,12 +188,21 @@ class MenuItemForm extends Component {
   };
 
   handleDropDown = dropDownState => {
-console.log(dropDownState)
-  }
+    const name = dropDownState.name;
+    const option = dropDownState.option;
+
+    const modifiedCurrentItemState = state => {
+      state.item[name] = option;
+    };
+
+    this.setState(modifiedCurrentItemState, () => {
+      console.log(this.state);
+    });
+  };
 
   setItem = e => {
     e.preventDefault();
-    const item = this.state.item.trim().toUpperCase();
+    const item = this.state.item;
     this.props.menuBuilderSetItem(item);
     this.setState(this.initialState);
   };
@@ -156,14 +211,6 @@ console.log(dropDownState)
     e.preventDefault();
     this.setState(this.initialState);
     this.props.nextStep();
-  };
-
-  changeAdvancedView = e => {
-    if (e.target.name === "basic") {
-      this.setState({ advanced: false });
-    } else {
-      this.setState({ advanced: true });
-    }
   };
 
   render() {
@@ -178,6 +225,7 @@ console.log(dropDownState)
       menuBuilderState.categories[current.category].subCategories[
         current.subCategory
       ].items[current.item].name;
+
     return (
       <MDBContainer>
         <MDBRow center>
@@ -227,26 +275,26 @@ console.log(dropDownState)
                     label="Item"
                     size="lg"
                     type="text"
-                    name="menuItem"
-                    value={this.state.name}
+                    name="name"
                     onChange={this.handleChange}
+                    value={this.state.item.name}
                   />
                 </MDBCol>
                 <MDBCol>
                   <MDBInput
                     label="Price"
                     size="lg"
-                    type="number"
+                    // type="number"
                     name="price"
-                    value={this.state.price}
+                    // value={this.state.item.price}
                     onChange={this.handleChange}
                   />
                   <MDBInput
                     label="Cost"
                     size="lg"
-                    type="number"
+                    // type="number"
                     name="cost"
-                    value={this.state.cost}
+                    // value={this.state.item.cost}
                     onChange={this.handleChange}
                   />
                   <CheckBox
@@ -295,9 +343,13 @@ console.log(dropDownState)
                 </MDBCol>
                 {!state.advanced && (
                   <>
-                    <h5 className="text-center text-info py-4">
-                      Turn on "Advanced" at the top to see more options
-                    </h5>
+                    <MDBCol>
+                      <hr />
+                      <h5 className="text-center text-info py-4">
+                        Turn on "Advanced" at the top to see more options
+                      </h5>
+                      <hr />
+                    </MDBCol>
                     <MDBCol md="12" className="d-flex justify-content-center">
                       <MDBBtn
                         outline
@@ -358,12 +410,38 @@ console.log(dropDownState)
                       label="Item Description"
                       rows="1"
                       icon="pencil-alt"
+                      value={this.state.item.description}
                     />
-                    <DropDown length={7} label="Course" handleDropDown={this.handleDropDown} />
-                    <DropDown length={7} label="Printer" handleDropDown={this.handleDropDown} />
-                    <DropDown length={7} label="Cook Screen" handleDropDown={this.handleDropDown} />
-                    <DropDown length={7} label="Expo Printer" handleDropDown={this.handleDropDown} />
-                    <DropDown length={3} label="Label Printer" handleDropDown={this.handleDropDown} />
+                    <DropDown
+                      length={7}
+                      label="Course"
+                      name="course"
+                      handleDropDown={this.handleDropDown}
+                    />
+                    <DropDown
+                      length={7}
+                      label="Printer"
+                      name="printer"
+                      handleDropDown={this.handleDropDown}
+                    />
+                    <DropDown
+                      length={7}
+                      label="Cook Screen"
+                      name="cookScreen"
+                      handleDropDown={this.handleDropDown}
+                    />
+                    <DropDown
+                      length={7}
+                      label="Expo Printer"
+                      name="expoPrinter"
+                      handleDropDown={this.handleDropDown}
+                    />
+                    <DropDown
+                      length={3}
+                      label="Label Printer"
+                      name="labelPrinter"
+                      handleDropDown={this.handleDropDown}
+                    />
                     <br />
                     <div>
                       <label className="deep-orange-text">Options</label>
@@ -453,13 +531,30 @@ console.log(dropDownState)
                       label="Comments"
                       rows="1"
                       icon="pencil-alt"
+                      value={this.state.item.comments}
                     />
                   </MDBCol>
                   <MDBCol className="d-flex justify-content-center">
-                    <ModifierModal number={1} item={item} />
-                    <ModifierModal number={2} item={item} />
-                    <ModifierModal number={3} item={item} />
-                    <ModifierModal number={4} item={item} />
+                    <ModifierModal
+                      number={1}
+                      item={item}
+                      menuItemFormState={this.menuItemFormState}
+                    />
+                    <ModifierModal
+                      number={2}
+                      item={item}
+                      menuItemFormState={this.menuItemFormState}
+                    />
+                    <ModifierModal
+                      number={3}
+                      item={item}
+                      menuItemFormState={this.menuItemFormState}
+                    />
+                    <ModifierModal
+                      number={4}
+                      item={item}
+                      menuItemFormState={this.menuItemFormState}
+                    />
                   </MDBCol>
                   <MDBCol>
                     <hr />

@@ -27,6 +27,7 @@ const styles = {
     fontSize: "1.3rem"
   }
 };
+
 class BasicInfoForm extends Component {
   constructor(props) {
     super(props);

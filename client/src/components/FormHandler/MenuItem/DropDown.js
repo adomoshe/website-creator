@@ -9,18 +9,17 @@ const styles = {
 class DropDown extends Component {
   constructor(props) {
     super(props);
-    this.state = {name: "", option: ""};
+    this.state = { name: this.props.name, option: 1 };
   }
 
   handleOption = e => {
     console.log(e.target);
     this.setState(
       {
-        option: ""
+        option: parseInt(e.target.value)
       },
       () => {
         this.props.handleDropDown(this.state);
-        console.log(this.state);
       }
     );
   };
@@ -37,7 +36,7 @@ class DropDown extends Component {
           onChange={this.handleOption}
         >
           {items.map(value => (
-            <option key={value} value={value}>{`${
+            <option key={value} name={props.name} value={value}>{`${
               props.label
             } #${value}`}</option>
           ))}

@@ -43,7 +43,6 @@ class MenuSubCategoryForm extends Component {
     this.prevStep = this.props.prevStep.bind(this);
   }
   handleChange = e => {
-    // const name = e.target.name;
     const value = e.target.value;
     this.setState({ subCategory: value });
   };
@@ -63,6 +62,7 @@ class MenuSubCategoryForm extends Component {
     const menuBuilderState = this.props.menuBuilderState();
     const current = menuBuilderState.current;
     const category = menuBuilderState.categories[current.category].name;
+    
     return (
       <MDBContainer>
         <MDBRow center>

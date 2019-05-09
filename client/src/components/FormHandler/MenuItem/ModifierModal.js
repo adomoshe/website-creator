@@ -21,9 +21,12 @@ const styles = {
 };
 
 class ModifierModal extends Component {
+  menuItemFormState = this.props.menuItemFormState();
+  menuItemModifierState = menuItemModifierState
+
   state = {
     modal: false,
-    name: "",
+    name: this.menuItemFormState.name,
     choicesLimit: "",
     price: "",
     cost: "",
@@ -43,12 +46,11 @@ class ModifierModal extends Component {
   };
 
   render() {
-    const props = this.props;
     return (
       <>
         <MDBBtn color="success" style={styles.modalBtn} onClick={this.toggle}>
           Modifier {props.number}
-          {(props.number === 1 || props.number === 4) && " + $" }
+          {(props.number === 2 || props.number === 3) && " + $"}
         </MDBBtn>
         <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
           <MDBModalBody>
@@ -64,7 +66,7 @@ class ModifierModal extends Component {
               value={this.state.name}
               onChange={this.handleChange}
             />
-            {props.number === 1 || props.number === 4 ? (
+            {props.number === 2 || props.number === 3 ? (
               <MDBInput
                 label="Price"
                 size="lg"
@@ -90,7 +92,11 @@ class ModifierModal extends Component {
               value={this.state.choicesLimit}
               onChange={this.handleChange}
             />
-            <CheckBox label="Forced" name="forced" modifierIndex={props.number - 1} />
+            <CheckBox
+              label="Forced"
+              name="forced"
+              modifierIndex={props.number - 1}
+            />
           </MDBModalBody>
           <MDBModalFooter>
             <MDBBtn color="primary" onClick={this.toggle} style={styles.btns}>
