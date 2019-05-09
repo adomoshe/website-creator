@@ -67,7 +67,7 @@ class Main extends Component {
                     {
                       choicesLimit: 1,
                       forced: true,
-                      cost: 0.5,
+                      cost: 0.7,
                       modifier: [
                         { name: "cheddar", price: 0.5 },
                         { name: "swiss", price: 0.75 }
@@ -76,7 +76,7 @@ class Main extends Component {
                     {
                       choicesLimit: 2,
                       forced: true,
-                      cost: 0.5,
+                      cost: 0.6,
                       modifier: [
                         { name: "bacon", price: 0.9 },
                         { name: "ham", price: 0.2 }

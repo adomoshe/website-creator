@@ -284,17 +284,17 @@ class MenuItemForm extends Component {
                   <MDBInput
                     label="Price"
                     size="lg"
-                    // type="number"
+                    type="number"
                     name="price"
-                    // value={this.state.item.price}
+                    value={this.state.item.price}
                     onChange={this.handleChange}
                   />
                   <MDBInput
                     label="Cost"
                     size="lg"
-                    // type="number"
+                    type="number"
                     name="cost"
-                    // value={this.state.item.cost}
+                    value={this.state.item.cost}
                     onChange={this.handleChange}
                   />
                   <CheckBox

@@ -21,17 +21,21 @@ const styles = {
 };
 
 class ModifierModal extends Component {
-  menuItemFormState = this.props.menuItemFormState();
-  menuItemModifierState = menuItemModifierState
+  constructor(props) {
+    super(props);
+    const menuItemFormState = this.props.menuItemFormState();
+    const menuItemModifierState =
+      menuItemFormState.item.modifiers[this.props.number - 1];
 
-  state = {
-    modal: false,
-    name: this.menuItemFormState.name,
-    choicesLimit: "",
-    price: "",
-    cost: "",
-    forced: false
-  };
+    this.state = {
+      modal: false,
+      name: menuItemModifierState.name, //Fix for array of modifiers
+      choicesLimit: menuItemModifierState.choicesLimit,
+      price: menuItemModifierState.price, //Fix for array of modifiers
+      cost: menuItemModifierState.cost,
+      forced: menuItemModifierState.forced
+    };
+  }
 
   handleChange = e => {
     const name = e.target.name;
@@ -46,6 +50,8 @@ class ModifierModal extends Component {
   };
 
   render() {
+    const props = this.props;
+
     return (
       <>
         <MDBBtn color="success" style={styles.modalBtn} onClick={this.toggle}>
