@@ -155,20 +155,20 @@ class MenuItemForm extends Component {
     const name = checkBoxState.name;
     const checked = checkBoxState.checked;
     const parent = checkBoxState.parent;
-    const modal = checkBoxState.modal;
+    const modifierIndex = checkBoxState.modifierIndex;
 
     if (parent) {
       this.setState(state => {
         state.item[parent][name] = checked;
       });
+    } else if (modifierIndex) {
+      this.setState(state => {
+        state.item.modifiers[modifierIndex].forced = checked;
+      });
     } else {
       this.setState(state => {
         state.item[name] = checked;
       });
-    }
-
-    if (modal) {
-      this.setState(state => {state.item.modifiers[modal]})
     }
   };
 
@@ -530,21 +530,25 @@ class MenuItemForm extends Component {
                       number={1}
                       item={item}
                       menuItemFormState={this.menuItemFormState}
+                      handleCheckBox={this.handleCheckBox}
                     />
                     <ModifierModal
                       number={2}
                       item={item}
                       menuItemFormState={this.menuItemFormState}
+                      handleCheckBox={this.handleCheckBox}
                     />
                     <ModifierModal
                       number={3}
                       item={item}
                       menuItemFormState={this.menuItemFormState}
+                      handleCheckBox={this.handleCheckBox}
                     />
                     <ModifierModal
                       number={4}
                       item={item}
                       menuItemFormState={this.menuItemFormState}
+                      handleCheckBox={this.handleCheckBox}
                     />
                   </MDBCol>
                   <MDBCol>

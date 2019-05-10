@@ -7,8 +7,8 @@ class CheckBox extends Component {
     this.state = {
       name: this.props.name,
       checked: this.props.checked,
-      parent: this.props.parent,
-      modal: this.props.modalIndex || null
+      parent: this.props.parent || null,
+      modifierIndex: this.props.modifierIndex || null
     };
   }
 

@@ -25,15 +25,15 @@ class ModifierModal extends Component {
   constructor(props) {
     super(props);
     const menuItemFormState = this.props.menuItemFormState();
-    const modalIndex = this.props.number - 1;
-    const menuItemModifierState = menuItemFormState.item.modifiers[modalIndex];
+    const modifierIndex = this.props.number - 1;
+    const menuItemModifierState = menuItemFormState.item.modifiers[modifierIndex];
 
     this.state = {
       modal: false,
       name: menuItemModifierState.name, //Fix for array of modifiers
-      choicesLimit: menuItemModifierState.choicesLimit,
       price: menuItemModifierState.price, //Fix for array of modifiers
-      cost: menuItemModifierState.cost,
+      cost: menuItemModifierState.cost, //Fix for array of modifiers
+      choicesLimit: menuItemModifierState.choicesLimit,
       forced: menuItemModifierState.forced
     };
     console.log(menuItemModifierState);
@@ -54,7 +54,7 @@ class ModifierModal extends Component {
   render() {
     const props = this.props;
     const state = this.state;
-    const modalIndex = this.props.number - 1;
+    const modifierIndex = this.props.number - 1;
 
     return (
       <>
@@ -111,7 +111,8 @@ class ModifierModal extends Component {
               <CheckBox
                 label="Forced"
                 name="forced"
-                modifierIndex={modalIndex}
+                modifierIndex={modifierIndex}
+                handleCheckBox={this.props.handleCheckBox}
                 checked={state.forced}
               />
             </MDBCol>
