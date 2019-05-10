@@ -6,17 +6,25 @@ import {
   MDBNavItem,
   MDBNavLink,
   MDBNavbarToggler,
-  MDBCollapse
+  MDBCollapse,
+  MDBIcon
 } from "mdbreact";
 
 const styles = {
   root: {
     marginTop: "0.5rem"
+  },
+  styles: {
+    marginLeft: "0.5rem"
   }
 };
 
 class ItemNav extends Component {
   state = { isOpen: false };
+
+  newItem = () => {
+    
+  }
 
   toggleCollapse = () => {
     this.setState({ isOpen: !this.state.isOpen });
@@ -26,7 +34,7 @@ class ItemNav extends Component {
     const menuBuilderState = this.props.menuBuilderState();
     const current = menuBuilderState.current;
     return (
-      <MDBNavbar color="black" expand="md" dark style={styles.root}>
+      <MDBNavbar color="orange" expand="md" dark style={styles.root}>
         <MDBNavbarBrand>
           <strong>Items</strong>
         </MDBNavbarBrand>
@@ -47,6 +55,9 @@ class ItemNav extends Component {
                 </MDBNavItem>
               );
             })}
+            <MDBNavItem>
+            <MDBIcon icon="plus" size="lg" inverse style={styles.icon} onClick={this.newItem} />
+            </MDBNavItem>
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBNavbar>

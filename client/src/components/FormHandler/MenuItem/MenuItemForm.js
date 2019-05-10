@@ -85,7 +85,7 @@ class MenuItemForm extends Component {
         belongsTo: {
           tableService: currentItem.belongsTo.tableService,
           quickServe: currentItem.belongsTo.quickServe,
-          phoneOrder: currentItem.belongsTo.phoneServe,
+          phoneOrder: currentItem.belongsTo.phoneOrder,
           driveThru: currentItem.belongsTo.driveThru,
           online: currentItem.belongsTo.online,
           party: currentItem.belongsTo.party,
@@ -318,25 +318,28 @@ class MenuItemForm extends Component {
                         parent="tax"
                         label="1"
                         name="one"
-                        checked
+                        checked={this.state.item.tax.one}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="tax"
                         label="2"
                         name="two"
+                        checked={this.state.item.tax.two}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="tax"
                         label="3"
                         name="three"
+                        checked={this.state.item.tax.three}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="tax"
                         label="To Go"
                         name="toGo"
+                        checked={this.state.item.tax.toGo}
                       />
                     </MDBFormInline>
                   </div>
@@ -452,24 +455,28 @@ class MenuItemForm extends Component {
                           parent="options"
                           label="Hide on cart"
                           name="hideOnCart"
+                          checked={this.state.item.options.hideOnCart}
                         />
                         <CheckBox
                           handleCheckBox={this.handleCheckBox}
                           parent="options"
                           label="Disable discount"
                           name="disableDiscount"
+                          checked={this.state.item.options.disableDiscount}
                         />
                         <CheckBox
                           handleCheckBox={this.handleCheckBox}
                           parent="options"
                           label="Quantity prompt"
                           name="qtyPrompt"
+                          checked={this.state.item.options.qtyPrompt}
                         />
                         <CheckBox
                           handleCheckBox={this.handleCheckBox}
                           parent="options"
                           label="Service item"
                           name="serviceItem"
+                          checked={this.state.item.options.serviceItem}
                         />
                       </MDBFormInline>
                     </div>
@@ -483,45 +490,49 @@ class MenuItemForm extends Component {
                           parent="belongsTo"
                           label="Table service"
                           name="tableService"
-                          checked
+                          checked={this.state.item.belongsTo.tableService}
                         />
                         <CheckBox
                           handleCheckBox={this.handleCheckBox}
                           parent="belongsTo"
                           label="Quick serve"
                           name="quickServe"
-                          checked
+                          checked={this.state.item.belongsTo.quickServe}
                         />
                         <CheckBox
                           handleCheckBox={this.handleCheckBox}
                           parent="belongsTo"
                           label="Phone order"
-                          name="phoneServer"
-                          checked
+                          name="phoneOrder"
+                          checked={this.state.item.belongsTo.phoneOrder}
                         />
                         <CheckBox
                           handleCheckBox={this.handleCheckBox}
                           parent="belongsTo"
                           label="Drive thru"
                           name="driveThru"
+                          checked={this.state.item.belongsTo.driveThru}
                         />
                         <CheckBox
                           handleCheckBox={this.handleCheckBox}
                           parent="belongsTo"
                           label="Online"
                           name="online"
+                          checked={this.state.item.belongsTo.online}
                         />
                         <CheckBox
                           handleCheckBox={this.handleCheckBox}
                           parent="belongsTo"
                           label="Party"
                           name="party"
+                          checked={this.state.item.belongsTo.party}
                         />
                         <CheckBox
                           handleCheckBox={this.handleCheckBox}
                           parent="belongsTo"
                           label="Bar"
                           name="bar"
+                          checked={this.state.item.belongsTo.bar}
                         />
                       </MDBFormInline>
                     </div>
