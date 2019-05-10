@@ -40,26 +40,22 @@ const categoryModel = [
               {
                 choicesLimit: null,
                 forced: false,
-                cost: null,
-                modifier: [{ name: "" }]
+                modifier: [{ name: "", cost: null }]
               },
               {
                 choicesLimit: null,
                 forced: false,
-                cost: null,
-                modifier: [{ name: "", price: null }]
+                modifier: [{ name: "", price: null,  cost: null }]
               },
               {
                 choicesLimit: null,
                 forced: false,
-                cost: null,
-                modifier: [{ name: "", price: null }]
+                modifier: [{ name: "", price: null, cost: null }]
               },
               {
                 choicesLimit: null,
                 forced: false,
-                cost: null,
-                modifier: [{ name: "" }]
+                modifier: [{ name: "", cost: null }]
               }
             ]
           }

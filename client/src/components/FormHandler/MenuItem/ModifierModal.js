@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {
   MDBBtn,
   MDBInput,
+  MDBCol,
   MDBModal,
   MDBModalBody,
   MDBModalFooter
@@ -24,8 +25,8 @@ class ModifierModal extends Component {
   constructor(props) {
     super(props);
     const menuItemFormState = this.props.menuItemFormState();
-    const menuItemModifierState =
-      menuItemFormState.item.modifiers[this.props.number - 1];
+    const modalIndex = this.props.number - 1;
+    const menuItemModifierState = menuItemFormState.item.modifiers[modalIndex];
 
     this.state = {
       modal: false,
@@ -35,6 +36,7 @@ class ModifierModal extends Component {
       cost: menuItemModifierState.cost,
       forced: menuItemModifierState.forced
     };
+    console.log(menuItemModifierState);
   }
 
   handleChange = e => {
@@ -51,6 +53,8 @@ class ModifierModal extends Component {
 
   render() {
     const props = this.props;
+    const state = this.state;
+    const modalIndex = this.props.number - 1;
 
     return (
       <>
@@ -64,45 +68,53 @@ class ModifierModal extends Component {
               Modifier {props.number} for{<br />}
               {<span className="deep-orange-text">"{props.item}"</span>}
             </h2>
-            <MDBInput
-              label="Modifier Name"
-              size="lg"
-              type="text"
-              name="name"
-              value={this.state.name}
-              onChange={this.handleChange}
-            />
-            {props.number === 2 || props.number === 3 ? (
+            <MDBCol>
               <MDBInput
-                label="Price"
+                label="Modifier Name"
                 size="lg"
-                type="number"
-                name="price"
-                value={this.state.price}
+                type="text"
+                name="name"
+                value={this.state.name}
                 onChange={this.handleChange}
               />
-            ) : null}
-            <MDBInput
-              label="Cost"
-              size="lg"
-              type="number"
-              name="cost"
-              value={this.state.cost}
-              onChange={this.handleChange}
-            />
-            <MDBInput
-              label="Choices Limit"
-              size="lg"
-              type="number"
-              name="choicesLimit"
-              value={this.state.choicesLimit}
-              onChange={this.handleChange}
-            />
-            <CheckBox
-              label="Forced"
-              name="forced"
-              modifierIndex={props.number - 1}
-            />
+              {props.number === 2 || props.number === 3 ? (
+                <MDBInput
+                  label="Price"
+                  size="lg"
+                  type="number"
+                  name="price"
+                  value={this.state.price}
+                  onChange={this.handleChange}
+                />
+              ) : null}
+              <MDBInput
+                label="Cost"
+                size="lg"
+                type="number"
+                name="cost"
+                value={this.state.cost}
+                onChange={this.handleChange}
+              />
+            </MDBCol>
+            <MDBCol>
+              <h2 className="text-center text-info py-4" style={styles.heading}>
+                Modifier {props.number}{" "}
+              </h2>
+              <MDBInput
+                label="Choices Limit"
+                size="lg"
+                type="number"
+                name="choicesLimit"
+                value={this.state.choicesLimit}
+                onChange={this.handleChange}
+              />
+              <CheckBox
+                label="Forced"
+                name="forced"
+                modifierIndex={modalIndex}
+                checked={state.forced}
+              />
+            </MDBCol>
           </MDBModalBody>
           <MDBModalFooter>
             <MDBBtn color="primary" onClick={this.toggle} style={styles.btns}>

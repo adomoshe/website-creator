@@ -97,35 +97,25 @@ class MenuItemForm extends Component {
             choicesLimit: currentItem.modifiers[0].choicesLimit,
             forced: currentItem.modifiers[0].forced,
             cost: currentItem.modifiers[0].cost,
-            modifier: [{ name: currentItem.modifiers[0].modifier.name }]
+            modifier: [...currentItem.modifiers[0].modifier]
           },
           {
             choicesLimit: currentItem.modifiers[1].choicesLimit,
             forced: currentItem.modifiers[1].forced,
             cost: currentItem.modifiers[1].cost,
-            modifier: [
-              {
-                name: currentItem.modifiers[1].modifier.name,
-                price: currentItem.modifiers[1].modifier.price
-              }
-            ]
+            modifier: [...currentItem.modifiers[1].modifier]
           },
           {
             choicesLimit: currentItem.modifiers[2].choicesLimit,
             forced: currentItem.modifiers[2].forced,
             cost: currentItem.modifiers[2].cost,
-            modifier: [
-              {
-                name: currentItem.modifiers[2].modifier.name,
-                price: currentItem.modifiers[2].modifier.price
-              }
-            ]
+            modifier: [...currentItem.modifiers[2].modifier]
           },
           {
             choicesLimit: currentItem.modifiers[3].choicesLimit,
             forced: currentItem.modifiers[3].forced,
             cost: currentItem.modifiers[3].cost,
-            modifier: [{ name: currentItem.modifiers[3].modifier.name }]
+            modifier: [...currentItem.modifiers[3].modifier]
           }
         ]
       }
@@ -133,9 +123,7 @@ class MenuItemForm extends Component {
     this.initialState = this.state;
   }
 
-  menuItemFormState = () => {
-    return this.state;
-  };
+  menuItemFormState = () => this.state;
 
   changeAdvancedView = e => {
     if (e.target.name === "basic") {
@@ -148,55 +136,48 @@ class MenuItemForm extends Component {
   handleChange = e => {
     const name = e.target.name;
     let value = e.target.value;
-    value.toUpperCase();
     console.log(e.target);
-    console.log(this.state);
-    // if (e.target.type === "number") {
-    //   value = parseInt(e.target.value);
-    // } else {
-    // value =
-    // }
+    if (e.target.type === "number") {
+      value = parseFloat(value);
+    } else {
+      value = value.trim().toUpperCase();
+    }
 
-    const modifiedCurrentItemState = state => {
-      state.item[name] = value;
-    };
-
-    this.setState(modifiedCurrentItemState, () => {
-      console.log(this.state);
-    });
+    this.setState(
+      state => (state.item[name] = value),
+      () => {
+        console.log(this.state);
+      }
+    );
   };
 
   handleCheckBox = checkBoxState => {
     const name = checkBoxState.name;
     const checked = checkBoxState.checked;
-    const parent = checkBoxState.parent || null;
+    const parent = checkBoxState.parent;
+    const modal = checkBoxState.modal;
 
-    let modifiedCurrentItemState;
     if (parent) {
-      modifiedCurrentItemState = state => {
+      this.setState(state => {
         state.item[parent][name] = checked;
-      };
+      });
     } else {
-      modifiedCurrentItemState = state => {
+      this.setState(state => {
         state.item[name] = checked;
-      };
+      });
     }
 
-    this.setState(modifiedCurrentItemState, () => {
-      console.log(this.state);
-    });
+    if (modal) {
+      this.setState(state => {state.item.modifiers[modal]})
+    }
   };
 
   handleDropDown = dropDownState => {
     const name = dropDownState.name;
     const option = dropDownState.option;
 
-    const modifiedCurrentItemState = state => {
+    this.setState(state => {
       state.item[name] = option;
-    };
-
-    this.setState(modifiedCurrentItemState, () => {
-      console.log(this.state);
     });
   };
 
@@ -232,10 +213,7 @@ class MenuItemForm extends Component {
           <MDBCol md="6">
             <MDBCard style={styles.card}>
               <MDBCardBody>
-                <MDBCol
-                  md="12"
-                  className="mb-xl-0 mb-4 d-flex justify-content-center"
-                >
+                <MDBCol className="mb-xl-0 mb-4 d-flex justify-content-center">
                   <MDBBtnGroup>
                     <MDBBtn
                       name="basic"
@@ -263,14 +241,14 @@ class MenuItemForm extends Component {
                     </MDBBtn>
                   </MDBBtnGroup>
                 </MDBCol>
-                <h2
-                  className="text-center text-info py-4"
-                  style={styles.heading}
-                >
-                  Enter Your Menu Items for Sub-Category:{<br />}
-                  {<span className="deep-orange-text">"{subCategory}"</span>}
-                </h2>
-                <MDBCol md="12">
+                <MDBCol>
+                  <h2
+                    className="text-center text-info py-4"
+                    style={styles.heading}
+                  >
+                    Enter Your Menu Items for Sub-Category:{<br />}
+                    {<span className="deep-orange-text">"{subCategory}"</span>}
+                  </h2>
                   <MDBInput
                     label="Item"
                     size="lg"
@@ -279,8 +257,6 @@ class MenuItemForm extends Component {
                     onChange={this.handleChange}
                     value={this.state.item.name}
                   />
-                </MDBCol>
-                <MDBCol>
                   <MDBInput
                     label="Price"
                     size="lg"
@@ -297,6 +273,8 @@ class MenuItemForm extends Component {
                     value={this.state.item.cost}
                     onChange={this.handleChange}
                   />
+                </MDBCol>
+                <MDBCol>
                   <CheckBox
                     handleCheckBox={this.handleCheckBox}
                     label="Add to Inventory"
@@ -308,6 +286,8 @@ class MenuItemForm extends Component {
                     label="Check ID"
                     name="checkId"
                   />
+                </MDBCol>
+                <MDBCol>
                   <br />
                   <div>
                     <label className="deep-orange-text text-center">Tax</label>
@@ -353,7 +333,7 @@ class MenuItemForm extends Component {
                       </h5>
                       <hr />
                     </MDBCol>
-                    <MDBCol md="12" className="d-flex justify-content-center">
+                    <MDBCol className="d-flex justify-content-center">
                       <MDBBtn
                         outline
                         color="danger"
@@ -570,7 +550,7 @@ class MenuItemForm extends Component {
                   <MDBCol>
                     <hr />
                   </MDBCol>
-                  <MDBCol md="12" className="d-flex justify-content-center">
+                  <MDBCol className="d-flex justify-content-center">
                     <MDBBtn
                       outline
                       color="danger"

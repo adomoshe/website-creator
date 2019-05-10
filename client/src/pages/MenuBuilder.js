@@ -57,39 +57,35 @@ class Main extends Component {
                     {
                       choicesLimit: 1,
                       forced: true,
-                      cost: 0.5,
                       modifier: [
-                        { name: "white" },
-                        { name: "wheat" },
-                        { name: "no bun" }
+                        { name: "white", cost: 0.5, },
+                        { name: "wheat", cost: 0.5, },
+                        { name: "no bun", cost: 0.5, }
                       ]
                     },
                     {
                       choicesLimit: 1,
                       forced: true,
-                      cost: 0.7,
                       modifier: [
-                        { name: "cheddar", price: 0.5 },
-                        { name: "swiss", price: 0.75 }
+                        { name: "cheddar", price: 0.5, cost: 0.7 },
+                        { name: "swiss", price: 0.75, cost: 0.2 }
                       ]
                     },
                     {
                       choicesLimit: 2,
                       forced: true,
-                      cost: 0.6,
                       modifier: [
-                        { name: "bacon", price: 0.9 },
-                        { name: "ham", price: 0.2 }
+                        { name: "bacon", price: 0.9, cost: 0.6, },
+                        { name: "ham", price: 0.2, cost: 0.6, }
                       ]
                     },
                     {
                       choicesLimit: 3,
                       forced: false,
-                      cost: 0.5,
                       modifier: [
-                        { name: "ketchup" },
-                        { name: "hot sauce" },
-                        { name: "mayo" }
+                        { name: "ketchup", cost: 0.5, },
+                        { name: "hot sauce", cost: 0.5, },
+                        { name: "mayo", cost: 0.5, }
                       ]
                     }
                   ]
@@ -124,34 +120,38 @@ class Main extends Component {
     const current = this.state.current;
     const modifiedSubCategoryModel = categoryModel[0].subCategories[0];
     modifiedSubCategoryModel.name = subCategory;
-    const setSubCategoryState = state => {
-      state.categories[current.category].subCategories.push(
-        modifiedSubCategoryModel
-      );
-    };
-    this.setState(setSubCategoryState);
+
+    this.setState(
+      state => {
+        state.categories[current.category].subCategories.push(
+          modifiedSubCategoryModel
+        );
+      },
+      () => {
+        this.forceUpdate();
+      }
+    );
   };
 
   menuBuilderSetItem = item => {
     const current = this.state.current;
-    const setItemState = state => {
-      state.categories[current.category].subCategories[
-        current.subCategory
-      ].items[current.item] = item;
-    };
-    this.setState(setItemState, () => {
-      console.log(this.state);
-    });
+
+    this.setState(
+      state => {
+        state.categories[current.category].subCategories[
+          current.subCategory
+        ].items[current.item] = item;
+      },
+      () => {
+        this.forceUpdate();
+      }
+    );
   };
 
   menuBuilderSetCurrent = (field, index) => {
-    const setCurrentFieldState = state => {
+    this.setState(state => {
       state.current[field] = index;
-      // if (field === "category") {
-      //   state.current.subCategory = null;
-      // }
-    };
-    this.setState(setCurrentFieldState);
+    });
   };
 
   render() {
