@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 import "./MenuBuilder.css";
 
-import FormHandler from "../components/FormHandler/FormHandler";
-import CategoryNav from "../components/Navs/CategoryNav";
-import SubCategoryNav from "../components/Navs/SubCategoryNav";
-import ItemNav from "../components/Navs/ItemNav";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol
+} from "mdbreact";
 
-import categoryModel from "../components/categoryModel";
+import FormHandler from "../components/FormHandler/FormHandler";
+import SideNav from "../components/SideNav";
+// import CategoryNav from "../components/Navs/CategoryNav";
+// import SubCategoryNav from "../components/Navs/SubCategoryNav";
+// import ItemNav from "../components/Navs/ItemNav";
+
+import MenuModel from "../components/MenuModel";
 
 class Main extends Component {
   constructor(props) {
@@ -16,13 +23,13 @@ class Main extends Component {
       current: { category: 0, subCategory: 0, item: 0 },
       categories: [
         {
-          name: "Lunch", //Basic
+          name: "LUNCH", //Basic
           subCategories: [
             {
-              name: "Chicken", //Basic
+              name: "CHICKEN", //Basic
               items: [
                 {
-                  name: "Chicken Sandwich", //Basic
+                  name: "CHICKEN SANDWICH", //Basic
                   description:
                     "Chicken sandwich with lettuce, tomato, and fries",
                   price: 12.95, //Basic
@@ -58,34 +65,34 @@ class Main extends Component {
                       choicesLimit: 1,
                       forced: true,
                       modifier: [
-                        { name: "white", cost: 0.5, },
-                        { name: "wheat", cost: 0.5, },
-                        { name: "no bun", cost: 0.5, }
+                        { name: "WHITE", cost: 2.5 },
+                        { name: "WHEAT", cost: 0.2 },
+                        { name: "NO BUN", cost: 1.5 }
                       ]
                     },
                     {
                       choicesLimit: 1,
                       forced: true,
                       modifier: [
-                        { name: "cheddar", price: 0.5, cost: 0.7 },
-                        { name: "swiss", price: 0.75, cost: 0.2 }
+                        { name: "CHEDDAR", price: 0.5, cost: 0.7 },
+                        { name: "SWISS", price: 0.75, cost: 0.2 }
                       ]
                     },
                     {
                       choicesLimit: 2,
                       forced: true,
                       modifier: [
-                        { name: "bacon", price: 0.9, cost: 0.6, },
-                        { name: "ham", price: 0.2, cost: 0.6, }
+                        { name: "BACON", price: 0.9, cost: 0.6 },
+                        { name: "HAM", price: 0.2, cost: 0.9 }
                       ]
                     },
                     {
                       choicesLimit: 3,
                       forced: false,
                       modifier: [
-                        { name: "ketchup", cost: 0.5, },
-                        { name: "hot sauce", cost: 0.5, },
-                        { name: "mayo", cost: 0.5, }
+                        { name: "KETCHUP", cost: 0.8 },
+                        { name: "HOT SAUCE", cost: 1.5 },
+                        { name: "MAYO", cost: 0.2 }
                       ]
                     }
                   ]
@@ -113,23 +120,25 @@ class Main extends Component {
   };
 
   menuBuilderSetCategory = category => {
-    this.setState(state => ({ categories: [...state.categories, category] }));
+    const modifiedCategoryModel = JSON.parse(JSON.stringify(MenuModel));
+    modifiedCategoryModel.categories[0].name = category;
+
+    this.setState(state => ({
+      categories: [...state.categories, ...modifiedCategoryModel.categories]
+    }));
   };
 
   menuBuilderSetSubCategory = subCategory => {
     const current = this.state.current;
-    const modifiedSubCategoryModel = categoryModel[0].subCategories[0];
-    modifiedSubCategoryModel.name = subCategory;
+    const modifiedSubCategoryModel = JSON.parse(JSON.stringify(MenuModel));
+    modifiedSubCategoryModel.categories[0].subCategories[0].name = subCategory;
 
     this.setState(
-      state => {
-        state.categories[current.category].subCategories.push(
-          modifiedSubCategoryModel
-        );
-      },
-      () => {
-        this.forceUpdate();
-      }
+      state =>
+        (state.categories[current.category].subCategories = [
+          ...state.categories[current.category].subCategories,
+          ...modifiedSubCategoryModel.categories[0].subCategories
+        ])
     );
   };
 
@@ -144,6 +153,7 @@ class Main extends Component {
       },
       () => {
         this.forceUpdate();
+        console.log("MenuBuilder state after item update: ", this.state);
       }
     );
   };
@@ -159,31 +169,36 @@ class Main extends Component {
     const current = this.state.current;
     console.log(state);
     return (
-      <div>
+      <MDBContainer fluid>
+      <MDBRow>
         {state.formStep && state.categories ? (
-          <CategoryNav
+          <MDBCol md="3"><SideNav
             menuBuilderState={this.menuBuilderState}
             menuBuilderSetCurrent={this.menuBuilderSetCurrent}
-          />
-        ) : null}
-        {state.formStep > 1 &&
-        state.current.category !== null &&
-        state.categories[current.category].subCategories ? (
-          <SubCategoryNav
-            menuBuilderState={this.menuBuilderState}
-            menuBuilderSetCurrent={this.menuBuilderSetCurrent}
-          />
-        ) : null}
-        {state.formStep > 2 &&
-        state.current.subCategory !== null &&
-        state.categories[current.category].subCategories[current.subCategory]
-          .items ? (
-          <ItemNav
-            menuBuilderState={this.menuBuilderState}
-            menuBuilderSetCurrent={this.menuBuilderSetCurrent}
-          />
-        ) : null}
-
+          /></MDBCol>
+        ) : 
+        //   <CategoryNav
+        //     menuBuilderState={this.menuBuilderState}
+        //     menuBuilderSetCurrent={this.menuBuilderSetCurrent}
+        //   />
+        // ) : null}
+        // {state.formStep > 1 &&
+        // state.current.category !== null &&
+        // state.categories[current.category].subCategories ? (
+        //   <SubCategoryNav
+        //     menuBuilderState={this.menuBuilderState}
+        //     menuBuilderSetCurrent={this.menuBuilderSetCurrent}
+        //   />
+        // ) : null}
+        // {state.formStep > 2 &&
+        // state.current.subCategory !== null &&
+        // state.categories[current.category].subCategories[current.subCategory]
+        //   .items ? (
+        //   <ItemNav
+        //     menuBuilderState={this.menuBuilderState}
+        //     menuBuilderSetCurrent={this.menuBuilderSetCurrent}
+        //   />
+        null}
         <FormHandler
           menuBuilderState={this.menuBuilderState}
           nextFormStep={this.nextFormStep}
@@ -192,7 +207,8 @@ class Main extends Component {
           menuBuilderSetSubCategory={this.menuBuilderSetSubCategory}
           menuBuilderSetItem={this.menuBuilderSetItem}
         />
-      </div>
+        </MDBRow>
+      </MDBContainer>
     );
   }
 }

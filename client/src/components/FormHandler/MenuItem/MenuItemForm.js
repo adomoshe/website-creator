@@ -155,15 +155,15 @@ class MenuItemForm extends Component {
     const name = checkBoxState.name;
     const checked = checkBoxState.checked;
     const parent = checkBoxState.parent;
-    const modifierIndex = checkBoxState.modifierIndex;
+    const modalIndex = checkBoxState.modalIndex;
 
     if (parent) {
       this.setState(state => {
         state.item[parent][name] = checked;
       });
-    } else if (modifierIndex) {
+    } else if (modalIndex) {
       this.setState(state => {
-        state.item.modifiers[modifierIndex].forced = checked;
+        state.item.modifiers[modalIndex].forced = checked;
       });
     } else {
       this.setState(state => {
@@ -209,7 +209,7 @@ class MenuItemForm extends Component {
 
     return (
       <MDBContainer>
-        <MDBRow center>
+        <MDBRow >
           <MDBCol md="6">
             <MDBCard style={styles.card}>
               <MDBCardBody>
