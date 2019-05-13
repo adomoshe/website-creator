@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import {
-  MDBContainer,
-  MDBRow,
   MDBCol,
   MDBBtn,
   MDBCard,
@@ -46,9 +44,7 @@ class BasicInfoForm extends Component {
   };
   render() {
     return (
-      <MDBContainer>
-        <MDBRow center>
-          <MDBCol md="6">
+          <MDBCol md="5">
             <MDBCard style={styles.card}>
               <MDBCardBody>
                 <form>
@@ -123,8 +119,6 @@ class BasicInfoForm extends Component {
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
-        </MDBRow>
-      </MDBContainer>
     );
   }
 }

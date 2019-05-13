@@ -1,106 +1,79 @@
 import React, { Component } from "react";
 import {
-  MDBNavbar,
-  MDBContainer,
+  // MDBNavbar,
+  // MDBContainer,
+  // MDBCol,
   MDBNavLink,
   MDBNavItem,
-  MDBHamburgerToggler,
-  MDBNavbarBrand,
+  // MDBHamburgerToggler,
+  // MDBNavbarBrand,
   MDBNavbarNav,
-  MDBCollapse
+  MDBCollapse,
+  MDBListGroup,
+  MDBListGroupItem
 } from "mdbreact";
 
 const styles = {
   root: {
-    marginTop: "4rem"
+    marginTop: "4rem",
+    width: "100%"
   }
 };
 
 class SideNav extends Component {
   state = {
-    collapse: ""
+    collapse: {}
   };
 
-  toggleSingleCollapse = collapseId => () => {
-    this.setState({
-      [collapseId]: !this.state[collapseId]
-    });
+  handleCategoryClick = categoryIndex => {
+    this.setState(
+      state => (state.collapse[categoryIndex] = !state.collapse[categoryIndex])
+    );
+    this.props.menuBuilderSetCurrent("category", categoryIndex);
+  };
+
+  handleSubCategoryClick = subCategoryIndex => {
+    this.props.menuBuilderSetCurrent("subCategory", subCategoryIndex);
   };
 
   render() {
+    const menuBuilderState = this.props.menuBuilderState();
+    // const current = menuBuilderState.current;
+
     return (
-      <MDBContainer fluid>
-        <MDBNavbar color="amber lighten-4" style={styles.root} light>
-          <MDBContainer fluid>
-            <MDBNavbarBrand>MDBNavbar</MDBNavbarBrand>
-            <MDBHamburgerToggler
-              color="#d3531a"
-              id="hamburger1"
-              onClick={this.toggleSingleCollapse("collapse1")}
-            />
-            <MDBCollapse isOpen={this.state.collapse1} navbar>
-              <MDBNavbarNav left>
-                <MDBNavItem active>
-                  <MDBNavLink to="#!">Home</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink to="#!">Link</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink to="#!">Profile</MDBNavLink>
-                </MDBNavItem>
-              </MDBNavbarNav>
-            </MDBCollapse>
-          </MDBContainer>
-        </MDBNavbar>
-
-        <MDBNavbar color="bg-danger" style={{ marginTop: "20px" }} dark>
-          <MDBContainer fluid>
-            <MDBNavbarBrand className="white-text">MDBNavbar</MDBNavbarBrand>
-            <MDBHamburgerToggler
-              onClick={this.toggleSingleCollapse("collapse2")}
-              isOpen={false}
-              id="hamburger2"
-            />
-            <MDBCollapse isOpen={this.state.collapse2} navbar>
-              <MDBNavbarNav left>
-                <MDBNavItem active>
-                  <MDBNavLink to="#!">Home</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink to="#!">Link</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink to="#!">Profile</MDBNavLink>
-                </MDBNavItem>
-              </MDBNavbarNav>
-            </MDBCollapse>
-          </MDBContainer>
-        </MDBNavbar>
-
-        <MDBNavbar color="indigo darken-2" style={{ marginTop: "20px" }} dark>
-          <MDBContainer fluid>
-            <MDBNavbarBrand className="white-text">MDBNavbar</MDBNavbarBrand>
-            <MDBHamburgerToggler
-              onClick={this.toggleSingleCollapse("collapse3")}
-              id="hamburger3"
-            />
-            <MDBCollapse isOpen={this.state.collapse3} navbar>
-              <MDBNavbarNav left>
-                <MDBNavItem active>
-                  <MDBNavLink to="#!">Home</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink to="#!">Link</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink to="#!">Profile</MDBNavLink>
-                </MDBNavItem>
-              </MDBNavbarNav>
-            </MDBCollapse>
-          </MDBContainer>
-        </MDBNavbar>
-      </MDBContainer>
+        <MDBListGroup style={styles.root}>
+          <MDBListGroupItem color="info">Categories</MDBListGroupItem>
+          {menuBuilderState.categories.map(({ name }, categoryIndex) => {
+            return (
+              <MDBListGroupItem
+                href="#"
+                color="light"
+                hover
+                onClick={() => {
+                  this.handleCategoryClick(categoryIndex);
+                }}
+                key={categoryIndex}
+              >
+                {name}
+                <MDBCollapse isOpen={this.state.collapse[categoryIndex]} navbar>
+                  <MDBNavbarNav left>
+                    {menuBuilderState.categories[
+                      categoryIndex
+                    ].subCategories.map(({ name }, index) => {
+                      return (
+                        <MDBNavItem key={index} onClick={() => {
+                          this.handleSubCategoryClick(index);
+                        }} active>
+                          <MDBNavLink to="#!">{name}</MDBNavLink>
+                        </MDBNavItem>
+                      );
+                    })}
+                  </MDBNavbarNav>
+                </MDBCollapse>
+              </MDBListGroupItem>
+            );
+          })}
+        </MDBListGroup>
     );
   }
 }
