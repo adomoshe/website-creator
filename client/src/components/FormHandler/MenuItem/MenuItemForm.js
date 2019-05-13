@@ -206,144 +206,363 @@ class MenuItemForm extends Component {
       ].items[current.item].name;
 
     return (
-      <MDBCol md="5">
-        <MDBCard style={styles.card}>
-          <MDBCardBody>
-            <MDBCol className="mb-xl-0 mb-4 d-flex justify-content-center">
-              <MDBBtnGroup>
-                <MDBBtn
-                  name="basic"
-                  outline={state.advanced}
-                  color={
-                    state.advanced ? "blue-grey-text" : "deep-orange darken-4"
-                  }
-                  onClick={this.changeAdvancedView}
-                >
-                  Basic
-                </MDBBtn>
-                <MDBBtn
-                  name="advanced"
-                  outline={!state.advanced}
-                  color={
-                    !state.advanced ? "blue-grey-text" : "deep-orange darken-4"
-                  }
-                  onClick={this.changeAdvancedView}
-                >
-                  Advanced
-                </MDBBtn>
-              </MDBBtnGroup>
-            </MDBCol>
-            <MDBCol>
-              <h2 className="text-center text-info py-4" style={styles.heading}>
-                Enter Your Menu Items for Sub-Category:{<br />}
-                {<span className="deep-orange-text">"{subCategory}"</span>}
-              </h2>
-              <MDBInput
-                label="Item"
-                size="lg"
-                type="text"
-                name="name"
-                onChange={this.handleChange}
-                value={this.state.item.name}
-              />
-              <MDBInput
-                label="Price"
-                size="lg"
-                type="number"
-                name="price"
-                value={this.state.item.price}
-                onChange={this.handleChange}
-              />
-              <MDBInput
-                label="Cost"
-                size="lg"
-                type="number"
-                name="cost"
-                value={this.state.item.cost}
-                onChange={this.handleChange}
-              />
-            </MDBCol>
-            <MDBCol>
-              <CheckBox
-                handleCheckBox={this.handleCheckBox}
-                label="Add to Inventory"
-                name="addToInventory"
-              />
-              <br />
-              <CheckBox
-                handleCheckBox={this.handleCheckBox}
-                label="Check ID"
-                name="checkId"
-              />
-            </MDBCol>
-            <MDBCol>
-              <br />
-              <div>
-                <label className="deep-orange-text text-center">Tax</label>
-                <hr />
-                <MDBFormInline>
-                  <CheckBox
-                    handleCheckBox={this.handleCheckBox}
-                    parent="tax"
-                    label="1"
-                    name="one"
-                    checked={this.state.item.tax.one}
-                  />
-                  <CheckBox
-                    handleCheckBox={this.handleCheckBox}
-                    parent="tax"
-                    label="2"
-                    name="two"
-                    checked={this.state.item.tax.two}
-                  />
-                  <CheckBox
-                    handleCheckBox={this.handleCheckBox}
-                    parent="tax"
-                    label="3"
-                    name="three"
-                    checked={this.state.item.tax.three}
-                  />
-                  <CheckBox
-                    handleCheckBox={this.handleCheckBox}
-                    parent="tax"
-                    label="To Go"
-                    name="toGo"
-                    checked={this.state.item.tax.toGo}
-                  />
-                </MDBFormInline>
-              </div>
-            </MDBCol>
+      <>
+        <MDBCol md="5">
+          <MDBCard style={styles.card}>
+            <MDBCardBody>
+              <MDBCol className="mb-xl-0 mb-4 d-flex justify-content-center">
+                <MDBBtnGroup>
+                  <MDBBtn
+                    name="basic"
+                    outline={state.advanced}
+                    color={
+                      state.advanced ? "blue-grey-text" : "deep-orange darken-4"
+                    }
+                    onClick={this.changeAdvancedView}
+                  >
+                    Basic
+                  </MDBBtn>
+                  <MDBBtn
+                    name="advanced"
+                    outline={!state.advanced}
+                    color={
+                      !state.advanced
+                        ? "blue-grey-text"
+                        : "deep-orange darken-4"
+                    }
+                    onClick={this.changeAdvancedView}
+                  >
+                    Advanced
+                  </MDBBtn>
+                </MDBBtnGroup>
+              </MDBCol>
 
-            {!state.advanced && (
-              <>
-                <MDBCol>
+              {!state.advanced && (
+                <>
+                  <MDBCol>
+                  <h2 className="deep-orange-text text-center py-4">
+                      Basic Options
+                    </h2>
+                    <h4
+                      className="text-center text-info py-4"
+                      style={styles.heading}
+                    >
+                      Enter Your Menu Items for Sub-Category:
+                      {
+                        <span className="deep-orange-text">
+                          {}"{subCategory}"
+                        </span>
+                      }
+                    </h4>
+                    <MDBInput
+                      label="Item"
+                      size="lg"
+                      type="text"
+                      name="name"
+                      onChange={this.handleChange}
+                      value={this.state.item.name}
+                    />
+                    <MDBInput
+                      label="Price"
+                      size="lg"
+                      type="number"
+                      name="price"
+                      value={this.state.item.price}
+                      onChange={this.handleChange}
+                    />
+                    <MDBInput
+                      label="Cost"
+                      size="lg"
+                      type="number"
+                      name="cost"
+                      value={this.state.item.cost}
+                      onChange={this.handleChange}
+                    />
+                  </MDBCol>
+                  <MDBCol>
+                    <CheckBox
+                      handleCheckBox={this.handleCheckBox}
+                      label="Add to Inventory"
+                      name="addToInventory"
+                    />
+                    <br />
+                    <CheckBox
+                      handleCheckBox={this.handleCheckBox}
+                      label="Check ID"
+                      name="checkId"
+                    />
+                  </MDBCol>
+                  <MDBCol>
+                    <br />
+                    <div>
+                      <label className="deep-orange-text text-center">
+                        Tax
+                      </label>
+                      <hr />
+                      <MDBFormInline>
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="tax"
+                          label="1"
+                          name="one"
+                          checked={this.state.item.tax.one}
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="tax"
+                          label="2"
+                          name="two"
+                          checked={this.state.item.tax.two}
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="tax"
+                          label="3"
+                          name="three"
+                          checked={this.state.item.tax.three}
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="tax"
+                          label="To Go"
+                          name="toGo"
+                          checked={this.state.item.tax.toGo}
+                        />
+                      </MDBFormInline>
+                    </div>
+                  </MDBCol>
+                  <MDBCol>
+                    <hr />
+                    <h5 className="text-center text-info py-4">
+                      Turn on "Advanced" at the top to see more options
+                    </h5>
+                  </MDBCol>
+                </>
+              )}
+
+              {state.advanced && (
+                <>
+                  <MDBCol>
+                    <h2 className="deep-orange-text text-center py-4">
+                      Advanced Options
+                    </h2>
+                    <h4
+                      className="text-center text-info py-4"
+                      style={styles.heading}
+                    >
+                      Enter Your Menu Items for Sub-Category:
+                      {
+                        <span className="deep-orange-text">
+                          {}"{subCategory}"
+                        </span>
+                      }
+                    </h4>
+                    <MDBInput
+                      type="textarea"
+                      label="Item Description"
+                      rows="1"
+                      icon="pencil-alt"
+                      value={this.state.item.description}
+                    />
+                    <DropDown
+                      length={7}
+                      label="Course"
+                      name="course"
+                      handleDropDown={this.handleDropDown}
+                    />
+                    <DropDown
+                      length={7}
+                      label="Printer"
+                      name="printer"
+                      handleDropDown={this.handleDropDown}
+                    />
+                    <DropDown
+                      length={7}
+                      label="Cook Screen"
+                      name="cookScreen"
+                      handleDropDown={this.handleDropDown}
+                    />
+                    <DropDown
+                      length={7}
+                      label="Expo Printer"
+                      name="expoPrinter"
+                      handleDropDown={this.handleDropDown}
+                    />
+                    <DropDown
+                      length={3}
+                      label="Label Printer"
+                      name="labelPrinter"
+                      handleDropDown={this.handleDropDown}
+                    />
+                    <br />
+                    <div>
+                      <label className="deep-orange-text">Options</label>
+                      <hr />
+                      <MDBFormInline>
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="options"
+                          label="Hide on cart"
+                          name="hideOnCart"
+                          checked={this.state.item.options.hideOnCart}
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="options"
+                          label="Disable discount"
+                          name="disableDiscount"
+                          checked={this.state.item.options.disableDiscount}
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="options"
+                          label="Quantity prompt"
+                          name="qtyPrompt"
+                          checked={this.state.item.options.qtyPrompt}
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="options"
+                          label="Service item"
+                          name="serviceItem"
+                          checked={this.state.item.options.serviceItem}
+                        />
+                      </MDBFormInline>
+                    </div>
+                    <br />
+                    <div>
+                      <label className="deep-orange-text">Belongs to</label>
+                      <hr />
+                      <MDBFormInline>
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Table service"
+                          name="tableService"
+                          checked={this.state.item.belongsTo.tableService}
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Quick serve"
+                          name="quickServe"
+                          checked={this.state.item.belongsTo.quickServe}
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Phone order"
+                          name="phoneOrder"
+                          checked={this.state.item.belongsTo.phoneOrder}
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Drive thru"
+                          name="driveThru"
+                          checked={this.state.item.belongsTo.driveThru}
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Online"
+                          name="online"
+                          checked={this.state.item.belongsTo.online}
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Party"
+                          name="party"
+                          checked={this.state.item.belongsTo.party}
+                        />
+                        <CheckBox
+                          handleCheckBox={this.handleCheckBox}
+                          parent="belongsTo"
+                          label="Bar"
+                          name="bar"
+                          checked={this.state.item.belongsTo.bar}
+                        />
+                      </MDBFormInline>
+                    </div>
+                    <hr />
+                    <MDBInput
+                      type="textarea"
+                      label="Comments"
+                      rows="1"
+                      icon="pencil-alt"
+                      value={this.state.item.comments}
+                    />
+                  </MDBCol>
+                  <MDBCol className="d-flex justify-content-center">
+                    <ModifierModal
+                      number={1}
+                      item={item}
+                      menuItemFormState={this.menuItemFormState}
+                      handleCheckBox={this.handleCheckBox}
+                    />
+                    <ModifierModal
+                      number={2}
+                      item={item}
+                      menuItemFormState={this.menuItemFormState}
+                      handleCheckBox={this.handleCheckBox}
+                    />
+                    <ModifierModal
+                      number={3}
+                      item={item}
+                      menuItemFormState={this.menuItemFormState}
+                      handleCheckBox={this.handleCheckBox}
+                    />
+                    <ModifierModal
+                      number={4}
+                      item={item}
+                      menuItemFormState={this.menuItemFormState}
+                      handleCheckBox={this.handleCheckBox}
+                    />
+                  </MDBCol>
                   <hr />
-                  <h5 className="text-center text-info py-4">
-                    Turn on "Advanced" at the top to see more options
-                  </h5>
-                  <hr />
-                </MDBCol>
-                <MDBCol className="d-flex justify-content-center">
+                    <h5 className="text-center text-info py-4">
+                      Turn on "Basic" at the top to see basic options
+                    </h5>
+                </>
+              )}
+              <MDBCol>
+                    {" "}
+                    <hr />
+                  </MDBCol>
+                  <MDBCol className="d-flex justify-content-center">
+                    <MDBBtn
+                      outline
+                      color="success"
+                      type="submit"
+                      onClick={this.setItem}
+                      style={styles.btnAdd}
+                      size="lg"
+                    >
+                      Add
+                      <MDBIcon
+                        far
+                        icon="thumbs-up"
+                        className="ml-2"
+                        size="lg"
+                      />
+                    </MDBBtn>
+                  </MDBCol>
+            </MDBCardBody>
+          </MDBCard>
+
+          <MDBCard style={styles.card}>
+          <MDBCardBody>
+                <MDBCol className="d-flex justify-content-center" md="12">
                   <MDBBtn
                     outline
                     color="danger"
                     onClick={this.props.prevStep}
                     style={styles.btnBack}
-                    size="sm"
+                    size="lg"
                   >
                     <MDBIcon icon="arrow-left" className="mr-2" size="lg" />
                     Back
-                  </MDBBtn>
-                  <MDBBtn
-                    outline
-                    color="success"
-                    type="submit"
-                    onClick={this.setItem}
-                    style={styles.btnAdd}
-                    size="sm"
-                  >
-                    Add
-                    <MDBIcon far icon="thumbs-up" className="ml-2" size="lg" />
                   </MDBBtn>
                   <MDBBtn
                     outline
@@ -351,228 +570,16 @@ class MenuItemForm extends Component {
                     type="submit"
                     onClick={this.submit}
                     style={styles.btnSubmit}
-                    size="sm"
+                    size="lg"
                   >
                     Continue
                     <MDBIcon icon="arrow-right" className="ml-2" size="lg" />
                   </MDBBtn>
                 </MDBCol>
-              </>
-            )}
           </MDBCardBody>
-        </MDBCard>
-
-        {state.advanced && (
-          <MDBCard style={styles.card}>
-            <MDBCardBody>
-              <MDBCol>
-                <h2 className="deep-orange-text text-center py-4">
-                  Advanced Options
-                </h2>
-                <MDBInput
-                  type="textarea"
-                  label="Item Description"
-                  rows="1"
-                  icon="pencil-alt"
-                  value={this.state.item.description}
-                />
-                <DropDown
-                  length={7}
-                  label="Course"
-                  name="course"
-                  handleDropDown={this.handleDropDown}
-                />
-                <DropDown
-                  length={7}
-                  label="Printer"
-                  name="printer"
-                  handleDropDown={this.handleDropDown}
-                />
-                <DropDown
-                  length={7}
-                  label="Cook Screen"
-                  name="cookScreen"
-                  handleDropDown={this.handleDropDown}
-                />
-                <DropDown
-                  length={7}
-                  label="Expo Printer"
-                  name="expoPrinter"
-                  handleDropDown={this.handleDropDown}
-                />
-                <DropDown
-                  length={3}
-                  label="Label Printer"
-                  name="labelPrinter"
-                  handleDropDown={this.handleDropDown}
-                />
-                <br />
-                <div>
-                  <label className="deep-orange-text">Options</label>
-                  <hr />
-                  <MDBFormInline>
-                    <CheckBox
-                      handleCheckBox={this.handleCheckBox}
-                      parent="options"
-                      label="Hide on cart"
-                      name="hideOnCart"
-                      checked={this.state.item.options.hideOnCart}
-                    />
-                    <CheckBox
-                      handleCheckBox={this.handleCheckBox}
-                      parent="options"
-                      label="Disable discount"
-                      name="disableDiscount"
-                      checked={this.state.item.options.disableDiscount}
-                    />
-                    <CheckBox
-                      handleCheckBox={this.handleCheckBox}
-                      parent="options"
-                      label="Quantity prompt"
-                      name="qtyPrompt"
-                      checked={this.state.item.options.qtyPrompt}
-                    />
-                    <CheckBox
-                      handleCheckBox={this.handleCheckBox}
-                      parent="options"
-                      label="Service item"
-                      name="serviceItem"
-                      checked={this.state.item.options.serviceItem}
-                    />
-                  </MDBFormInline>
-                </div>
-                <br />
-                <div>
-                  <label className="deep-orange-text">Belongs to</label>
-                  <hr />
-                  <MDBFormInline>
-                    <CheckBox
-                      handleCheckBox={this.handleCheckBox}
-                      parent="belongsTo"
-                      label="Table service"
-                      name="tableService"
-                      checked={this.state.item.belongsTo.tableService}
-                    />
-                    <CheckBox
-                      handleCheckBox={this.handleCheckBox}
-                      parent="belongsTo"
-                      label="Quick serve"
-                      name="quickServe"
-                      checked={this.state.item.belongsTo.quickServe}
-                    />
-                    <CheckBox
-                      handleCheckBox={this.handleCheckBox}
-                      parent="belongsTo"
-                      label="Phone order"
-                      name="phoneOrder"
-                      checked={this.state.item.belongsTo.phoneOrder}
-                    />
-                    <CheckBox
-                      handleCheckBox={this.handleCheckBox}
-                      parent="belongsTo"
-                      label="Drive thru"
-                      name="driveThru"
-                      checked={this.state.item.belongsTo.driveThru}
-                    />
-                    <CheckBox
-                      handleCheckBox={this.handleCheckBox}
-                      parent="belongsTo"
-                      label="Online"
-                      name="online"
-                      checked={this.state.item.belongsTo.online}
-                    />
-                    <CheckBox
-                      handleCheckBox={this.handleCheckBox}
-                      parent="belongsTo"
-                      label="Party"
-                      name="party"
-                      checked={this.state.item.belongsTo.party}
-                    />
-                    <CheckBox
-                      handleCheckBox={this.handleCheckBox}
-                      parent="belongsTo"
-                      label="Bar"
-                      name="bar"
-                      checked={this.state.item.belongsTo.bar}
-                    />
-                  </MDBFormInline>
-                </div>
-                <hr />
-                <MDBInput
-                  type="textarea"
-                  label="Comments"
-                  rows="1"
-                  icon="pencil-alt"
-                  value={this.state.item.comments}
-                />
-              </MDBCol>
-              <MDBCol className="d-flex justify-content-center">
-                <ModifierModal
-                  number={1}
-                  item={item}
-                  menuItemFormState={this.menuItemFormState}
-                  handleCheckBox={this.handleCheckBox}
-                />
-                <ModifierModal
-                  number={2}
-                  item={item}
-                  menuItemFormState={this.menuItemFormState}
-                  handleCheckBox={this.handleCheckBox}
-                />
-                <ModifierModal
-                  number={3}
-                  item={item}
-                  menuItemFormState={this.menuItemFormState}
-                  handleCheckBox={this.handleCheckBox}
-                />
-                <ModifierModal
-                  number={4}
-                  item={item}
-                  menuItemFormState={this.menuItemFormState}
-                  handleCheckBox={this.handleCheckBox}
-                />
-              </MDBCol>
-              <MDBCol>
-                <hr />
-              </MDBCol>
-              <MDBCol className="d-flex justify-content-center">
-                <MDBBtn
-                  outline
-                  color="danger"
-                  onClick={this.props.prevStep}
-                  style={styles.btnBack}
-                  size="sm"
-                >
-                  <MDBIcon icon="arrow-left" className="mr-2" size="lg" />
-                  Back
-                </MDBBtn>
-                <MDBBtn
-                  outline
-                  color="success"
-                  type="submit"
-                  onClick={this.setItem}
-                  style={styles.btnAdd}
-                  size="sm"
-                >
-                  Add
-                  <MDBIcon far icon="thumbs-up" className="ml-2" size="lg" />
-                </MDBBtn>
-                <MDBBtn
-                  outline
-                  color="info"
-                  type="submit"
-                  onClick={this.submit}
-                  style={styles.btnSubmit}
-                  size="sm"
-                >
-                  Continue
-                  <MDBIcon icon="arrow-right" className="ml-2" size="lg" />
-                </MDBBtn>
-              </MDBCol>
-            </MDBCardBody>
           </MDBCard>
-        )}
-      </MDBCol>
+        </MDBCol>
+      </>
     );
   }
 }
