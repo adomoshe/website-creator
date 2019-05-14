@@ -44,7 +44,6 @@ class BasicInfoForm extends Component {
   };
   render() {
     return (
-          <MDBCol md="5">
             <MDBCard style={styles.card}>
               <MDBCardBody>
                 <form>
@@ -118,7 +117,6 @@ class BasicInfoForm extends Component {
                 </form>
               </MDBCardBody>
             </MDBCard>
-          </MDBCol>
     );
   }
 }

@@ -53,7 +53,6 @@ class MenuCategoryForm extends Component {
 
   render() {
     return (
-      <MDBCol md="5">
         <MDBCard style={styles.card}>
           <MDBCardBody>
             <form>
@@ -93,7 +92,7 @@ class MenuCategoryForm extends Component {
                     Add
                     <MDBIcon far icon="thumbs-up" className="ml-2" size="lg" />
                   </MDBBtn>
-                  <MDBBtn
+                  {/* <MDBBtn
                     outline
                     color="info"
                     type="submit"
@@ -103,13 +102,12 @@ class MenuCategoryForm extends Component {
                   >
                     Continue
                     <MDBIcon icon="arrow-right" className="ml-2" size="lg" />
-                  </MDBBtn>
+                  </MDBBtn> */}
                 </MDBCol>
               </MDBCol>
             </form>
           </MDBCardBody>
         </MDBCard>
-      </MDBCol>
     );
   }
 }

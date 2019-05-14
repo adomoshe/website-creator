@@ -76,7 +76,10 @@ class ModifierModal extends Component {
   newModifier = () => {
     const modalIndex = this.props.number - 1;
     const modifierMenuModel = JSON.parse(JSON.stringify(MenuModel));
-    const modifierModel = modifierMenuModel.categories[0].subCategories[0].items[0].modifiers[modalIndex].modifier;
+    const modifierModel =
+      modifierMenuModel.categories[0].subCategories[0].items[0].modifiers[
+        modalIndex
+      ].modifier;
 
     this.setState(state => ({
       modifierIndex: state.currentModifier.modifier.length
@@ -107,18 +110,19 @@ class ModifierModal extends Component {
     const currentSubModifier =
       state.currentModifier.modifier[modifierIndex] || null;
     console.log(state.currentModifier.modifier);
-
+    
     return (
       <>
         <MDBBtn color="success" style={styles.modalBtn} onClick={this.toggle}>
           Modifier {props.number}
           {(props.number === 2 || props.number === 3) && " + $"}
         </MDBBtn>
+
         <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
           <MDBModalBody>
             <h2 className="text-center text-info py-4" style={styles.heading}>
               Modifier {props.number} for{<br />}
-              {<span className="deep-orange-text">"{props.item}"</span>}
+              <span className="deep-orange-text">"{props.item.name}"</span>
             </h2>
             <MDBCol>
               {menuItemModifierState.modifier.map(({ name }, index) => (

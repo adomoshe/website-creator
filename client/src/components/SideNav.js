@@ -20,6 +20,12 @@ import {
 const styles = {
   card: {
     marginTop: "4rem"
+  },
+  addBtn: {
+    width: "100%"
+  },
+  pointer: {
+    cursor: "pointer"
   }
 };
 
@@ -37,6 +43,8 @@ class SideNav extends Component {
 
   handleSubCategoryClick = subCategoryIndex => {
     this.props.menuBuilderSetCurrent("subCategory", subCategoryIndex);
+    this.props.menuBuilderSetCurrent("item", 0);
+    this.props.setFormHandlerStep(3);
   };
 
   render() {
@@ -46,19 +54,23 @@ class SideNav extends Component {
     return (
       <MDBCard style={styles.card}>
         <MDBCardBody>
-          <MDBListGroup style={styles.root}>
+          <MDBListGroup>
             <MDBListGroupItem color="primary">Categories</MDBListGroupItem>
             {menuBuilderState.categories.map(({ name }, categoryIndex) => {
               return (
-                <MDBListGroupItem
-                  color="light"
-                  hover
-                  onClick={() => {
-                    this.handleCategoryClick(categoryIndex);
-                  }}
-                  key={categoryIndex}
-                >
-                  {name}
+                <>
+                  <MDBListGroupItem
+                    key={categoryIndex}
+                    color="light"
+                    hover
+                    onClick={() => {
+                      this.handleCategoryClick(categoryIndex);
+                    }}
+                    key={categoryIndex}
+                  >
+                    {name}{" "}
+                  </MDBListGroupItem>
+
                   <MDBCollapse
                     isOpen={this.state.collapse[categoryIndex]}
                     navbar
@@ -68,49 +80,51 @@ class SideNav extends Component {
                         categoryIndex
                       ].subCategories.map(({ name }, subCategoryIndex) => {
                         return (
-                          <>
-                          <MDBNavItem
-                            key={subCategoryIndex}
-                            onClick={() => {
-                              this.handleSubCategoryClick(subCategoryIndex);
-                            }}
-                            active
-                          >
-                            <MDBNavLink to="#!">{name}</MDBNavLink>
-                          </MDBNavItem>
-                          <MDBBtn
-                          color="orange"
-                          style={styles.modalBtn}
-                        >
-                          <MDBIcon
-                            icon="plus"
-                            size="lg"
-                            inverse
-                            style={styles.icon}
-                          />
-                        </MDBBtn>
-                        </>
+                          <MDBListGroupItem key={subCategoryIndex}>
+                            <MDBNavItem
+                              role="button"
+                              style={styles.pointer}
+                              onClick={() => {
+                                this.handleSubCategoryClick(subCategoryIndex);
+                              }}
+                              active
+                            >
+                              {name}
+                            </MDBNavItem>
+                          </MDBListGroupItem>
                         );
                       })}
                     </MDBNavbarNav>
+                    <MDBListGroupItem>
+                      <MDBBtn
+                        color="orange"
+                        style={styles.addBtn}
+                        onClick={() => {
+                          this.props.setFormHandlerStep(2);
+                        }}
+                      >
+                        <MDBIcon
+                          icon="plus"
+                          size="lg"
+                          inverse="true"
+                          style={styles.icon}
+                        />
+                      </MDBBtn>
+                    </MDBListGroupItem>
                   </MDBCollapse>
-                </MDBListGroupItem>
+                </>
               );
             })}
-            {/* <MDBListGroupItem color="light" hover onClick={this.newField}> */}
-              <MDBBtn
-                color="orange"
-                style={styles.modalBtn}
-              >
-                <MDBIcon
-                  icon="plus"
-                  size="lg"
-                  inverse
-                  style={styles.icon}
-                />
-              </MDBBtn>
-            {/* </MDBListGroupItem> */}
           </MDBListGroup>
+          <MDBBtn
+            color="orange"
+            style={styles.addBtn}
+            onClick={() => {
+              this.props.setFormHandlerStep(1);
+            }}
+          >
+            <MDBIcon icon="plus" size="lg" inverse="true" style={styles.icon} />
+          </MDBBtn>
         </MDBCardBody>
       </MDBCard>
     );

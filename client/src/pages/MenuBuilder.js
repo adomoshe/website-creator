@@ -9,6 +9,8 @@ import {
 
 import FormHandler from "../components/FormHandler/FormHandler";
 import SideNav from "../components/SideNav";
+import ItemSideNav from "../components/ItemSideNav";
+
 // import CategoryNav from "../components/Navs/CategoryNav";
 // import SubCategoryNav from "../components/Navs/SubCategoryNav";
 // import ItemNav from "../components/Navs/ItemNav";
@@ -19,8 +21,8 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formStep: 3,
-      current: { category: 0, subCategory: 0, item: 0 },
+      formStep: 0,
+      current: { category: null, subCategory: null, item: null },
       categories: [
         {
           name: "LUNCH", //Basic
@@ -337,36 +339,42 @@ class Main extends Component {
   };
 
   menuBuilderSetCategory = category => {
-    const modifiedCategoryModel = JSON.parse(JSON.stringify(MenuModel));
-    modifiedCategoryModel.categories[0].name = category;
+    const categoryModel = [{ name: category, subCategories: [] }];
+    // modifiedCategoryModel.categories[0].name = category;
 
     this.setState(state => ({
-      categories: [...state.categories, ...modifiedCategoryModel.categories]
+      categories: [...state.categories, ...categoryModel]
     }));
   };
 
   menuBuilderSetSubCategory = subCategory => {
     const current = this.state.current;
-    const modifiedSubCategoryModel = JSON.parse(JSON.stringify(MenuModel));
-    modifiedSubCategoryModel.categories[0].subCategories[0].name = subCategory;
+    // const modifiedSubCategoryModel = JSON.parse(JSON.stringify(MenuModel));
+    const subCategoryModel = [{ name: subCategory, items: [] }];
+    // modifiedSubCategoryModel.categories[0].subCategories[0].name = subCategory;
 
     this.setState(
       state =>
         (state.categories[current.category].subCategories = [
           ...state.categories[current.category].subCategories,
-          ...modifiedSubCategoryModel.categories[0].subCategories
+          ...subCategoryModel
         ])
     );
   };
 
   menuBuilderSetItem = item => {
     const current = this.state.current;
-
+  
     this.setState(
       state => {
         state.categories[current.category].subCategories[
           current.subCategory
-        ].items[current.item] = item;
+        ].items[current.item] = [
+          ...state.categories[current.category].subCategories[
+            current.subCategory
+          ].items,
+          ...item
+        ];
       },
       () => {
         this.forceUpdate();
@@ -376,54 +384,60 @@ class Main extends Component {
   };
 
   menuBuilderSetCurrent = (field, index) => {
-    this.setState(state => {
-      state.current[field] = index;
-    });
+    this.setState(
+      state => {
+        state.current[field] = index;
+      },
+      () => {
+        console.log(
+          `At MenuBuilder setting current field: ${field} to index: ${index}`
+        );
+      }
+    );
+  };
+
+  setFormHandlerStep = step => {
+    this.setState({ formStep: step });
   };
 
   render() {
     const state = this.state;
-    // const current = this.state.current;
+    const current = this.state.current;
     console.log(state);
     return (
-      <MDBRow>
-        {state.formStep && state.categories ? (
-          <MDBCol md="3"><SideNav
+      <MDBRow center>
+        {state.formStep && state.categories.length ? (
+          <MDBCol md="2">
+            <SideNav
+              menuBuilderState={this.menuBuilderState}
+              setFormHandlerStep={this.setFormHandlerStep}
+              menuBuilderSetCurrent={this.menuBuilderSetCurrent}
+            />
+          </MDBCol>
+        ) : null}
+        {state.formStep === 3 &&
+        state.current.subCategory !== null &&
+        state.categories[current.category].subCategories[current.subCategory]
+          .items[0] ? (
+          <MDBCol md="2">
+            <ItemSideNav
+              menuBuilderState={this.menuBuilderState}
+              setFormHandlerStep={this.setFormHandlerStep}
+              menuBuilderSetCurrent={this.menuBuilderSetCurrent}
+            />
+          </MDBCol>
+        ) : null}
+        <MDBCol md="5">
+          <FormHandler
             menuBuilderState={this.menuBuilderState}
-            menuBuilderSetCurrent={this.menuBuilderSetCurrent}
-          /></MDBCol>
-        ) : 
-        //   <CategoryNav
-        //     menuBuilderState={this.menuBuilderState}
-        //     menuBuilderSetCurrent={this.menuBuilderSetCurrent}
-        //   />
-        // ) : null}
-        // {state.formStep > 1 &&
-        // state.current.category !== null &&
-        // state.categories[current.category].subCategories ? (
-        //   <SubCategoryNav
-        //     menuBuilderState={this.menuBuilderState}
-        //     menuBuilderSetCurrent={this.menuBuilderSetCurrent}
-        //   />
-        // ) : null}
-        // {state.formStep > 2 &&
-        // state.current.subCategory !== null &&
-        // state.categories[current.category].subCategories[current.subCategory]
-        //   .items ? (
-        //   <ItemNav
-        //     menuBuilderState={this.menuBuilderState}
-        //     menuBuilderSetCurrent={this.menuBuilderSetCurrent}
-        //   />
-        null}
-        <FormHandler
-          menuBuilderState={this.menuBuilderState}
-          nextFormStep={this.nextFormStep}
-          prevFormStep={this.prevFormStep}
-          menuBuilderSetCategory={this.menuBuilderSetCategory}
-          menuBuilderSetSubCategory={this.menuBuilderSetSubCategory}
-          menuBuilderSetItem={this.menuBuilderSetItem}
-        />
-        </MDBRow>
+            nextFormStep={this.nextFormStep}
+            prevFormStep={this.prevFormStep}
+            menuBuilderSetCategory={this.menuBuilderSetCategory}
+            menuBuilderSetSubCategory={this.menuBuilderSetSubCategory}
+            menuBuilderSetItem={this.menuBuilderSetItem}
+          />{" "}
+        </MDBCol>
+      </MDBRow>
     );
   }
 }
