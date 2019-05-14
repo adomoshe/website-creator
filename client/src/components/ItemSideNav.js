@@ -51,7 +51,7 @@ class ItemSideNav extends Component {
     const itemArrLen = menuBuilderState.categories[current.category].subCategories[
       current.subCategory
     ].items.length
-    
+
     this.props.menuBuilderSetCurrent("item", itemArrLen + 1);
   }
 
@@ -87,7 +87,7 @@ class ItemSideNav extends Component {
             style={styles.addBtn}
             onClick={this.newItem}
           >
-            <MDBIcon icon="plus" size="lg" inverse="true" style={styles.icon} />
+            <MDBIcon icon="plus" size="lg" inverse="true" style={styles.icon} /> Item
           </MDBBtn>
         </MDBCardBody>
       </MDBCard>

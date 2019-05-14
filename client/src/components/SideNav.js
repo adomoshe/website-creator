@@ -38,13 +38,21 @@ class SideNav extends Component {
     this.setState(
       state => (state.collapse[categoryIndex] = !state.collapse[categoryIndex])
     );
-    this.props.menuBuilderSetCurrent("category", categoryIndex);
+      this.props.menuBuilderSetCurrent("category", categoryIndex);
+      this.props.menuBuilderSetCurrent("item", 0);
   };
 
-  handleSubCategoryClick = subCategoryIndex => {
+  handleSubCategoryClick = (categoryIndex, subCategoryIndex) => {
+    console.log("category index", categoryIndex)
+    this.props.menuBuilderSetCurrent("category", categoryIndex);
     this.props.menuBuilderSetCurrent("subCategory", subCategoryIndex);
     this.props.menuBuilderSetCurrent("item", 0);
     this.props.setFormHandlerStep(3);
+  };
+
+  newSubCategory = categoryIndex => {
+    this.props.menuBuilderSetCurrent("category", categoryIndex);
+    this.props.setFormHandlerStep(2);
   };
 
   render() {
@@ -85,7 +93,7 @@ class SideNav extends Component {
                               role="button"
                               style={styles.pointer}
                               onClick={() => {
-                                this.handleSubCategoryClick(subCategoryIndex);
+                                this.handleSubCategoryClick(categoryIndex, subCategoryIndex);
                               }}
                               active
                             >
@@ -99,16 +107,15 @@ class SideNav extends Component {
                       <MDBBtn
                         color="orange"
                         style={styles.addBtn}
-                        onClick={() => {
-                          this.props.setFormHandlerStep(2);
-                        }}
+                        onClick={() => {this.newSubCategory(categoryIndex)}}
                       >
                         <MDBIcon
                           icon="plus"
                           size="lg"
                           inverse="true"
                           style={styles.icon}
-                        />
+                        />{" "}
+                        Sub-Category
                       </MDBBtn>
                     </MDBListGroupItem>
                   </MDBCollapse>
@@ -124,6 +131,7 @@ class SideNav extends Component {
             }}
           >
             <MDBIcon icon="plus" size="lg" inverse="true" style={styles.icon} />
+            Category
           </MDBBtn>
         </MDBCardBody>
       </MDBCard>

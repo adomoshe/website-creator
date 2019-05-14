@@ -22,6 +22,7 @@ const styles = {
     marginBottom: "4rem"
   },
   heading: {
+    fontSize: "1rem",
     fontWeight: "500"
   },
   input: {
@@ -56,11 +57,11 @@ class MenuItemForm extends Component {
         current.subCategory
       ].items[current.item];
 
-      const itemModel = JSON.parse(
-        JSON.stringify(MenuModel.categories[0].subCategories[0].items[0])
-      );
+    const itemModel = JSON.parse(
+      JSON.stringify(MenuModel.categories[0].subCategories[0].items[0])
+    );
 
-      const itemState = currentItem || itemModel
+    const itemState = currentItem || itemModel;
 
     console.log(currentItem);
 
@@ -150,6 +151,7 @@ class MenuItemForm extends Component {
       menuBuilderState.categories[current.category].subCategories[
         current.subCategory
       ].name;
+    const category = menuBuilderState.categories[current.category].name;
     const item = this.state.item;
     console.log("MenuItemForm item: ", item);
 
@@ -192,7 +194,13 @@ class MenuItemForm extends Component {
                     className="text-center text-info py-4"
                     style={styles.heading}
                   >
-                    Enter Your Menu Items for Sub-Category:
+                    Enter Your Menu Items for Category{" "}
+                    {
+                      <span className="deep-orange-text">
+                        {}"{category}"
+                      </span>
+                    }{" "}
+                    and Sub-Category:{" "}
                     {
                       <span className="deep-orange-text">
                         {}"{subCategory}"
@@ -293,7 +301,13 @@ class MenuItemForm extends Component {
                     className="text-center text-info py-4"
                     style={styles.heading}
                   >
-                    Enter Your Menu Items for Sub-Category:
+                    Enter Your Menu Items for Category{" "}
+                    {
+                      <span className="deep-orange-text">
+                        {}"{category}"
+                      </span>
+                    }{" "}
+                    and Sub-Category:{" "}
                     {
                       <span className="deep-orange-text">
                         {}"{subCategory}"
