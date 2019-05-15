@@ -90,7 +90,7 @@ class MenuSubCategoryForm extends Component {
                 className="form-control"
                 style={styles.input}
               />
-              <MDBCol md="12" className="d-flex justify-content-center">
+              <MDBCol className="d-flex justify-content-center">
                 {/* <MDBBtn
                   outline
                   color="danger"

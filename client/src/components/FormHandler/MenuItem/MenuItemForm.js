@@ -49,32 +49,22 @@ const styles = {
 class MenuItemForm extends Component {
   constructor(props) {
     super(props);
-    const menuBuilderState = this.props.menuBuilderState();
-    const current = menuBuilderState.current;
-
-    const currentItem =
-      menuBuilderState.categories[current.category].subCategories[
-        current.subCategory
-      ].items[current.item];
 
     const itemModel = JSON.parse(
       JSON.stringify(MenuModel.categories[0].subCategories[0].items[0])
     );
-
-    const itemState = currentItem || itemModel;
-
-    console.log(currentItem);
 
     this.state = {
       advanced: false,
-      item: itemState
+      item: itemModel
     };
+
     this.initialState = this.state;
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentDidUpdate(nextProps, nextState) {
     console.log(nextProps, nextState);
-    const menuBuilderState = this.props.menuBuilderState();
+    const menuBuilderState = nextProps.menuBuilderState();
     const current = menuBuilderState.current;
     const currentItem =
       menuBuilderState.categories[current.category].subCategories[
@@ -87,11 +77,8 @@ class MenuItemForm extends Component {
 
     const itemState = currentItem || itemModel;
 
-    if (nextState.item === itemState || nextState.item.name === itemModel.name) {
-      return false;
-    } else {
+    if (JSON.stringify(nextState.item) !== JSON.stringify(itemState)) {
       this.setState({ advanced: false, item: itemState });
-      return true;
     }
   }
 
@@ -156,6 +143,7 @@ class MenuItemForm extends Component {
   setItem = e => {
     e.preventDefault();
     const item = this.state.item;
+
     if (item.name.length < 3) {
       alert("Please enter an item name longer than 3 letters");
       return;
@@ -164,7 +152,18 @@ class MenuItemForm extends Component {
       return;
     }
 
-    this.props.menuBuilderSetItem(item);
+    const menuBuilderState = this.props.menuBuilderState();
+    const current = menuBuilderState.current;
+    const itemArrLen =
+      menuBuilderState.categories[current.category].subCategories[
+        current.subCategory
+      ].items.length;
+
+    if (current.item > itemArrLen) {
+      this.props.menuBuilderSetItem(item, true);
+    } else {
+      this.props.menuBuilderSetItem(item);
+    }
     this.setState(this.initialState);
   };
 
@@ -176,14 +175,16 @@ class MenuItemForm extends Component {
 
   render() {
     const state = this.state;
+    const item = state.item;
+
     const menuBuilderState = this.props.menuBuilderState();
     const current = menuBuilderState.current;
     const subCategory =
       menuBuilderState.categories[current.category].subCategories[
         current.subCategory
       ].name;
+
     const category = menuBuilderState.categories[current.category].name;
-    const item = this.state.item;
     console.log("MenuItemForm item: ", item);
 
     return (
@@ -244,14 +245,14 @@ class MenuItemForm extends Component {
                     type="text"
                     name="name"
                     onChange={this.handleChange}
-                    value={this.state.item.name}
+                    value={state.item.name}
                   />
                   <MDBInput
                     label="Price"
                     size="lg"
                     type="number"
                     name="price"
-                    value={this.state.item.price}
+                    value={state.item.price}
                     onChange={this.handleChange}
                   />
                   <MDBInput
@@ -259,7 +260,7 @@ class MenuItemForm extends Component {
                     size="lg"
                     type="number"
                     name="cost"
-                    value={this.state.item.cost}
+                    value={state.item.cost}
                     onChange={this.handleChange}
                   />
                 </MDBCol>
@@ -287,28 +288,28 @@ class MenuItemForm extends Component {
                         parent="tax"
                         label="1"
                         name="one"
-                        checked={this.state.item.tax.one}
+                        checked={state.item.tax.one}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="tax"
                         label="2"
                         name="two"
-                        checked={this.state.item.tax.two}
+                        checked={state.item.tax.two}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="tax"
                         label="3"
                         name="three"
-                        checked={this.state.item.tax.three}
+                        checked={state.item.tax.three}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="tax"
                         label="To Go"
                         name="toGo"
-                        checked={this.state.item.tax.toGo}
+                        checked={state.item.tax.toGo}
                       />
                     </MDBFormInline>
                   </div>
@@ -350,7 +351,7 @@ class MenuItemForm extends Component {
                     label="Item Description"
                     rows="1"
                     icon="pencil-alt"
-                    value={this.state.item.description}
+                    value={state.item.description}
                   />
                   <DropDown
                     length={7}
@@ -392,28 +393,28 @@ class MenuItemForm extends Component {
                         parent="options"
                         label="Hide on cart"
                         name="hideOnCart"
-                        checked={this.state.item.options.hideOnCart}
+                        checked={state.item.options.hideOnCart}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="options"
                         label="Disable discount"
                         name="disableDiscount"
-                        checked={this.state.item.options.disableDiscount}
+                        checked={state.item.options.disableDiscount}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="options"
                         label="Quantity prompt"
                         name="qtyPrompt"
-                        checked={this.state.item.options.qtyPrompt}
+                        checked={state.item.options.qtyPrompt}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="options"
                         label="Service item"
                         name="serviceItem"
-                        checked={this.state.item.options.serviceItem}
+                        checked={state.item.options.serviceItem}
                       />
                     </MDBFormInline>
                   </div>
@@ -427,49 +428,49 @@ class MenuItemForm extends Component {
                         parent="belongsTo"
                         label="Table service"
                         name="tableService"
-                        checked={this.state.item.belongsTo.tableService}
+                        checked={state.item.belongsTo.tableService}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="belongsTo"
                         label="Quick serve"
                         name="quickServe"
-                        checked={this.state.item.belongsTo.quickServe}
+                        checked={state.item.belongsTo.quickServe}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="belongsTo"
                         label="Phone order"
                         name="phoneOrder"
-                        checked={this.state.item.belongsTo.phoneOrder}
+                        checked={state.item.belongsTo.phoneOrder}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="belongsTo"
                         label="Drive thru"
                         name="driveThru"
-                        checked={this.state.item.belongsTo.driveThru}
+                        checked={state.item.belongsTo.driveThru}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="belongsTo"
                         label="Online"
                         name="online"
-                        checked={this.state.item.belongsTo.online}
+                        checked={state.item.belongsTo.online}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="belongsTo"
                         label="Party"
                         name="party"
-                        checked={this.state.item.belongsTo.party}
+                        checked={state.item.belongsTo.party}
                       />
                       <CheckBox
                         handleCheckBox={this.handleCheckBox}
                         parent="belongsTo"
                         label="Bar"
                         name="bar"
-                        checked={this.state.item.belongsTo.bar}
+                        checked={state.item.belongsTo.bar}
                       />
                     </MDBFormInline>
                   </div>
@@ -479,7 +480,7 @@ class MenuItemForm extends Component {
                     label="Comments"
                     rows="1"
                     icon="pencil-alt"
-                    value={this.state.item.comments}
+                    value={state.item.comments}
                   />
                 </MDBCol>
                 <MDBCol className="d-flex justify-content-center">
@@ -536,7 +537,7 @@ class MenuItemForm extends Component {
 
         <MDBCard style={styles.card}>
           <MDBCardBody>
-            <MDBCol className="d-flex justify-content-center" md="12">
+            <MDBCol className="d-flex justify-content-center">
               <MDBBtn
                 outline
                 color="danger"

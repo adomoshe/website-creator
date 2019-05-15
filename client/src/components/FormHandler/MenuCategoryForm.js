@@ -66,7 +66,7 @@ class MenuCategoryForm extends Component {
             <h2 className="text-center text-info py-4" style={styles.heading}>
               Enter Your Menu Categories
             </h2>
-            <MDBCol md="12">
+            <MDBCol>
               <MDBInput
                 label="Category"
                 size="lg"
@@ -77,7 +77,7 @@ class MenuCategoryForm extends Component {
                 onChange={this.handleChange}
                 style={styles.input}
               />
-              <MDBCol md="12" className="d-flex justify-content-center">
+              <MDBCol className="d-flex justify-content-center">
                 <MDBBtn
                   outline
                   color="danger"

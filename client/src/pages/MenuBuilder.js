@@ -359,30 +359,39 @@ class Main extends Component {
     );
   };
 
-  menuBuilderSetItem = item => {
+  menuBuilderSetItem = (item, newItem = false) => {
     const current = this.state.current;
 
-    console.log(item);
-    // const spread = state.categories[current.category].subCategories[
-    //   current.subCategory
-    // ].items ?
-
-    this.setState(
-      state => {
-        state.categories[current.category].subCategories[
-          current.subCategory
-        ].items[current.item] = [
-          ...state.categories[current.category].subCategories[
+    if (newItem) {
+      this.setState(
+        state => {
+          state.categories[current.category].subCategories[
             current.subCategory
-          ].items,
-          item
-        ];
-      },
-      () => {
-        this.forceUpdate();
-        console.log("MenuBuilder state after item update: ", this.state);
-      }
-    );
+          ].items = [
+            ...state.categories[current.category].subCategories[
+              current.subCategory
+            ].items,
+            item
+          ];
+        },
+        () => {
+          this.forceUpdate();
+          console.log("MenuBuilder state after item update: ", this.state);
+        }
+      );
+    } else {
+      this.setState(
+        state => {
+          state.categories[current.category].subCategories[
+            current.subCategory
+          ].items[current.item] = item;
+        },
+        () => {
+          this.forceUpdate();
+          console.log("MenuBuilder state after item update: ", this.state);
+        }
+      );
+    }
   };
 
   menuBuilderSetCurrent = (field, index) => {
@@ -410,7 +419,7 @@ class Main extends Component {
     return (
       <MDBRow center>
         {state.formStep && state.categories.length ? (
-          <MDBCol md="2">
+          <MDBCol md="4" lg="3" xl="2">
             <SideNav
               menuBuilderState={this.menuBuilderState}
               setFormHandlerStep={this.setFormHandlerStep}
@@ -422,7 +431,7 @@ class Main extends Component {
         state.current.subCategory !== null &&
         state.categories[current.category].subCategories[current.subCategory]
           .items[0] ? (
-          <MDBCol md="2">
+          <MDBCol md="4" lg="3" xl="2">
             <ItemSideNav
               menuBuilderState={this.menuBuilderState}
               setFormHandlerStep={this.setFormHandlerStep}
@@ -430,7 +439,7 @@ class Main extends Component {
             />
           </MDBCol>
         ) : null}
-        <MDBCol md="5">
+        <MDBCol md="6" lg="5">
           <FormHandler
             menuBuilderState={this.menuBuilderState}
             nextFormStep={this.nextFormStep}
