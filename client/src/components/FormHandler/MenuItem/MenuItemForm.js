@@ -72,6 +72,29 @@ class MenuItemForm extends Component {
     this.initialState = this.state;
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    console.log(nextProps, nextState);
+    const menuBuilderState = this.props.menuBuilderState();
+    const current = menuBuilderState.current;
+    const currentItem =
+      menuBuilderState.categories[current.category].subCategories[
+        current.subCategory
+      ].items[current.item];
+
+    const itemModel = JSON.parse(
+      JSON.stringify(MenuModel.categories[0].subCategories[0].items[0])
+    );
+
+    const itemState = currentItem || itemModel;
+
+    if (nextState.item === itemState || nextState.item.name === itemModel.name) {
+      return false;
+    } else {
+      this.setState({ advanced: false, item: itemState });
+      return true;
+    }
+  }
+
   menuItemFormState = () => this.state;
 
   changeAdvancedView = e => {
@@ -133,6 +156,14 @@ class MenuItemForm extends Component {
   setItem = e => {
     e.preventDefault();
     const item = this.state.item;
+    if (item.name.length < 3) {
+      alert("Please enter an item name longer than 3 letters");
+      return;
+    } else if (!item.price) {
+      alert("Please enter an item price");
+      return;
+    }
+
     this.props.menuBuilderSetItem(item);
     this.setState(this.initialState);
   };

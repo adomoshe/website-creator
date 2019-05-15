@@ -38,8 +38,9 @@ class SideNav extends Component {
     this.setState(
       state => (state.collapse[categoryIndex] = !state.collapse[categoryIndex])
     );
-      this.props.menuBuilderSetCurrent("category", categoryIndex);
-      this.props.menuBuilderSetCurrent("item", 0);
+    this.props.setFormHandlerStep(1);
+    this.props.menuBuilderSetCurrent("subCategory", null);
+    this.props.menuBuilderSetCurrent("item", null);
   };
 
   handleSubCategoryClick = (categoryIndex, subCategoryIndex) => {

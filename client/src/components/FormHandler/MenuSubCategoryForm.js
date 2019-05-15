@@ -49,6 +49,10 @@ class MenuSubCategoryForm extends Component {
   setSubCategory = e => {
     e.preventDefault();
     const subCategory = this.state.subCategory.trim().toUpperCase();
+    if (subCategory.length < 3) {
+      alert("Please enter a sub-category name longer than 3 letters");
+      return;
+    }
     this.props.menuBuilderSetSubCategory(subCategory);
     this.setState(this.initialState);
   };
