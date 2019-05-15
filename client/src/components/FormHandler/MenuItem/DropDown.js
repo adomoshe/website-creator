@@ -31,7 +31,7 @@ class DropDown extends Component {
 
     return (
       <div style={styles.dropDown}>
-        <select
+        <select value={props.value}
           className="browser-default custom-select"
           onChange={this.handleOption}
         >

@@ -3,7 +3,7 @@ import {
   // MDBNavbar,
   // MDBContainer,
   // MDBCol,
-  MDBNavLink,
+  // MDBNavLink,
   MDBNavItem,
   // MDBHamburgerToggler,
   // MDBNavbarBrand,
@@ -75,7 +75,6 @@ class SideNav extends Component {
                     onClick={() => {
                       this.handleCategoryClick(categoryIndex);
                     }}
-                    key={categoryIndex}
                   >
                     {name}{" "}
                   </MDBListGroupItem>

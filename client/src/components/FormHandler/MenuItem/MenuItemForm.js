@@ -43,7 +43,8 @@ const styles = {
     fontWeight: "900",
     fontSize: "1rem"
   },
-  checkBoxGroup: { fontSize: "1.3rem" }
+  checkBoxGroup: { fontSize: "1.3rem" },
+  commentBtn: { padding: "0.8rem" }
 };
 
 class MenuItemForm extends Component {
@@ -56,6 +57,7 @@ class MenuItemForm extends Component {
 
     this.state = {
       advanced: false,
+      currentComment: "",
       item: itemModel
     };
 
@@ -102,9 +104,13 @@ class MenuItemForm extends Component {
       value = value.trim().toUpperCase();
     }
 
+    console.log("name: ", name);
+    console.log("value ", value);
+    console.log("state ", this.state.item[name]);
     this.setState(
       state => (state.item[name] = value),
       () => {
+        console.log("state ", this.state.item[name]);
         console.log(this.state);
       }
     );
@@ -167,11 +173,25 @@ class MenuItemForm extends Component {
     this.setState(this.initialState);
   };
 
-  submit = e => {
-    e.preventDefault();
-    this.setState(this.initialState);
-    this.props.nextStep();
+  // submit = e => {
+  //   e.preventDefault();
+  //   this.setState(this.initialState);
+  //   this.props.nextStep();
+  // };
+
+  handleComment = e => {
+    const value = e.target.value
+
+    this.setState({ currentComment: value });
+  }
+
+  handleCurrentComment = commentIndex => {
+    this.setState(state => ({ currentComment: state.item.comments[commentIndex] }));
   };
+
+  newComment = () => {
+    this.setState({ currentComment: '' }, () => {this.forceUpdate()});
+  }
 
   render() {
     const state = this.state;
@@ -186,6 +206,8 @@ class MenuItemForm extends Component {
 
     const category = menuBuilderState.categories[current.category].name;
     console.log("MenuItemForm item: ", item);
+
+    console.log(state.item.comments);
 
     return (
       <>
@@ -269,12 +291,14 @@ class MenuItemForm extends Component {
                     handleCheckBox={this.handleCheckBox}
                     label="Add to Inventory"
                     name="addToInventory"
+                    checked={state.item.addToInventory}
                   />
                   <br />
                   <CheckBox
                     handleCheckBox={this.handleCheckBox}
                     label="Check ID"
                     name="checkId"
+                    checked={state.item.checkId}
                   />
                 </MDBCol>
                 <MDBCol>
@@ -346,42 +370,47 @@ class MenuItemForm extends Component {
                       </span>
                     }
                   </h4>
-                  <MDBInput
+                  {/* <MDBInput
                     type="textarea"
                     label="Item Description"
                     rows="1"
                     icon="pencil-alt"
                     value={state.item.description}
-                  />
+                  /> */}
                   <DropDown
                     length={7}
                     label="Course"
                     name="course"
                     handleDropDown={this.handleDropDown}
+                    value={state.item.course}
                   />
                   <DropDown
                     length={7}
                     label="Printer"
                     name="printer"
                     handleDropDown={this.handleDropDown}
+                    value={state.item.printer}
                   />
                   <DropDown
                     length={7}
                     label="Cook Screen"
                     name="cookScreen"
                     handleDropDown={this.handleDropDown}
+                    value={state.item.cookScreen}
                   />
                   <DropDown
                     length={7}
                     label="Expo Printer"
                     name="expoPrinter"
                     handleDropDown={this.handleDropDown}
+                    value={state.item.expoPrinter}
                   />
                   <DropDown
                     length={3}
                     label="Label Printer"
                     name="labelPrinter"
                     handleDropDown={this.handleDropDown}
+                    value={state.item.labelPrinter}
                   />
                   <br />
                   <div>
@@ -475,12 +504,38 @@ class MenuItemForm extends Component {
                     </MDBFormInline>
                   </div>
                   <hr />
+                  {state.item.comments.map((name, index) => (
+                    <MDBBtn
+                      key={index}
+                      color="info"
+                      style={styles.commentBtn}
+                      onClick={() => {
+                        this.handleCurrentComment(index);
+                      }}
+                    >
+                      {name || "NEW"}
+                    </MDBBtn>
+                  ))}
+                  <MDBBtn
+                    color="orange"
+                    style={styles.modalBtn}
+                    onClick={this.newModifier}
+                  >
+                    <MDBIcon
+                      icon="plus"
+                      size="lg"
+                      inverse
+                      style={styles.icon}
+                      onClick={this.newComment}
+                    />
+                  </MDBBtn>
                   <MDBInput
                     type="textarea"
                     label="Comments"
                     rows="1"
                     icon="pencil-alt"
-                    value={state.item.comments}
+                    onChange={this.handleComment}
+                    value={state.currentComment}
                   />
                 </MDBCol>
                 <MDBCol className="d-flex justify-content-center">
@@ -535,7 +590,7 @@ class MenuItemForm extends Component {
           </MDBCardBody>
         </MDBCard>
 
-        <MDBCard style={styles.card}>
+        {/* <MDBCard style={styles.card}>
           <MDBCardBody>
             <MDBCol className="d-flex justify-content-center">
               <MDBBtn
@@ -561,7 +616,7 @@ class MenuItemForm extends Component {
               </MDBBtn>
             </MDBCol>
           </MDBCardBody>
-        </MDBCard>
+        </MDBCard> */}
       </>
     );
   }

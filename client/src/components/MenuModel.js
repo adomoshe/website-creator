@@ -8,7 +8,7 @@ const MenuModel = {
           items: [
             {
               name: "", //Basic
-              description: "",
+              // description: "",
               price: "", //Basic
               cost: 0, //Basic
               addToInventory: false, //Basic

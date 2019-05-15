@@ -56,7 +56,7 @@ class ModifierModal extends Component {
     }
 
     if (name === "choicesLimit") {
-      this.setState(state => (state.currentModifier[name] = value));
+      this.setState(state => (state.currentModifier.choiceLimit = value));
     } else {
       this.setState(
         state => {
@@ -173,7 +173,7 @@ class ModifierModal extends Component {
                 size="lg"
                 type="number"
                 name="cost"
-                value={currentSubModifier ? currentSubModifier.cost : ""}
+                value={currentSubModifier ? currentSubModifier.cost : 0}
                 onChange={this.handleChange}
               />
             </MDBCol>

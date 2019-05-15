@@ -15,7 +15,7 @@ import ItemSideNav from "../components/ItemSideNav";
 // import SubCategoryNav from "../components/Navs/SubCategoryNav";
 // import ItemNav from "../components/Navs/ItemNav";
 
-import MenuModel from "../components/MenuModel";
+// import MenuModel from "../components/MenuModel";
 
 class Main extends Component {
   constructor(props) {
@@ -32,17 +32,17 @@ class Main extends Component {
               items: [
                 {
                   name: "CHICKEN SANDWICH", //Basic
-                  description:
-                    "Chicken sandwich with lettuce, tomato, and fries",
+                  // description:
+                  //   "Chicken sandwich with lettuce, tomato, and fries",
                   price: 12.95, //Basic
                   cost: 4.25, //Basic
                   addToInventory: false, //Basic
                   tax: { one: true, two: false, three: false, toGo: false }, //Default one is true //Basic
                   course: 1, //dropdown 1-7
-                  printer: 1, //dropdown 1-7
-                  cookScreen: 1, //dropdown 1-7
-                  expoPrinter: 1, //dropdown 1-7
-                  labelPrinter: 1, //dropdown 1-3
+                  printer: 2, //dropdown 1-7
+                  cookScreen: 3, //dropdown 1-7
+                  expoPrinter: 4, //dropdown 1-7
+                  labelPrinter: 2, //dropdown 1-3
                   options: {
                     //all false by default
                     hideOnCart: false,
@@ -100,17 +100,17 @@ class Main extends Component {
                   ]
                 },
                 {
-                  name: "Burger", //Basic
-                  description: "Burger with lettuce, tomato, and fries",
+                  name: "BURGER", //Basic
+                  // description: "Burger with lettuce, tomato, and fries",
                   price: 9.95, //Basic
                   cost: 2.25, //Basic
                   addToInventory: false, //Basic
                   tax: { one: true, two: false, three: false, toGo: false }, //Default one is true //Basic
                   course: 1, //dropdown 1-7
-                  printer: 1, //dropdown 1-7
-                  cookScreen: 1, //dropdown 1-7
-                  expoPrinter: 1, //dropdown 1-7
-                  labelPrinter: 1, //dropdown 1-3
+                  printer: 6, //dropdown 1-7
+                  cookScreen: 4, //dropdown 1-7
+                  expoPrinter: 3, //dropdown 1-7
+                  labelPrinter: 2, //dropdown 1-3
                   options: {
                     //all false by default
                     hideOnCart: false,
@@ -179,15 +179,15 @@ class Main extends Component {
               items: [
                 {
                   name: "TRI TIP", //Basic
-                  description: "Tri tip with fries",
+                  // description: "Tri tip with fries",
                   price: 15.43, //Basic
                   cost: 2.35, //Basic
                   addToInventory: false, //Basic
                   tax: { one: true, two: false, three: false, toGo: false }, //Default one is true //Basic
                   course: 1, //dropdown 1-7
-                  printer: 1, //dropdown 1-7
-                  cookScreen: 1, //dropdown 1-7
-                  expoPrinter: 1, //dropdown 1-7
+                  printer: 6, //dropdown 1-7
+                  cookScreen: 7, //dropdown 1-7
+                  expoPrinter: 2, //dropdown 1-7
                   labelPrinter: 1, //dropdown 1-3
                   options: {
                     //all false by default
@@ -247,16 +247,16 @@ class Main extends Component {
                 },
                 {
                   name: "FILET MIGNON", //Basic
-                  description: "With fries",
+                  // description: "With fries",
                   price: 23.25, //Basic
                   cost: 10.25, //Basic
                   addToInventory: false, //Basic
                   tax: { one: true, two: false, three: false, toGo: false }, //Default one is true //Basic
-                  course: 1, //dropdown 1-7
-                  printer: 1, //dropdown 1-7
-                  cookScreen: 1, //dropdown 1-7
-                  expoPrinter: 1, //dropdown 1-7
-                  labelPrinter: 1, //dropdown 1-3
+                  course: 4, //dropdown 1-7
+                  printer: 3, //dropdown 1-7
+                  cookScreen: 6, //dropdown 1-7
+                  expoPrinter: 3, //dropdown 1-7
+                  labelPrinter: 2, //dropdown 1-3
                   options: {
                     //all false by default
                     hideOnCart: false,
@@ -439,7 +439,7 @@ class Main extends Component {
             />
           </MDBCol>
         ) : null}
-        <MDBCol md="6" lg="5">
+        <MDBCol md="6" lg="6">
           <FormHandler
             menuBuilderState={this.menuBuilderState}
             nextFormStep={this.nextFormStep}
