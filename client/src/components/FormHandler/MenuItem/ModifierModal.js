@@ -30,19 +30,23 @@ class ModifierModal extends Component {
 
     const menuItemFormState = this.props.menuItemFormState();
     const modalIndex = this.props.number - 1;
-    const menuItemModifierState = menuItemFormState.item.modifiers[modalIndex];
+    const currentModifier = menuItemFormState.item.modifiers[modalIndex];
+
+    const modifierModel = JSON.parse(
+      JSON.stringify(
+        MenuModel.categories[0].subCategories[0].items[0].modifiers[modalIndex]
+          .modifier
+      )
+    );
+
+    const modifierState = currentModifier || modifierModel;
 
     this.state = {
       modal: false,
       modalIndex: modalIndex,
-      modifierIndex: 0,
-      currentModifier: {
-        choicesLimit: menuItemModifierState.choicesLimit,
-        forced: menuItemModifierState.forced,
-        modifier: [...menuItemModifierState.modifier]
-      }
+      subModifierIndex: 0,
+      currentModifier: modifierState
     };
-    console.log(menuItemModifierState);
   }
 
   handleChange = e => {
@@ -52,7 +56,7 @@ class ModifierModal extends Component {
     if (e.target.type === "number") {
       value = parseFloat(value);
     } else {
-      value = value.trim().toUpperCase();
+      value = value.toUpperCase();
     }
 
     if (name === "choicesLimit") {
@@ -60,7 +64,7 @@ class ModifierModal extends Component {
     } else {
       this.setState(
         state => {
-          state.currentModifier.modifier[state.modifierIndex][name] = value;
+          state.currentModifier.modifier[state.subModifierIndex][name] = value;
         },
         () => {
           this.forceUpdate();
@@ -69,30 +73,92 @@ class ModifierModal extends Component {
     }
   };
 
-  handleCurrentModifier = modifierIndex => {
-    this.setState({ modifierIndex });
+  handleCurrentModifier = subModifierIndex => {
+    this.setState({ subModifierIndex });
   };
 
   newModifier = () => {
-    const modalIndex = this.props.number - 1;
-    const modifierMenuModel = JSON.parse(JSON.stringify(MenuModel));
-    const modifierModel =
-      modifierMenuModel.categories[0].subCategories[0].items[0].modifiers[
-        modalIndex
-      ].modifier;
+    const state = this.state;
+    const props = this.props;
+    const lastSubModifier =
+      state.currentModifier.modifier[state.currentModifier.modifier.length - 1];
 
-    this.setState(state => ({
-      modifierIndex: state.currentModifier.modifier.length
-    }));
+      if (lastSubModifier.name.length < 3) {
+      alert(
+        'Please give your last "NEW" modifier a name longer than 3 letters before starting a new one'
+      );
+      this.setState(state => ({
+        subModifierIndex: state.currentModifier.modifier.length - 1
+      }));
+      return;
+    } else if (
+      !lastSubModifier.price &&
+      (props.number === 2 || props.number === 3)
+    ) {
+      alert(
+        'Please give your last "NEW" modifier a price before starting a new one OR enter this as a free modifier in modifier 1 or 4'
+      );
+      this.setState(state => ({
+        subModifierIndex: state.currentModifier.modifier.length - 1
+      }));
+      return;
+    } else {
+      const modifierModel = JSON.parse(
+        JSON.stringify(
+          MenuModel.categories[0].subCategories[0].items[0].modifiers[
+            state.modalIndex
+          ].modifier
+        )
+      );
 
-    this.setState(
-      state =>
-        (state.currentModifier.modifier = [
-          ...state.currentModifier.modifier,
-          ...modifierModel
-        ])
-    );
+      this.setState(state => ({
+        subModifierIndex: state.currentModifier.modifier.length
+      }));
+      this.setState(
+        state =>
+          (state.currentModifier.modifier = [
+            ...state.currentModifier.modifier,
+            ...modifierModel
+          ])
+      );
+    }
   };
+
+  //   const state = this.state;
+  //   const props = this.props;
+  //   const currentSubModifier =
+  //     state.currentModifier.modifier[state.subModifierIndex];
+
+  //   if (currentSubModifier.name.length < 3) {
+  //     alert("Please enter a modifier name longer than 3 letters");
+  //     return;
+  //   } else if (
+  //     !currentSubModifier.price &&
+  //     (props.number === 2 || props.number === 3)
+  //   ) {
+  //     alert(
+  //       "Please enter a modifier price or enter this as a free modifier in modifier 1 or 4"
+  //     );
+  //     return;
+  //   } else {
+  //     const modifierModel = JSON.parse(
+  //       JSON.stringify(
+  //         MenuModel.categories[0].subCategories[0].items[0].modifiers[
+  //           state.modalIndex
+  //         ].modifier
+  //       )
+  //     );
+
+  //     this.setState(
+  //       state => (
+  //         (state.subModifierIndex = state.currentModifier.modifier.length,
+  //         state.currentModifier.modifier = [
+  //           ...state.currentModifier.modifier,
+  //           ...modifierModel
+  //         ])
+  //       )
+  //     );
+  //   }
 
   toggle = () => {
     this.setState({
@@ -108,25 +174,51 @@ class ModifierModal extends Component {
     });
   };
 
+  addSubModifier = () => {
+    const props = this.props;
+    const state = this.state;
+    const currentSubModifier =
+      state.currentModifier.modifier[state.subModifierIndex];
+
+    if (currentSubModifier.name.length < 3) {
+      alert("Please enter a modifier name longer than 3 letters");
+      return;
+    } else if (
+      !currentSubModifier.price &&
+      (props.number === 2 || props.number === 3)
+    ) {
+      alert(
+        "Please enter a modifier price or enter this as a free modifier in modifier 1 or 4"
+      );
+      return;
+    } else {
+      this.setState(
+        state => state.currentModifier.modifier[state.subModifierIndex]
+      );
+    }
+  };
+
   setModifier = () => {
-    this.props.setModifier(this.state.currentModifier, this.state.modalIndex);
+    this.props.setModifier(
+      this.state.currentModifier,
+      this.state.subModifierIndex
+    );
     this.toggle();
   };
 
   render() {
     const props = this.props;
     const state = this.state;
-    const modalIndex = this.state.modalIndex;
-    const modifierIndex = this.state.modifierIndex;
-    const menuItemFormState = this.props.menuItemFormState();
+    const modalIndex = state.modalIndex;
+    const subModifierIndex = state.subModifierIndex;
+    const menuItemFormState = props.menuItemFormState();
     const menuItemModifierState = menuItemFormState.item.modifiers[modalIndex];
-    const currentSubModifier =
-      state.currentModifier.modifier[modifierIndex] || null;
-    console.log(state.currentModifier.modifier);
+    const currentSubModifier = state.currentModifier.modifier[subModifierIndex];
+    console.log("ModifierModal currentSubModifier ", currentSubModifier);
 
     return (
       <>
-        <MDBBtn color="success" style={styles.modalBtn} onClick={this.toggle}>
+        <MDBBtn color="info" outline style={styles.modalBtn} onClick={this.toggle}>
           Modifier {props.number}
           {(props.number === 2 || props.number === 3) && " + $"}
         </MDBBtn>
@@ -168,7 +260,7 @@ class ModifierModal extends Component {
                 size="lg"
                 type="text"
                 name="name"
-                value={currentSubModifier ? currentSubModifier.name : ""}
+                value={currentSubModifier.name}
                 onChange={this.handleChange}
               />
               {props.number === 2 || props.number === 3 ? (
@@ -177,7 +269,7 @@ class ModifierModal extends Component {
                   size="lg"
                   type="number"
                   name="price"
-                  value={currentSubModifier ? currentSubModifier.price : ""}
+                  value={currentSubModifier.price}
                   onChange={this.handleChange}
                 />
               ) : null}
@@ -186,11 +278,21 @@ class ModifierModal extends Component {
                 size="lg"
                 type="number"
                 name="cost"
-                value={currentSubModifier ? currentSubModifier.cost : 0}
+                value={currentSubModifier.cost}
                 onChange={this.handleChange}
               />
             </MDBCol>
+            <MDBCol className="d-flex justify-content-center">
+              <MDBBtn
+                color="success"
+                style={styles.btns}
+                onClick={this.addSubModifier}
+              >
+                Save
+              </MDBBtn>
+            </MDBCol>
             <MDBCol>
+              <hr />
               <h2 className="text-center text-info py-4" style={styles.heading}>
                 Modifier {props.number}{" "}
               </h2>

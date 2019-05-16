@@ -43,6 +43,9 @@ const styles = {
     fontWeight: "900",
     fontSize: "1rem"
   },
+  btnComment: {
+    borderRadius: 10
+  },
   checkBoxGroup: { fontSize: "1.3rem" },
   commentBtn: { padding: "0.8rem" }
 };
@@ -66,6 +69,7 @@ class MenuItemForm extends Component {
 
     this.state = {
       currentComment: "",
+      currentCommentIndex: null,
       advanced: false,
       item: itemState,
       name: itemState.name,
@@ -166,8 +170,8 @@ class MenuItemForm extends Component {
   };
 
   setModifier = (modalState, modalIndex) => {
-    this.setState(state => (state.item.modifiers[modalIndex] = modalState))
-  }
+    this.setState(state => (state.item.modifiers[modalIndex] = modalState));
+  };
 
   setItem = e => {
     e.preventDefault();
@@ -198,7 +202,6 @@ class MenuItemForm extends Component {
     } else {
       this.props.menuBuilderSetItem(item);
     }
-    this.setState(this.initialState);
   };
 
   // submit = e => {
@@ -207,22 +210,46 @@ class MenuItemForm extends Component {
   //   this.props.nextStep();
   // };
 
-  handleComment = e => {
-    const value = e.target.value;
+  handleCommentChange = e => {
+    const value = e.target.value.toUpperCase();
 
     this.setState({ currentComment: value });
   };
 
-  handleCurrentComment = commentIndex => {
+  setComment = commentIndex => {
     this.setState(state => ({
-      currentComment: state.item.comments[commentIndex]
+      currentComment: state.item.comments[commentIndex],
+      currentCommentIndex: commentIndex
     }));
   };
 
   newComment = () => {
-    this.setState({ currentComment: "" }, () => {
-      this.forceUpdate();
-    });
+    this.setState(state => ({
+      currentComment: "",
+      currentCommentIndex: state.item.comments.length
+    }));
+  };
+
+  addComment = () => {
+    const state = this.state;
+
+    if (state.currentComment.length < 3) {
+      alert("Please write a comment longer than 3 characters");
+      return;
+    } else {
+      if (state.currentCommentIndex === state.item.comments.length - 1) {
+        this.setState(state =>
+          state.item.comments.push(state.currentComment.trim())
+        );
+      } else {
+        this.setState(
+          state =>
+            (state.item.comments[
+              state.currentCommentIndex
+            ] = state.currentComment.trim())
+        );
+      }
+    }
   };
 
   render() {
@@ -542,7 +569,7 @@ class MenuItemForm extends Component {
                       color="info"
                       style={styles.commentBtn}
                       onClick={() => {
-                        this.handleCurrentComment(index);
+                        this.setComment(index);
                       }}
                     >
                       {name || "NEW"}
@@ -551,14 +578,13 @@ class MenuItemForm extends Component {
                   <MDBBtn
                     color="orange"
                     style={styles.modalBtn}
-                    onClick={this.newModifier}
+                    onClick={this.newComment}
                   >
                     <MDBIcon
                       icon="plus"
                       size="lg"
                       inverse
                       style={styles.icon}
-                      onClick={this.newComment}
                     />
                   </MDBBtn>
                   <MDBInput
@@ -566,10 +592,20 @@ class MenuItemForm extends Component {
                     label="Comments"
                     rows="1"
                     icon="pencil-alt"
-                    onChange={this.handleComment}
+                    onChange={this.handleCommentChange}
                     value={state.currentComment}
                   />
                 </MDBCol>
+                <MDBCol className="d-flex justify-content-center">
+                  <MDBBtn
+                    color="success"
+                    style={styles.btnComment}
+                    onClick={this.addComment}
+                  >
+                    Save Comment
+                  </MDBBtn>
+                </MDBCol>
+                <hr />
                 <MDBCol className="d-flex justify-content-center">
                   <ModifierModal
                     number={1}
@@ -606,10 +642,8 @@ class MenuItemForm extends Component {
                 </h5>
               </>
             )}
-            <MDBCol>
-              {" "}
-              <hr />
-            </MDBCol>
+            <MDBCol> </MDBCol>
+            <hr />
             <MDBCol className="d-flex justify-content-center">
               <MDBBtn
                 outline
