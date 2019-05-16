@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { MDBContainer } from "mdbreact";
 
 import "./App.css";
 import Nav from "./components/Nav";
@@ -7,14 +8,14 @@ import MenuBuilder from "./pages/MenuBuilder";
 
 const App = () => (
   <Router>
-    <div>
+    <>
       <Nav />
-      <div className="container-fluid">
+      <MDBContainer>
         <Switch>
           <Route exact path="/" component={MenuBuilder} />
         </Switch>
-      </div>
-    </div>
+      </MDBContainer>
+    </>
   </Router>
 );
 

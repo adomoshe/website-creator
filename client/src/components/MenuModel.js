@@ -23,7 +23,7 @@ const MenuModel = {
                 hideOnCart: false,
                 disableDiscount: false,
                 qtyPrompt: false,
-                checkAge: false, //Basic
+                checkId: false, //Basic
                 serviceItem: false
               },
               belongsTo: {
@@ -94,7 +94,7 @@ export default MenuModel;
 //               hideOnCart: false,
 //               disableDiscount: false,
 //               qtyPrompt: false,
-//               checkAge: false, //Basic
+//               checkId: false, //Basic
 //               serviceItem: false
 //             },
 //             belongsTo: {
@@ -163,7 +163,7 @@ export default MenuModel;
 //               hideOnCart: false,
 //               disableDiscount: false,
 //               qtyPrompt: false,
-//               checkAge: false, //Basic
+//               checkId: false, //Basic
 //               serviceItem: false
 //             },
 //             belongsTo: {
@@ -242,7 +242,7 @@ export default MenuModel;
 //               hideOnCart: false,
 //               disableDiscount: false,
 //               qtyPrompt: false,
-//               checkAge: false, //Basic
+//               checkId: false, //Basic
 //               serviceItem: false
 //             },
 //             belongsTo: {
@@ -311,7 +311,7 @@ export default MenuModel;
 //               hideOnCart: false,
 //               disableDiscount: false,
 //               qtyPrompt: false,
-//               checkAge: false, //Basic
+//               checkId: false, //Basic
 //               serviceItem: false
 //             },
 //             belongsTo: {

@@ -51,22 +51,7 @@ class MenuItemForm extends Component {
   constructor(props) {
     super(props);
 
-    const itemModel = JSON.parse(
-      JSON.stringify(MenuModel.categories[0].subCategories[0].items[0])
-    );
-
-    this.state = {
-      advanced: false,
-      currentComment: "",
-      item: itemModel
-    };
-
-    this.initialState = this.state;
-  }
-
-  componentDidUpdate(nextProps, nextState) {
-    console.log(nextProps, nextState);
-    const menuBuilderState = nextProps.menuBuilderState();
+    const menuBuilderState = this.props.menuBuilderState();
     const current = menuBuilderState.current;
     const currentItem =
       menuBuilderState.categories[current.category].subCategories[
@@ -79,8 +64,56 @@ class MenuItemForm extends Component {
 
     const itemState = currentItem || itemModel;
 
-    if (JSON.stringify(nextState.item) !== JSON.stringify(itemState)) {
-      this.setState({ advanced: false, item: itemState });
+    this.state = {
+      currentComment: "",
+      advanced: false,
+      item: itemState,
+      name: itemState.name,
+      cost: itemState.cost,
+      price: itemState.price
+    };
+
+    this.initialState = this.state;
+  }
+
+  componentDidUpdate(nextProps, nextState) {
+    console.log(
+      "componentDidUpdate in MenuItemForm nextProps: ",
+      nextProps,
+      "nextState item: ",
+      nextState.item.name
+    );
+
+    const menuBuilderState = nextProps.menuBuilderState();
+    const current = menuBuilderState.current;
+    const currentItem =
+      menuBuilderState.categories[current.category].subCategories[
+        current.subCategory
+      ].items[current.item];
+
+    const itemModel = JSON.parse(
+      JSON.stringify(MenuModel.categories[0].subCategories[0].items[0])
+    );
+
+    const itemState = currentItem || itemModel;
+    console.log("componentDidUpdate in MenuItemForm itemState: ", itemState);
+
+    if (nextState.item.name !== itemState.name) {
+      console.log("COMPONENTDIDUPDATE IN MENUITEMFORM UPDATING");
+      this.setState(
+        {
+          advanced: false,
+          item: itemState,
+          name: itemState.name,
+          cost: itemState.cost,
+          price: itemState.price
+        },
+        () => {
+          this.forceUpdate();
+        }
+      );
+    } else {
+      console.log("COMPONENTDIDUPDATE IN MENUITEMFORM  NOT  UPDATING");
     }
   }
 
@@ -97,38 +130,24 @@ class MenuItemForm extends Component {
   handleChange = e => {
     const name = e.target.name;
     let value = e.target.value;
-    console.log(e.target);
+
     if (e.target.type === "number") {
       value = parseFloat(value);
     } else {
-      value = value.trim().toUpperCase();
+      value = value.toUpperCase();
     }
 
-    console.log("name: ", name);
-    console.log("value ", value);
-    console.log("state ", this.state.item[name]);
-    this.setState(
-      state => (state.item[name] = value),
-      () => {
-        console.log("state ", this.state.item[name]);
-        console.log(this.state);
-      }
-    );
+    this.setState({ [name]: value });
   };
 
   handleCheckBox = checkBoxState => {
     const name = checkBoxState.name;
     const checked = checkBoxState.checked;
     const parent = checkBoxState.parent;
-    const modalIndex = checkBoxState.modalIndex;
 
     if (parent) {
       this.setState(state => {
         state.item[parent][name] = checked;
-      });
-    } else if (modalIndex) {
-      this.setState(state => {
-        state.item.modifiers[modalIndex].forced = checked;
       });
     } else {
       this.setState(state => {
@@ -139,16 +158,25 @@ class MenuItemForm extends Component {
 
   handleDropDown = dropDownState => {
     const name = dropDownState.name;
-    const option = dropDownState.option;
+    const value = dropDownState.value;
 
     this.setState(state => {
-      state.item[name] = option;
+      state.item[name] = value;
     });
   };
+
+  setModifier = (modalState, modalIndex) => {
+    this.setState(state => (state.item.modifiers[modalIndex] = modalState))
+  }
 
   setItem = e => {
     e.preventDefault();
     const item = this.state.item;
+    const state = this.state;
+
+    item.name = state.name;
+    item.price = state.price;
+    item.cost = state.cost;
 
     if (item.name.length < 3) {
       alert("Please enter an item name longer than 3 letters");
@@ -180,18 +208,22 @@ class MenuItemForm extends Component {
   // };
 
   handleComment = e => {
-    const value = e.target.value
+    const value = e.target.value;
 
     this.setState({ currentComment: value });
-  }
+  };
 
   handleCurrentComment = commentIndex => {
-    this.setState(state => ({ currentComment: state.item.comments[commentIndex] }));
+    this.setState(state => ({
+      currentComment: state.item.comments[commentIndex]
+    }));
   };
 
   newComment = () => {
-    this.setState({ currentComment: '' }, () => {this.forceUpdate()});
-  }
+    this.setState({ currentComment: "" }, () => {
+      this.forceUpdate();
+    });
+  };
 
   render() {
     const state = this.state;
@@ -205,9 +237,8 @@ class MenuItemForm extends Component {
       ].name;
 
     const category = menuBuilderState.categories[current.category].name;
-    console.log("MenuItemForm item: ", item);
 
-    console.log(state.item.comments);
+    console.log("MenuItemForm rendering with state: ", state);
 
     return (
       <>
@@ -267,14 +298,14 @@ class MenuItemForm extends Component {
                     type="text"
                     name="name"
                     onChange={this.handleChange}
-                    value={state.item.name}
+                    value={state.name}
                   />
                   <MDBInput
                     label="Price"
                     size="lg"
                     type="number"
                     name="price"
-                    value={state.item.price}
+                    value={state.price}
                     onChange={this.handleChange}
                   />
                   <MDBInput
@@ -282,7 +313,7 @@ class MenuItemForm extends Component {
                     size="lg"
                     type="number"
                     name="cost"
-                    value={state.item.cost}
+                    value={state.cost}
                     onChange={this.handleChange}
                   />
                 </MDBCol>
@@ -298,7 +329,8 @@ class MenuItemForm extends Component {
                     handleCheckBox={this.handleCheckBox}
                     label="Check ID"
                     name="checkId"
-                    checked={state.item.checkId}
+                    parent="options"
+                    checked={state.item.options.checkId}
                   />
                 </MDBCol>
                 <MDBCol>
@@ -544,24 +576,28 @@ class MenuItemForm extends Component {
                     item={item}
                     menuItemFormState={this.menuItemFormState}
                     handleCheckBox={this.handleCheckBox}
+                    setModifier={this.setModifier}
                   />
                   <ModifierModal
                     number={2}
                     item={item}
                     menuItemFormState={this.menuItemFormState}
                     handleCheckBox={this.handleCheckBox}
+                    setModifier={this.setModifier}
                   />
                   <ModifierModal
                     number={3}
                     item={item}
                     menuItemFormState={this.menuItemFormState}
                     handleCheckBox={this.handleCheckBox}
+                    setModifier={this.setModifier}
                   />
                   <ModifierModal
                     number={4}
                     item={item}
                     menuItemFormState={this.menuItemFormState}
                     handleCheckBox={this.handleCheckBox}
+                    setModifier={this.setModifier}
                   />
                 </MDBCol>
                 <hr />

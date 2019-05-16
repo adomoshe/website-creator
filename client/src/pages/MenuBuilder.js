@@ -48,7 +48,7 @@ class Main extends Component {
                     hideOnCart: false,
                     disableDiscount: false,
                     qtyPrompt: false,
-                    checkAge: false, //Basic
+                    checkId: false, //Basic
                     serviceItem: false
                   },
                   belongsTo: {
@@ -116,7 +116,7 @@ class Main extends Component {
                     hideOnCart: false,
                     disableDiscount: false,
                     qtyPrompt: false,
-                    checkAge: false, //Basic
+                    checkId: false, //Basic
                     serviceItem: false
                   },
                   belongsTo: {
@@ -194,7 +194,7 @@ class Main extends Component {
                     hideOnCart: false,
                     disableDiscount: false,
                     qtyPrompt: false,
-                    checkAge: false, //Basic
+                    checkId: false, //Basic
                     serviceItem: false
                   },
                   belongsTo: {
@@ -262,7 +262,7 @@ class Main extends Component {
                     hideOnCart: false,
                     disableDiscount: false,
                     qtyPrompt: false,
-                    checkAge: false, //Basic
+                    checkId: false, //Basic
                     serviceItem: false
                   },
                   belongsTo: {
@@ -376,7 +376,7 @@ class Main extends Component {
         },
         () => {
           this.forceUpdate();
-          console.log("MenuBuilder state after item update: ", this.state);
+          console.log("MenuBuilder state after NEW ITEM item update: ", this.state);
         }
       );
     } else {
@@ -388,7 +388,7 @@ class Main extends Component {
         },
         () => {
           this.forceUpdate();
-          console.log("MenuBuilder state after item update: ", this.state);
+          console.log("MenuBuilder state after EXISTING item update: ", this.state);
         }
       );
     }
@@ -415,7 +415,7 @@ class Main extends Component {
   render() {
     const state = this.state;
     const current = this.state.current;
-    console.log(state);
+    console.log("MenuBuilder rendering with state: ", state);
     return (
       <MDBRow center>
         {state.formStep && state.categories.length ? (

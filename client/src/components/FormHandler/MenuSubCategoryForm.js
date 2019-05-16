@@ -42,7 +42,7 @@ class MenuSubCategoryForm extends Component {
   }
 
   handleChange = e => {
-    const value = e.target.value;
+    const value = e.target.value.toUpperCase();
     this.setState({ subCategory: value });
   };
 
@@ -70,6 +70,7 @@ class MenuSubCategoryForm extends Component {
       ? menuBuilderState.categories[current.category].name
       : null;
 
+      console.log("MenuSubCategoryForm rendering with state: ", this.state)
     return (
       <MDBCard style={styles.card}>
         <MDBCardBody>

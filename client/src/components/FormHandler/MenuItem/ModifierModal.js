@@ -56,7 +56,7 @@ class ModifierModal extends Component {
     }
 
     if (name === "choicesLimit") {
-      this.setState(state => (state.currentModifier.choiceLimit = value));
+      this.setState(state => (state.currentModifier.choicesLimit = value));
     } else {
       this.setState(
         state => {
@@ -100,6 +100,19 @@ class ModifierModal extends Component {
     });
   };
 
+  handleCheckBox = checkBoxState => {
+    const checked = checkBoxState.checked;
+
+    this.setState(state => {
+      state.currentModifier.forced = checked;
+    });
+  };
+
+  setModifier = () => {
+    this.props.setModifier(this.state.currentModifier, this.state.modalIndex);
+    this.toggle();
+  };
+
   render() {
     const props = this.props;
     const state = this.state;
@@ -110,7 +123,7 @@ class ModifierModal extends Component {
     const currentSubModifier =
       state.currentModifier.modifier[modifierIndex] || null;
     console.log(state.currentModifier.modifier);
-    
+
     return (
       <>
         <MDBBtn color="success" style={styles.modalBtn} onClick={this.toggle}>
@@ -193,7 +206,7 @@ class ModifierModal extends Component {
                 label="Forced"
                 name="forced"
                 modalIndex={modalIndex}
-                handleCheckBox={props.handleCheckBox}
+                handleCheckBox={this.handleCheckBox}
                 checked={state.currentModifier.forced}
               />
             </MDBCol>
@@ -202,7 +215,11 @@ class ModifierModal extends Component {
             <MDBBtn color="primary" onClick={this.toggle} style={styles.btns}>
               Close
             </MDBBtn>
-            <MDBBtn color="success" style={styles.btns}>
+            <MDBBtn
+              color="success"
+              style={styles.btns}
+              onClick={this.setModifier}
+            >
               Save changes
             </MDBBtn>
           </MDBModalFooter>
