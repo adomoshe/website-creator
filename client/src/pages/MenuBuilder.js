@@ -419,7 +419,7 @@ class Main extends Component {
     return (
       <MDBRow>
         {state.formStep && state.categories.length ? (
-          <MDBCol md="4" lg="3" xl="2" className="px-md-0 my-3 my-md-5">
+          <MDBCol md="4" lg="3" xl="2" className="px-md-0 my-3 my-md-5 position-fixed">
             <SideNav
               menuBuilderState={this.menuBuilderState}
               setFormHandlerStep={this.setFormHandlerStep}
@@ -431,7 +431,7 @@ class Main extends Component {
         state.current.subCategory !== null &&
         state.categories[current.category].subCategories[current.subCategory]
           .items[0] ? (
-          <MDBCol md="4" lg="3" xl="2" className="pl-md-0 my-3 my-md-5">
+          <MDBCol md="4" lg="3" xl="2" className="pl-md-0 my-3 my-md-5 offset-md-4 offset-lg-3 offset-xl-2 position-fixed">
             <ItemSideNav
               menuBuilderState={this.menuBuilderState}
               setFormHandlerStep={this.setFormHandlerStep}
@@ -439,7 +439,7 @@ class Main extends Component {
             />
           </MDBCol>
         ) : null}
-        <MDBCol md="6" lg="6" className=" my-3 my-md-5">
+        <MDBCol md="6" lg="6" className="my-3 my-md-5 offset-md-8 offset-lg-6 offset-xl-2">
           <FormHandler
             menuBuilderState={this.menuBuilderState}
             nextFormStep={this.nextFormStep}

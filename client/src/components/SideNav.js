@@ -15,7 +15,12 @@ const styles = {
   subCatListItem: {
     borderLeft: "0.3rem solid #33b5e5",
     cursor: "pointer"
-  }
+  },
+  editIcon: {
+    cursor: "pointer",
+    fontWeight: "200"
+  },
+  plusIcon: { cursor: "pointer" }
 };
 
 class SideNav extends Component {
@@ -49,18 +54,29 @@ class SideNav extends Component {
     const menuBuilderState = this.props.menuBuilderState();
 
     return (
-      <MDBListGroup>
+      <MDBListGroup styles={styles.fixed}>
         <MDBListGroupItem className="pr-0 bg-info">
-          <span className="text-white">Categories</span>
-          <MDBBtn
-            color="deep-orange darken-4"
-            className="mx-0 my-0 float-right"
+          <span className="text-white">Main Menu</span>
+          <MDBIcon
+            icon="plus"
+            size="sm"
+            inverse="true"
+            style={styles.plusIcon}
+            className="float-right mx-2"
             onClick={() => {
-              this.props.setFormHandlerStep(1);
-            }}
-          >
-            <MDBIcon icon="plus" size="lg" inverse="true" style={styles.icon} />
-          </MDBBtn>
+              this.props.setFormHandlerStep(1);}}
+          />
+          <MDBIcon
+            icon="edit"
+            size="sm"
+            inverse="true"
+            style={styles.editIcon}
+            className=" float-right mx-2"
+          />
+          <MDBIcon icon="minus" size="sm"
+            inverse="true"
+            style={styles.addIcon}
+            className=" float-right mx-2" />
         </MDBListGroupItem>
         {menuBuilderState.categories.map(({ name }, categoryIndex) => {
           return (
@@ -97,27 +113,22 @@ class SideNav extends Component {
                       );
                     }
                   )}
-                <MDBListGroupItem
-                  style={styles.subCatListItem}
-                  className="ml-2 px-0 py-0"
-                >
-                  <MDBBtn
-                    color="deep-orange darken-4"
-                    outline
-                    className="w-100 mx-0 my-0"
-                    onClick={() => {
-                      this.newSubCategory(categoryIndex);
-                    }}
+                  <MDBListGroupItem
+                    style={styles.subCatListItem}
+                    className="ml-2 px-0 py-0"
                   >
-                    <MDBIcon
-                      icon="plus"
-                      size="lg"
-                      // inverse="true"
-                      style={styles.icon}
-                    />{" "}
-                    Sub-Category
-                  </MDBBtn>
-                </MDBListGroupItem>
+                    <MDBBtn
+                      color="deep-orange darken-4"
+                      outline
+                      className="w-100 mx-0 my-0"
+                      onClick={() => {
+                        this.newSubCategory(categoryIndex);
+                      }}
+                    >
+                      <MDBIcon icon="plus" size="lg" style={styles.icon} />{" "}
+                      Sub-Category
+                    </MDBBtn>
+                  </MDBListGroupItem>
                 </MDBListGroup>
               </MDBCollapse>
             </div>

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { MDBBtn, MDBIcon, MDBListGroup, MDBListGroupItem } from "mdbreact";
 
-const styles = {
-};
+const styles = {};
 
 class ItemSideNav extends Component {
   handleItemClick = itemIndex => {
@@ -27,25 +26,33 @@ class ItemSideNav extends Component {
     const menuBuilderState = this.props.menuBuilderState();
     const current = menuBuilderState.current;
 
+    const currentCat =
+      menuBuilderState.categories[current.category].name
+
+      const currentSubCat =
+      menuBuilderState.categories[current.category].subCategories[
+        current.subCategory
+      ].name
+
     return (
-        <MDBListGroup>
-          <MDBListGroupItem color="warning">Items</MDBListGroupItem>
-          {menuBuilderState.categories[current.category].subCategories[
-            current.subCategory
-          ].items.map(({ name }, itemIndex) => {
-            return (
-              <MDBListGroupItem
-                hover
-                className="text-dark"
-                onClick={() => {
-                  this.handleItemClick(itemIndex);
-                }}
-                key={itemIndex}
-              >
-                {name}{" "}
-              </MDBListGroupItem>
-            );
-          })}
+      <MDBListGroup>
+        <MDBListGroupItem color="warning">{currentCat} / {currentSubCat}{" "}items</MDBListGroupItem>
+        {menuBuilderState.categories[current.category].subCategories[
+          current.subCategory
+        ].items.map(({ name }, itemIndex) => {
+          return (
+            <MDBListGroupItem
+              hover
+              className="text-dark"
+              onClick={() => {
+                this.handleItemClick(itemIndex);
+              }}
+              key={itemIndex}
+            >
+              {name}{" "}
+            </MDBListGroupItem>
+          );
+        })}
 
         <MDBBtn
           color="deep-orange darken-4"
@@ -53,15 +60,10 @@ class ItemSideNav extends Component {
           className="mx-0 my-0"
           onClick={this.newItem}
         >
-          <MDBIcon
-            icon="plus"
-            size="lg"
-            inverse="true"
-            style={styles.icon}
-          />{" "}
+          <MDBIcon icon="plus" size="lg" inverse="true" style={styles.icon} />{" "}
           Item
         </MDBBtn>
-        </MDBListGroup>
+      </MDBListGroup>
     );
   }
 }
