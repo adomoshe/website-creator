@@ -9,8 +9,8 @@ import {
   // MDBNavbarBrand,
   MDBBtn,
   MDBIcon,
-  MDBCard,
-  MDBCardBody,
+  // MDBCard,
+  // MDBCardBody,
   MDBNavbarNav,
   MDBCollapse,
   MDBListGroup,
@@ -18,11 +18,13 @@ import {
 } from "mdbreact";
 
 const styles = {
-  card: {
-    marginTop: "4rem"
-  },
   addBtn: {
-    width: "100%"
+    width: "100%",
+    margin: 0
+
+  },
+  addBtnItem: {
+    padding: 0,
   },
   pointer: {
     cursor: "pointer"
@@ -61,8 +63,9 @@ class SideNav extends Component {
     // const current = menuBuilderState.current;
 
     return (
-      <MDBCard style={styles.card}>
-        <MDBCardBody>
+      // <MDBCard style={styles.card}>
+      //   <MDBCardBody>
+      <div>
           <MDBListGroup>
             <MDBListGroupItem color="primary">Categories</MDBListGroupItem>
             {menuBuilderState.categories.map(({ name }, categoryIndex) => {
@@ -103,16 +106,18 @@ class SideNav extends Component {
                         );
                       })}
                     </MDBNavbarNav>
-                    <MDBListGroupItem>
+                    <MDBListGroupItem style={styles.addBtnItem}>
                       <MDBBtn
                         color="orange"
+                        outline
+                        className="d-flex justify-content-center"
                         style={styles.addBtn}
                         onClick={() => {this.newSubCategory(categoryIndex)}}
                       >
                         <MDBIcon
                           icon="plus"
                           size="lg"
-                          inverse="true"
+                          // inverse="true"
                           style={styles.icon}
                         />{" "}
                         Sub-Category
@@ -133,8 +138,9 @@ class SideNav extends Component {
             <MDBIcon icon="plus" size="lg" inverse="true" style={styles.icon} />
             Category
           </MDBBtn>
-        </MDBCardBody>
-      </MDBCard>
+          </div>
+      //   </MDBCardBody>
+      // </MDBCard>
     );
   }
 }

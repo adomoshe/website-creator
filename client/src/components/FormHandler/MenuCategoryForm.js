@@ -9,10 +9,6 @@ import {
 } from "mdbreact";
 
 const styles = {
-  card: {
-    marginTop: "4rem",
-    marginBottom: "4rem"
-  },
   heading: {
     fontWeight: "500"
   },

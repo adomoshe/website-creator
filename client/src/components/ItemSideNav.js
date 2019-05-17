@@ -18,9 +18,6 @@ import {
 } from "mdbreact";
 
 const styles = {
-  card: {
-    marginTop: "4rem"
-  },
   addBtn: {
     width: "100%"
   }
@@ -60,8 +57,9 @@ class ItemSideNav extends Component {
     const current = menuBuilderState.current;
 
     return (
-      <MDBCard style={styles.card}>
-        <MDBCardBody>
+      // <MDBCard style={styles.card}>
+      //   <MDBCardBody>
+          <>
           <MDBListGroup>
             <MDBListGroupItem color="danger">Items</MDBListGroupItem>
             {menuBuilderState.categories[current.category].subCategories[
@@ -89,8 +87,9 @@ class ItemSideNav extends Component {
           >
             <MDBIcon icon="plus" size="lg" inverse="true" style={styles.icon} /> Item
           </MDBBtn>
-        </MDBCardBody>
-      </MDBCard>
+          </>
+      //   </MDBCardBody>
+      // </MDBCard>
     );
   }
 }

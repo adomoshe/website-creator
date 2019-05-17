@@ -10,9 +10,9 @@ const App = () => (
   <Router>
     <>
       <Nav />
-      <MDBContainer>
+      <MDBContainer fluid>
         <Switch>
-          <Route exact path="/" component={MenuBuilder} />
+          <Route exact path="/menu" component={MenuBuilder} />
         </Switch>
       </MDBContainer>
     </>

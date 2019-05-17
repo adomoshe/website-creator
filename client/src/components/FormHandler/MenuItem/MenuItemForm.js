@@ -17,10 +17,6 @@ import DropDown from "./DropDown";
 import MenuModel from "../../MenuModel";
 
 const styles = {
-  card: {
-    marginTop: "4rem",
-    marginBottom: "4rem"
-  },
   heading: {
     fontSize: "1rem",
     fontWeight: "500"
