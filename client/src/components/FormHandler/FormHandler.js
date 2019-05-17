@@ -18,6 +18,8 @@ class FormHandler extends Component {
             prevStep={this.props.prevFormStep}
             menuBuilderSetCategory={this.props.menuBuilderSetCategory}
             menuBuilderState={this.props.menuBuilderState}
+            setFormHandlerStep={this.props.setFormHandlerStep}
+            menuBuilderSetCurrent={this.props.menuBuilderSetCurrent}
           />
         );
       case 2:

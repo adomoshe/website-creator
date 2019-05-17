@@ -1,40 +1,10 @@
 import React, { Component } from "react";
-import {
-  // MDBNavbar,
-  // MDBContainer,
-  // MDBCol,
-  // MDBNavLink,
-  // MDBNavItem,
-  // MDBHamburgerToggler,
-  // MDBNavbarBrand,
-  MDBBtn,
-  MDBIcon,
-  MDBCard,
-  MDBCardBody,
-  // MDBNavbarNav,
-  // MDBCollapse,
-  MDBListGroup,
-  MDBListGroupItem
-} from "mdbreact";
+import { MDBBtn, MDBIcon, MDBListGroup, MDBListGroupItem } from "mdbreact";
 
 const styles = {
-  addBtn: {
-    width: "100%"
-  }
 };
 
 class ItemSideNav extends Component {
-  state = {
-    collapse: {}
-  };
-
-  // handleCategoryClick = categoryIndex => {
-  //   this.setState(
-  //     state => (state.collapse[categoryIndex] = !state.collapse[categoryIndex])
-  //   );
-  //   this.props.menuBuilderSetCurrent("category", categoryIndex);
-  // };
-
   handleItemClick = itemIndex => {
     this.props.menuBuilderSetCurrent("item", itemIndex);
     this.props.setFormHandlerStep(3);
@@ -45,51 +15,53 @@ class ItemSideNav extends Component {
 
     const menuBuilderState = this.props.menuBuilderState();
     const current = menuBuilderState.current;
-    const itemArrLen = menuBuilderState.categories[current.category].subCategories[
-      current.subCategory
-    ].items.length
+    const itemArrLen =
+      menuBuilderState.categories[current.category].subCategories[
+        current.subCategory
+      ].items.length;
 
-    this.props.menuBuilderSetCurrent("item", itemArrLen + 1);
-  }
+    this.props.menuBuilderSetCurrent("item", itemArrLen);
+  };
 
   render() {
     const menuBuilderState = this.props.menuBuilderState();
     const current = menuBuilderState.current;
 
     return (
-      // <MDBCard style={styles.card}>
-      //   <MDBCardBody>
-          <>
-          <MDBListGroup>
-            <MDBListGroupItem color="danger">Items</MDBListGroupItem>
-            {menuBuilderState.categories[current.category].subCategories[
-              current.subCategory
-            ].items.map(({ name }, itemIndex) => {
-              return (
-                <MDBListGroupItem
-                  color="light"
-                  hover
-                  onClick={() => {
-                    this.handleItemClick(itemIndex);
-                  }}
-                  key={itemIndex}
-                >
-                  {name}{" "}
-                </MDBListGroupItem>
-              );
-            })}
-          </MDBListGroup>
+        <MDBListGroup>
+          <MDBListGroupItem color="warning">Items</MDBListGroupItem>
+          {menuBuilderState.categories[current.category].subCategories[
+            current.subCategory
+          ].items.map(({ name }, itemIndex) => {
+            return (
+              <MDBListGroupItem
+                hover
+                className="text-dark"
+                onClick={() => {
+                  this.handleItemClick(itemIndex);
+                }}
+                key={itemIndex}
+              >
+                {name}{" "}
+              </MDBListGroupItem>
+            );
+          })}
 
-          <MDBBtn
-            color="orange"
-            style={styles.addBtn}
-            onClick={this.newItem}
-          >
-            <MDBIcon icon="plus" size="lg" inverse="true" style={styles.icon} /> Item
-          </MDBBtn>
-          </>
-      //   </MDBCardBody>
-      // </MDBCard>
+        <MDBBtn
+          color="deep-orange darken-4"
+          style={styles.addBtn}
+          className="mx-0 my-0"
+          onClick={this.newItem}
+        >
+          <MDBIcon
+            icon="plus"
+            size="lg"
+            inverse="true"
+            style={styles.icon}
+          />{" "}
+          Item
+        </MDBBtn>
+        </MDBListGroup>
     );
   }
 }

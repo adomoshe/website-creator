@@ -1,7 +1,7 @@
 {
   "name": "website-creator",
   "version": "1.0.0",
-  "description": "Website Creator for AST POS Clients",
+  "description": "Online menu portal for AST POS Clients",
   "main": "server.js",
   "dependencies": {
     "express": "^4.16.4",
@@ -26,7 +26,10 @@
     "type": "git",
     "url": "git+https://github.com/adomoshe/website-creator.git"
   },
-  "author": "AST POS",
+  "author": [
+    "AST POS",
+    "Adoran Moshe"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/adomoshe/website-creator/issues"

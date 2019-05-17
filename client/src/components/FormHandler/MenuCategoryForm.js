@@ -45,13 +45,18 @@ class MenuCategoryForm extends Component {
 
   setCategory = e => {
     e.preventDefault();
+
+    const menuBuilderState = this.props.menuBuilderState()
+    const lastCatIn = menuBuilderState.categories.length
     const category = this.state.category.trim().toUpperCase();
     if (category.length < 3) {
       alert("Please enter a category name longer than 3 letters");
       return;
     }
     this.props.menuBuilderSetCategory(category);
-    this.setState(this.initialState);
+    this.props.menuBuilderSetCurrent("category", lastCatIn);
+    this.props.menuBuilderSetCurrent("item", 0);
+    this.props.setFormHandlerStep(2);
   };
 
   render() {

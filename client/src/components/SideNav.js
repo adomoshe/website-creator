@@ -1,32 +1,19 @@
 import React, { Component } from "react";
 import {
-  // MDBNavbar,
-  // MDBContainer,
-  // MDBCol,
-  // MDBNavLink,
-  MDBNavItem,
-  // MDBHamburgerToggler,
-  // MDBNavbarBrand,
   MDBBtn,
   MDBIcon,
-  // MDBCard,
-  // MDBCardBody,
-  MDBNavbarNav,
   MDBCollapse,
   MDBListGroup,
   MDBListGroupItem
 } from "mdbreact";
 
 const styles = {
-  addBtn: {
-    width: "100%",
-    margin: 0
-
+  catListItem: {
+    borderLeft: "0.6rem solid #33b5e5",
+    cursor: "pointer"
   },
-  addBtnItem: {
-    padding: 0,
-  },
-  pointer: {
+  subCatListItem: {
+    borderLeft: "0.3rem solid #33b5e5",
     cursor: "pointer"
   }
 };
@@ -40,13 +27,13 @@ class SideNav extends Component {
     this.setState(
       state => (state.collapse[categoryIndex] = !state.collapse[categoryIndex])
     );
-    this.props.setFormHandlerStep(1);
     this.props.menuBuilderSetCurrent("subCategory", null);
     this.props.menuBuilderSetCurrent("item", null);
+    this.props.setFormHandlerStep(1);
   };
 
   handleSubCategoryClick = (categoryIndex, subCategoryIndex) => {
-    console.log("category index", categoryIndex)
+    console.log("category index", categoryIndex);
     this.props.menuBuilderSetCurrent("category", categoryIndex);
     this.props.menuBuilderSetCurrent("subCategory", subCategoryIndex);
     this.props.menuBuilderSetCurrent("item", 0);
@@ -60,87 +47,83 @@ class SideNav extends Component {
 
   render() {
     const menuBuilderState = this.props.menuBuilderState();
-    // const current = menuBuilderState.current;
 
     return (
-      // <MDBCard style={styles.card}>
-      //   <MDBCardBody>
-      <div>
-          <MDBListGroup>
-            <MDBListGroupItem color="primary">Categories</MDBListGroupItem>
-            {menuBuilderState.categories.map(({ name }, categoryIndex) => {
-              return (
-                <>
-                  <MDBListGroupItem
-                    key={categoryIndex}
-                    color="light"
-                    hover
-                    onClick={() => {
-                      this.handleCategoryClick(categoryIndex);
-                    }}
-                  >
-                    {name}{" "}
-                  </MDBListGroupItem>
-
-                  <MDBCollapse
-                    isOpen={this.state.collapse[categoryIndex]}
-                    navbar
-                  >
-                    <MDBNavbarNav left>
-                      {menuBuilderState.categories[
-                        categoryIndex
-                      ].subCategories.map(({ name }, subCategoryIndex) => {
-                        return (
-                          <MDBListGroupItem key={subCategoryIndex}>
-                            <MDBNavItem
-                              role="button"
-                              style={styles.pointer}
-                              onClick={() => {
-                                this.handleSubCategoryClick(categoryIndex, subCategoryIndex);
-                              }}
-                              active
-                            >
-                              {name}
-                            </MDBNavItem>
-                          </MDBListGroupItem>
-                        );
-                      })}
-                    </MDBNavbarNav>
-                    <MDBListGroupItem style={styles.addBtnItem}>
-                      <MDBBtn
-                        color="orange"
-                        outline
-                        className="d-flex justify-content-center"
-                        style={styles.addBtn}
-                        onClick={() => {this.newSubCategory(categoryIndex)}}
-                      >
-                        <MDBIcon
-                          icon="plus"
-                          size="lg"
-                          // inverse="true"
-                          style={styles.icon}
-                        />{" "}
-                        Sub-Category
-                      </MDBBtn>
-                    </MDBListGroupItem>
-                  </MDBCollapse>
-                </>
-              );
-            })}
-          </MDBListGroup>
+      <MDBListGroup>
+        <MDBListGroupItem className="pr-0 bg-info">
+          <span className="text-white">Categories</span>
           <MDBBtn
-            color="orange"
-            style={styles.addBtn}
+            color="deep-orange darken-4"
+            className="mx-0 my-0 float-right"
             onClick={() => {
               this.props.setFormHandlerStep(1);
             }}
           >
             <MDBIcon icon="plus" size="lg" inverse="true" style={styles.icon} />
-            Category
           </MDBBtn>
-          </div>
-      //   </MDBCardBody>
-      // </MDBCard>
+        </MDBListGroupItem>
+        {menuBuilderState.categories.map(({ name }, categoryIndex) => {
+          return (
+            <div key={categoryIndex}>
+              <MDBListGroupItem
+                style={styles.catListItem}
+                hover
+                onClick={() => {
+                  this.handleCategoryClick(categoryIndex);
+                }}
+              >
+                <span className="text-dark">{name}</span>
+              </MDBListGroupItem>
+
+              <MDBCollapse isOpen={this.state.collapse[categoryIndex]} navbar>
+                <MDBListGroup>
+                  {menuBuilderState.categories[categoryIndex].subCategories.map(
+                    ({ name }, subCategoryIndex) => {
+                      return (
+                        <MDBListGroupItem
+                          key={subCategoryIndex}
+                          className="ml-2"
+                          role="button"
+                          style={styles.subCatListItem}
+                          onClick={() => {
+                            this.handleSubCategoryClick(
+                              categoryIndex,
+                              subCategoryIndex
+                            );
+                          }}
+                        >
+                          <span className="text-dark">{name}</span>
+                        </MDBListGroupItem>
+                      );
+                    }
+                  )}
+                <MDBListGroupItem
+                  style={styles.subCatListItem}
+                  className="ml-2 px-0 py-0"
+                >
+                  <MDBBtn
+                    color="deep-orange darken-4"
+                    outline
+                    className="w-100 mx-0 my-0"
+                    onClick={() => {
+                      this.newSubCategory(categoryIndex);
+                    }}
+                  >
+                    <MDBIcon
+                      icon="plus"
+                      size="lg"
+                      // inverse="true"
+                      style={styles.icon}
+                    />{" "}
+                    Sub-Category
+                  </MDBBtn>
+                </MDBListGroupItem>
+                </MDBListGroup>
+              </MDBCollapse>
+            </div>
+          );
+        })}
+      </MDBListGroup>
     );
   }
 }
