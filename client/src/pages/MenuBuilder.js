@@ -376,7 +376,10 @@ class Main extends Component {
         },
         () => {
           this.forceUpdate();
-          console.log("MenuBuilder state after NEW ITEM item update: ", this.state);
+          console.log(
+            "MenuBuilder state after NEW ITEM item update: ",
+            this.state
+          );
         }
       );
     } else {
@@ -388,7 +391,10 @@ class Main extends Component {
         },
         () => {
           this.forceUpdate();
-          console.log("MenuBuilder state after EXISTING item update: ", this.state);
+          console.log(
+            "MenuBuilder state after EXISTING item update: ",
+            this.state
+          );
         }
       );
     }
@@ -418,28 +424,34 @@ class Main extends Component {
     console.log("MenuBuilder rendering with state: ", state);
     return (
       <MDBRow>
-        {state.formStep && state.categories.length ? (
-          <MDBCol md="4" lg="3" xl="2" className="px-md-0 my-3 my-md-5 position-fixed">
+        <MDBCol
+          md="5"
+          xl="3"
+          className="px-md-0 my-3 my-md-5 position-fixed"
+        >
+          {state.formStep && state.categories.length ? (
             <SideNav
               menuBuilderState={this.menuBuilderState}
               setFormHandlerStep={this.setFormHandlerStep}
               menuBuilderSetCurrent={this.menuBuilderSetCurrent}
             />
-          </MDBCol>
-        ) : null}
-        {state.formStep === 3 &&
-        state.current.subCategory !== null &&
-        state.categories[current.category].subCategories[current.subCategory]
-          .items[0] ? (
-          <MDBCol md="4" lg="3" xl="2" className="pl-md-0 my-3 my-md-5 offset-md-4 offset-lg-3 offset-xl-2 position-fixed">
+          ) : null}
+          {state.formStep === 3 &&
+          state.current.subCategory !== null &&
+          state.categories[current.category].subCategories[current.subCategory]
+            .items[0] ? (
             <ItemSideNav
               menuBuilderState={this.menuBuilderState}
               setFormHandlerStep={this.setFormHandlerStep}
               menuBuilderSetCurrent={this.menuBuilderSetCurrent}
             />
-          </MDBCol>
-        ) : null}
-        <MDBCol md="6" lg="6" className="my-3 my-md-5 offset-md-8 offset-lg-6 offset-xl-2">
+          ) : null}
+        </MDBCol>
+        <MDBCol
+          md="6"
+          lg="6"
+          className="my-3 my-md-5 offset-md-5 offset-xl-3"
+        >
           <FormHandler
             menuBuilderState={this.menuBuilderState}
             nextFormStep={this.nextFormStep}

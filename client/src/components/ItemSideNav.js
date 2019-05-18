@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { MDBBtn, MDBIcon, MDBListGroup, MDBListGroupItem } from "mdbreact";
 
-const styles = {};
+const styles = {
+  border: { borderRadius: 10 }
+};
 
 class ItemSideNav extends Component {
   handleItemClick = itemIndex => {
@@ -26,17 +28,24 @@ class ItemSideNav extends Component {
     const menuBuilderState = this.props.menuBuilderState();
     const current = menuBuilderState.current;
 
-    const currentCat =
-      menuBuilderState.categories[current.category].name
+    const currentCat = menuBuilderState.categories[current.category].name;
 
-      const currentSubCat =
+    const currentSubCat =
       menuBuilderState.categories[current.category].subCategories[
         current.subCategory
-      ].name
+      ].name;
 
     return (
       <MDBListGroup>
-        <MDBListGroupItem color="warning">{currentCat} / {currentSubCat}{" "}items</MDBListGroupItem>
+        <MDBListGroupItem color="warning" className="h5">
+          <small>
+            {currentCat} <MDBIcon icon="angle-right" /> {currentSubCat}
+          </small>{" "}
+          <MDBIcon icon="angle-right" /> ITEMS{" "}
+          <small>
+            <MDBIcon icon="level-down-alt" />
+          </small>
+        </MDBListGroupItem>
         {menuBuilderState.categories[current.category].subCategories[
           current.subCategory
         ].items.map(({ name }, itemIndex) => {
@@ -44,10 +53,11 @@ class ItemSideNav extends Component {
             <MDBListGroupItem
               hover
               className="text-dark"
+              key={itemIndex}
+              style={styles.border}
               onClick={() => {
                 this.handleItemClick(itemIndex);
               }}
-              key={itemIndex}
             >
               {name}{" "}
             </MDBListGroupItem>

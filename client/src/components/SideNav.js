@@ -10,10 +10,12 @@ import {
 const styles = {
   catListItem: {
     borderLeft: "0.6rem solid #33b5e5",
+    borderRadius: 10,
     cursor: "pointer"
   },
   subCatListItem: {
     borderLeft: "0.3rem solid #33b5e5",
+    borderRadius: 10,
     cursor: "pointer"
   },
   editIcon: {
