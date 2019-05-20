@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   MDBBtn,
   MDBIcon,
@@ -29,35 +29,9 @@ const styles = {
   }
 };
 
-class SideNav extends Component {
-  state = {
-    collapse: {}
-  };
-
-  handleCategoryClick = categoryIndex => {
-    this.setState(
-      state => (state.collapse[categoryIndex] = !state.collapse[categoryIndex])
-    );
-    this.props.menuBuilderSetCurrent("subCategory", null);
-    this.props.menuBuilderSetCurrent("item", null);
-    this.props.setFormHandlerStep(1);
-  };
-
-  handleSubCategoryClick = (categoryIndex, subCategoryIndex) => {
-    console.log("category index", categoryIndex);
-    this.props.menuBuilderSetCurrent("category", categoryIndex);
-    this.props.menuBuilderSetCurrent("subCategory", subCategoryIndex);
-    // this.props.menuBuilderSetCurrent("item", 0);
-    // this.props.setFormHandlerStep(3);
-  };
-
-  newSubCategory = categoryIndex => {
-    this.props.menuBuilderSetCurrent("category", categoryIndex);
-    this.props.setFormHandlerStep(2);
-  };
-
-  render() {
-    const menuBuilderState = this.props.menuBuilderState();
+const SideNav = (props) => {
+    const menuBuilderState = props.menuBuilderState();
+    const sideNavCollapse = props.sideNavCollapse
 
     return (
       <MDBListGroup styles={styles.fixed}>
@@ -70,7 +44,7 @@ class SideNav extends Component {
             style={styles.plusIcon}
             className="float-right mx-2"
             onClick={() => {
-              this.props.setFormHandlerStep(1);}}
+              props.setFormHandlerStep(1);}}
           />
           <MDBIcon
             icon="edit"
@@ -92,13 +66,13 @@ class SideNav extends Component {
                 style={styles.catListItem}
                 hover
                 onClick={() => {
-                  this.handleCategoryClick(categoryIndex);
+                  props.handleCategoryClick(categoryIndex);
                 }}
               >
                 <span className="text-dark">{name}</span>
               </MDBListGroupItem>
 
-              <MDBCollapse isOpen={this.state.collapse[categoryIndex]} navbar>
+              <MDBCollapse isOpen={sideNavCollapse[categoryIndex]} navbar>
                 <MDBListGroup>
                   {menuBuilderState.categories[categoryIndex].subCategories.map(
                     ({ name }, subCategoryIndex) => {
@@ -109,7 +83,7 @@ class SideNav extends Component {
                           role="button"
                           style={styles.subCatListItem}
                           onClick={() => {
-                            this.handleSubCategoryClick(
+                            props.handleSubCategoryClick(
                               categoryIndex,
                               subCategoryIndex
                             );
@@ -129,7 +103,7 @@ class SideNav extends Component {
                       outline
                       className="w-100 mx-0 my-0"
                       onClick={() => {
-                        this.newSubCategory(categoryIndex);
+                        props.newSubCategory(categoryIndex);
                       }}
                     >
                       <MDBIcon icon="plus" size="lg" style={styles.icon} />{" "}
@@ -145,6 +119,5 @@ class SideNav extends Component {
       </MDBListGroup>
     );
   }
-}
 
-export default SideNav;
+  export default SideNav
