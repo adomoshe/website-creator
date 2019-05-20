@@ -1,55 +1,83 @@
 import React, { Component } from "react";
 import {} from "mdbreact";
 
-import SideNav from "./SideNav"
-import ItemSideNav from "./ItemSideNav"
+import SideNav from "./SideNav";
+import ItemSideNav from "./ItemSideNav";
 
-class NavHandler extends Component {
+export default class NavHandler extends Component {
   state = {
-    sideNavCollapse: {}
+    sideNavCollapse: false,
+    currentCategoryIndex: null,
+    categoryDisplay: [],
+    subCategoryDisplay: []
+  };
+
+  menuBuilderState = this.props.menuBuilderState();
+
+  mapAndSetCategories = () => {
+    const catArr = this.menuBuilderState.categories.map(({ name }) => {
+      return name;
+    });
+    this.setState({ categoryDisplay: [...catArr] });
+  };
+  componentDidMount() {
+    this.mapAndSetCategories();
   }
 
   handleCategoryClick = categoryIndex => {
-    this.setState(
-      state => (state.sideNavCollapse[categoryIndex] = !state.sideNavCollapse[categoryIndex])
-    );
+    if (this.state.sideNavCollapse) {
+      this.setState(state => ({
+        sideNavCollapse: !state.sideNavCollapse
+      }));
+      this.mapAndSetCategories();
+
+      this.props.menuBuilderSetCurrent("category", null);
+      this.props.setFormHandlerStep(1);
+    } else {
+      const subCatArr = this.menuBuilderState.categories[
+        categoryIndex
+      ].subCategories.map(({ name }) => {
+        return name;
+      });
+
+      this.setState(state => ({
+        sideNavCollapse: !state.sideNavCollapse,
+        currentCategoryIndex: categoryIndex,
+        categoryDisplay: [this.menuBuilderState.categories[categoryIndex].name],
+        subCategoryDisplay: [...subCatArr]
+      }));
+
+      this.props.menuBuilderSetCurrent("category", categoryIndex);
+      this.props.setFormHandlerStep(2);
+    }
+
     this.props.menuBuilderSetCurrent("subCategory", null);
     this.props.menuBuilderSetCurrent("item", null);
-    this.props.setFormHandlerStep(1);
   };
 
-  handleSubCategoryClick = (categoryIndex, subCategoryIndex) => {
-    console.log("category index", categoryIndex);
-    this.props.menuBuilderSetCurrent("category", categoryIndex);
+  handleSubCategoryClick = subCategoryIndex => {
+    const currentCategoryIndex = this.state.currentCategoryIndex;
+
+    this.props.menuBuilderSetCurrent("category", currentCategoryIndex);
     this.props.menuBuilderSetCurrent("subCategory", subCategoryIndex);
-    // this.props.menuBuilderSetCurrent("item", 0);
-    // this.props.setFormHandlerStep(3);
-  };
-
-  newSubCategory = categoryIndex => {
-    this.props.menuBuilderSetCurrent("category", categoryIndex);
-    this.props.setFormHandlerStep(2);
+    this.props.menuBuilderSetCurrent("item", null);
   };
 
   render() {
-    const menuBuilderState = this.props.menuBuilderState();
-
     return (
       <>
-        {menuBuilderState.formStep && menuBuilderState.categories.length ? (
+        {this.menuBuilderState.formStep &&
+        this.menuBuilderState.categories.length ? (
           <SideNav
-            menuBuilderState={this.props.menuBuilderState}
-            setFormHandlerStep={this.props.setFormHandlerStep}
-            menuBuilderSetCurrent={this.props.menuBuilderSetCurrent}
-
+          setFormHandlerStep={this.props.setFormHandlerStep}
             handleCategoryClick={this.handleCategoryClick}
             handleSubCategoryClick={this.handleSubCategoryClick}
-            newSubCategory={this.newSubCategory}
-
             sideNavCollapse={this.state.sideNavCollapse}
+            categoryDisplay={this.state.categoryDisplay}
+            subCategoryDisplay={this.state.subCategoryDisplay}
           />
         ) : null}
-        {menuBuilderState.current.subCategory !== null ? (
+        {this.menuBuilderState.current.subCategory !== null ? (
           <ItemSideNav
             menuBuilderState={this.props.menuBuilderState}
             setFormHandlerStep={this.props.setFormHandlerStep}
@@ -60,5 +88,3 @@ class NavHandler extends Component {
     );
   }
 }
-
-export default NavHandler;
