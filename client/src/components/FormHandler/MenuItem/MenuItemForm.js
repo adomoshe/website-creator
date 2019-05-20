@@ -200,12 +200,6 @@ class MenuItemForm extends Component {
     }
   };
 
-  // submit = e => {
-  //   e.preventDefault();
-  //   this.setState(this.initialState);
-  //   this.props.nextStep();
-  // };
-
   handleCommentChange = e => {
     const value = e.target.value.toUpperCase();
 

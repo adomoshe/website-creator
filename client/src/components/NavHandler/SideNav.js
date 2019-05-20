@@ -22,7 +22,11 @@ const styles = {
     cursor: "pointer",
     fontWeight: "200"
   },
-  plusIcon: { cursor: "pointer" }
+  plusIcon: { cursor: "pointer" },
+  sideNav: {
+    maxHeight: "40vh",
+    overflow: "auto"
+  }
 };
 
 class SideNav extends Component {
@@ -43,8 +47,8 @@ class SideNav extends Component {
     console.log("category index", categoryIndex);
     this.props.menuBuilderSetCurrent("category", categoryIndex);
     this.props.menuBuilderSetCurrent("subCategory", subCategoryIndex);
-    this.props.menuBuilderSetCurrent("item", 0);
-    this.props.setFormHandlerStep(3);
+    // this.props.menuBuilderSetCurrent("item", 0);
+    // this.props.setFormHandlerStep(3);
   };
 
   newSubCategory = categoryIndex => {
@@ -80,6 +84,7 @@ class SideNav extends Component {
             style={styles.addIcon}
             className=" float-right mx-2" />
         </MDBListGroupItem>
+        <div style={styles.sideNav}>
         {menuBuilderState.categories.map(({ name }, categoryIndex) => {
           return (
             <div key={categoryIndex}>
@@ -136,6 +141,7 @@ class SideNav extends Component {
             </div>
           );
         })}
+        </div>
       </MDBListGroup>
     );
   }

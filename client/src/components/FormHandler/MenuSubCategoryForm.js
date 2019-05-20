@@ -53,12 +53,6 @@ class MenuSubCategoryForm extends Component {
     this.setState(this.initialState);
   };
 
-  // submit = e => {
-  //   e.preventDefault();
-  //   this.setState(this.initialState);
-  //   this.props.nextStep();
-  // };
-
   render() {
     const menuBuilderState = this.props.menuBuilderState();
     const current = menuBuilderState.current;
@@ -66,7 +60,7 @@ class MenuSubCategoryForm extends Component {
       ? menuBuilderState.categories[current.category].name
       : null;
 
-      console.log("MenuSubCategoryForm rendering with state: ", this.state)
+    console.log("MenuSubCategoryForm rendering with state: ", this.state);
     return (
       <MDBCard style={styles.card}>
         <MDBCardBody>
@@ -88,16 +82,6 @@ class MenuSubCategoryForm extends Component {
                 style={styles.input}
               />
               <MDBCol className="d-flex justify-content-center">
-                {/* <MDBBtn
-                  outline
-                  color="danger"
-                  onClick={this.props.prevStep}
-                  style={styles.btnBack}
-                  size="sm"
-                >
-                  <MDBIcon icon="arrow-left" className="mr-2" size="lg" />
-                  Back
-                </MDBBtn> */}
                 <MDBBtn
                   outline
                   color="success"
@@ -109,17 +93,6 @@ class MenuSubCategoryForm extends Component {
                   Add
                   <MDBIcon far icon="thumbs-up" className="ml-2" size="lg" />
                 </MDBBtn>
-                {/* <MDBBtn
-                  outline
-                  color="info"
-                  type="submit"
-                  onClick={this.props.nextStep}
-                  style={styles.btnSubmit}
-                  size="sm"
-                >
-                  Continue
-                  <MDBIcon icon="arrow-right" className="ml-2" size="lg" />
-                </MDBBtn> */}
               </MDBCol>
             </MDBCol>
           </form>

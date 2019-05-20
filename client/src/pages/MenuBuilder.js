@@ -2,20 +2,13 @@ import React, { Component } from "react";
 import "./MenuBuilder.css";
 
 import {
-  // MDBContainer,
   MDBRow,
   MDBCol
 } from "mdbreact";
 
 import FormHandler from "../components/FormHandler/FormHandler";
-import SideNav from "../components/SideNav";
-import ItemSideNav from "../components/ItemSideNav";
+import NavHandler from "../components/NavHandler/NavHandler";
 
-// import CategoryNav from "../components/Navs/CategoryNav";
-// import SubCategoryNav from "../components/Navs/SubCategoryNav";
-// import ItemNav from "../components/Navs/ItemNav";
-
-// import MenuModel from "../components/MenuModel";
 
 class Main extends Component {
   constructor(props) {
@@ -337,7 +330,6 @@ class Main extends Component {
 
   menuBuilderSetCategory = category => {
     const categoryModel = [{ name: category, subCategories: [] }];
-    // modifiedCategoryModel.categories[0].name = category;
 
     this.setState(state => ({
       categories: [...state.categories, ...categoryModel]
@@ -346,9 +338,7 @@ class Main extends Component {
 
   menuBuilderSetSubCategory = subCategory => {
     const current = this.state.current;
-    // const modifiedSubCategoryModel = JSON.parse(JSON.stringify(MenuModel));
     const subCategoryModel = [{ name: subCategory, items: [] }];
-    // modifiedSubCategoryModel.categories[0].subCategories[0].name = subCategory;
 
     this.setState(
       state =>
@@ -420,7 +410,6 @@ class Main extends Component {
 
   render() {
     const state = this.state;
-    const current = this.state.current;
     console.log("MenuBuilder rendering with state: ", state);
     return (
       <MDBRow>
@@ -429,23 +418,11 @@ class Main extends Component {
           xl="3"
           className="px-md-0 my-3 my-md-5 position-fixed"
         >
-          {state.formStep && state.categories.length ? (
-            <SideNav
-              menuBuilderState={this.menuBuilderState}
-              setFormHandlerStep={this.setFormHandlerStep}
-              menuBuilderSetCurrent={this.menuBuilderSetCurrent}
-            />
-          ) : null}
-          {state.formStep === 3 &&
-          state.current.subCategory !== null &&
-          state.categories[current.category].subCategories[current.subCategory]
-            .items[0] ? (
-            <ItemSideNav
-              menuBuilderState={this.menuBuilderState}
-              setFormHandlerStep={this.setFormHandlerStep}
-              menuBuilderSetCurrent={this.menuBuilderSetCurrent}
-            />
-          ) : null}
+          <NavHandler
+            menuBuilderState={this.menuBuilderState}
+            setFormHandlerStep={this.setFormHandlerStep}
+            menuBuilderSetCurrent={this.menuBuilderSetCurrent}
+          />
         </MDBCol>
         <MDBCol
           md="6"

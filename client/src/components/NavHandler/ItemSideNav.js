@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { MDBBtn, MDBIcon, MDBListGroup, MDBListGroupItem } from "mdbreact";
 
 const styles = {
-  border: { borderRadius: 10 }
+  border: { borderRadius: 10 },
+  sideNav: {
+    maxHeight: "30vh",
+    overflow: "auto"
+  },
 };
 
 class ItemSideNav extends Component {
@@ -46,6 +50,7 @@ class ItemSideNav extends Component {
             <MDBIcon icon="level-down-alt" />
           </small>
         </MDBListGroupItem>
+        <div style={styles.sideNav}>
         {menuBuilderState.categories[current.category].subCategories[
           current.subCategory
         ].items.map(({ name }, itemIndex) => {
@@ -65,14 +70,14 @@ class ItemSideNav extends Component {
         })}
 
         <MDBBtn
-          color="deep-orange darken-4"
-          style={styles.addBtn}
+          color="deep-orange darken-4 w-100"
           className="mx-0 my-0"
           onClick={this.newItem}
         >
-          <MDBIcon icon="plus" size="lg" inverse="true" style={styles.icon} />{" "}
+          <MDBIcon icon="plus" size="lg" inverse="true" />{" "}
           Item
         </MDBBtn>
+        </div>
       </MDBListGroup>
     );
   }
