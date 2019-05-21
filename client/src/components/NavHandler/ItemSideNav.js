@@ -13,7 +13,8 @@ const ItemSideNav = props => (
   <MDBListGroup>
     <MDBListGroupItem color="warning" className="h5">
       <small>
-        {props.categoryDisplay} <MDBIcon icon="angle-right" /> {/*currentSubCat*/}
+        {props.categoryDisplay} <MDBIcon icon="angle-right" />{" "}
+        {props.currentSubCategoryName}
       </small>{" "}
       <MDBIcon icon="angle-right" /> ITEMS{" "}
       <small>
@@ -21,7 +22,7 @@ const ItemSideNav = props => (
       </small>
     </MDBListGroupItem>
     <div style={styles.sideNav}>
-      {props.itemDisplay.map(({ name }, itemIndex) => {
+      {props.itemDisplay.map((name, itemIndex) => {
         return (
           <MDBListGroupItem
             hover

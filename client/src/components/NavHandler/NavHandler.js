@@ -11,6 +11,7 @@ export default class NavHandler extends Component {
     currentSubCategoryIndex: null,
     categoryDisplay: [],
     subCategoryDisplay: [],
+    currentSubCategoryName: '',
     itemDisplay: []
   };
 
@@ -70,8 +71,9 @@ export default class NavHandler extends Component {
     const currentCategoryIndex = this.state.currentCategoryIndex;
     this.props.menuBuilderSetCurrent("category", currentCategoryIndex);
     this.props.menuBuilderSetCurrent("subCategory", subCategoryIndex);
-    // this.itemDisplay()
-
+    setTimeout(() => {
+      this.itemDisplay();
+    }, 0);
   };
 
   handleItemClick = itemIndex => {
@@ -96,12 +98,10 @@ export default class NavHandler extends Component {
     const menuBuilderState = this.props.menuBuilderState;
     const current = menuBuilderState.current;
 
-    // const currentCat = menuBuilderState.categories[current.category].name;
-
-    // const currentSubCat =
-    //   menuBuilderState.categories[current.category].subCategories[
-    //     current.subCategory
-    //   ].name;
+    const currentSubCategoryName =
+      menuBuilderState.categories[current.category].subCategories[
+        current.subCategory
+      ].name;
 
     const itemArr = menuBuilderState.categories[current.category].subCategories[
       current.subCategory
@@ -109,13 +109,12 @@ export default class NavHandler extends Component {
       return name;
     });
 
-    this.setState({itemDisplay: [...itemArr]})
+    this.setState({ itemDisplay: [...itemArr], currentSubCategoryName });
+    console.log(itemArr);
   };
 
   addBtn = () => {
-    this.setState(state => ({
-      sideNavCollapse: !state.sideNavCollapse
-    }));
+    this.setState({ sideNavCollapse: false });
     this.mapAndSetCategories();
     this.props.setFormHandlerStep(1);
     this.props.menuBuilderSetCurrent("subCategory", null);
@@ -139,7 +138,13 @@ export default class NavHandler extends Component {
           />
         ) : null}
         {menuBuilderState.current.subCategory !== null ? (
-          <ItemSideNav categoryDisplay={this.state.categoryDisplay} itemDisplay={this.state.itemDisplay} />
+          <ItemSideNav
+            categoryDisplay={this.state.categoryDisplay}
+            itemDisplay={this.state.itemDisplay}
+            currentSubCategoryName={this.state.currentSubCategoryName}
+            handleItemClick={this.handleItemClick}
+            newItem={this.newItem}
+          />
         ) : null}
       </>
     );

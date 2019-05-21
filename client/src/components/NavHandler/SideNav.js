@@ -39,9 +39,7 @@ const SideNav = props => (
         inverse="true"
         style={styles.plusIcon}
         className="float-right mx-2"
-        onClick={() => {
-          props.addBtn();
-        }}
+        onClick={props.addBtn}
       />
       <MDBIcon
         icon="edit"
