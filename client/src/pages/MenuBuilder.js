@@ -306,13 +306,12 @@ class Main extends Component {
       }
     ]
   };
+
   initialState = this.state;
 
   componentDidMount() {
     window.scrollTo(0, 0);
   }
-
-  menuBuilderState = () => this.state;
 
   nextFormStep = () => {
     this.setState(state => ({ formStep: state.formStep + 1 }));
@@ -409,14 +408,14 @@ class Main extends Component {
       <MDBRow>
         <MDBCol md="5" xl="3" className="px-md-0 my-3 my-md-5 position-fixed">
           <NavHandler
-            menuBuilderState={this.menuBuilderState}
+            menuBuilderState={this.state}
             setFormHandlerStep={this.setFormHandlerStep}
             menuBuilderSetCurrent={this.menuBuilderSetCurrent}
           />
         </MDBCol>
         <MDBCol md="6" lg="6" className="my-3 my-md-5 offset-md-5 offset-xl-3">
           <FormHandler
-            menuBuilderState={this.menuBuilderState}
+            menuBuilderState={this.state}
             nextFormStep={this.nextFormStep}
             prevFormStep={this.prevFormStep}
             menuBuilderSetCategory={this.menuBuilderSetCategory}

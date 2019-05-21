@@ -7,7 +7,8 @@ import MenuItemForm from "./MenuItem/MenuItemForm";
 
 class FormHandler extends Component {
   render() {
-    const menuBuilderState = this.props.menuBuilderState()
+    const menuBuilderState = this.props.menuBuilderState
+    
     switch (menuBuilderState.formStep) {
       case 0:
         return <BasicInfoForm nextStep={this.props.nextFormStep} />;

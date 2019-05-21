@@ -50,7 +50,7 @@ class MenuItemForm extends Component {
   constructor(props) {
     super(props);
 
-    const menuBuilderState = this.props.menuBuilderState();
+    const menuBuilderState = this.props.menuBuilderState
     const current = menuBuilderState.current;
     const currentItem =
       menuBuilderState.categories[current.category].subCategories[
@@ -84,7 +84,7 @@ class MenuItemForm extends Component {
       nextState.item.name
     );
 
-    const menuBuilderState = nextProps.menuBuilderState();
+    const menuBuilderState = nextProps.menuBuilderState
     const current = menuBuilderState.current;
     const currentItem =
       menuBuilderState.categories[current.category].subCategories[
@@ -186,7 +186,7 @@ class MenuItemForm extends Component {
       return;
     }
 
-    const menuBuilderState = this.props.menuBuilderState();
+    const menuBuilderState = this.props.menuBuilderState
     const current = menuBuilderState.current;
     const itemArrLen =
       menuBuilderState.categories[current.category].subCategories[
@@ -246,7 +246,7 @@ class MenuItemForm extends Component {
     const state = this.state;
     const item = state.item;
 
-    const menuBuilderState = this.props.menuBuilderState();
+    const menuBuilderState = this.props.menuBuilderState
     const current = menuBuilderState.current;
     const subCategory =
       menuBuilderState.categories[current.category].subCategories[

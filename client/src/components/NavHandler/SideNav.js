@@ -40,7 +40,7 @@ const SideNav = props => (
         style={styles.plusIcon}
         className="float-right mx-2"
         onClick={() => {
-          props.setFormHandlerStep(1);
+          props.addBtn();
         }}
       />
       <MDBIcon
@@ -91,10 +91,12 @@ const SideNav = props => (
                     );
                   }
                 )}
-                <MDBListGroupItem
-                  className="ml-2 px-0 py-0"
-                >Enter More Sub-Categories
-                    <MDBIcon icon="arrow-right" /*className="deep-orange darken-4"*/ size="lg" />{" "}
+                <MDBListGroupItem className="ml-2 px-0 py-0">
+                  Enter Sub-Categories
+                  <MDBIcon
+                    icon="arrow-right"
+                    /*className="deep-orange darken-4"*/ size="lg"
+                  />{" "}
                 </MDBListGroupItem>
               </MDBListGroup>
             </MDBCollapse>

@@ -65,8 +65,6 @@ class BasicInfoForm extends Component {
                     icon="user"
                     group
                     type="text"
-                    validate
-                    error="wrong"
                     success="right"
                     name="userName"
                     value={this.state.userName}
@@ -81,8 +79,6 @@ class BasicInfoForm extends Component {
                     group
                     type="email"
                     name="email"
-                    validate
-                    error="wrong"
                     success="right"
                     value={this.state.email}
                     onChange={this.handleChange}

@@ -54,7 +54,7 @@ class MenuSubCategoryForm extends Component {
   };
 
   render() {
-    const menuBuilderState = this.props.menuBuilderState();
+    const menuBuilderState = this.props.menuBuilderState;
     const current = menuBuilderState.current;
     const category = menuBuilderState.categories[current.category]
       ? menuBuilderState.categories[current.category].name

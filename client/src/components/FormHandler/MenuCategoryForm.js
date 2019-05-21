@@ -46,7 +46,7 @@ class MenuCategoryForm extends Component {
   setCategory = e => {
     e.preventDefault();
 
-    const menuBuilderState = this.props.menuBuilderState()
+    const menuBuilderState = this.props.menuBuilderState
     const lastCatIn = menuBuilderState.categories.length
     const category = this.state.category.trim().toUpperCase();
     if (category.length < 3) {
